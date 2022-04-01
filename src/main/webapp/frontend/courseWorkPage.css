@@ -1,0 +1,287 @@
+body {
+    background-image: url("../images/BackGround1.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-size: 18px;
+    color: #72157C;
+}
+
+.header {
+    background-image: url("../images/headerBG.png");
+    font-size: 18px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    padding: 0.5em;
+    filter: alpha(Opacity=70);
+    border: 2px solid #72157C;
+    border-radius: 5px;
+}
+
+.logOutButton {
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 17px;
+    width: 75px;
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: .5em;
+}
+
+.logOutButton:hover {
+    border: 4px solid #158a80;
+
+}
+
+a {
+    padding: 0.2em;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    font-size: 17px;
+    text-decoration: none; /* Убираем подчеркивание */
+    color: #72157C; /* Цвет ссылки при наведении на нее курсора мыши */
+    border-radius: 5px;
+    margin: .5em;
+}
+
+.languageSelect {
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    margin-left: 510px;
+    font-size: 17px;
+    width: 120px;
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+
+}
+
+
+
+.workSpaceTable {
+    background-image: url("../images/headerBG.png");
+    border: 3px solid #72157C;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.courseInfoTable {
+    background-image: url("../images/headerBG.png");
+    border: 3px solid #72157C;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.courseTableTd, .courseTr {
+    padding: 3px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid #72157C; /* Параметры рамки */
+    text-align: center; /* Выравниваем текст по центру ячейки */
+}
+
+.teacherTableTd {
+    padding: 5px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid #72157C; /* Параметры рамки */
+    text-align: center; /* Выравниваем текст по центру ячейки */
+}
+
+.inputForm {
+    font: 1em sans-serif;
+    width: 250px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    border-width: 3px;
+    border-color: green;
+}
+
+.inputForm:invalid {
+    font: 1em sans-serif;
+    width: 250px;
+    box-sizing: border-box;
+    border-color: #ff3c00;
+}
+
+#addButton {
+    font-size: 17px;
+   /* width: 155px;*/
+    height: 40px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: .5em;
+}
+
+#registerButton:hover {
+    border: 4px solid #158a80;
+
+}
+
+.studentWorkButton {
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 17px;
+   /* width: 225px;*/
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: .5em;
+}
+
+.studentWorkButton:hover {
+    border: 4px solid #158a80;
+}
+
+.dataInput {
+    box-sizing: border-box;
+    width: 250px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 16px;
+    border: 2px solid #23CFBE;
+    background: #DBEBD3;
+    border-radius: 5px;
+
+}
+.dataInput:invalid{
+    border: 2px solid #BD1449;
+}
+
+#statusInput {
+    box-sizing: border-box;
+    width: 150px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 16px;
+    border: 2px solid #23CFBE;
+    background: #DBEBD3;
+    border-radius: 5px;
+
+}
+
+.numberInput {
+    box-sizing: border-box;
+    width: 35px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 16px;
+    border: 2px solid #23CFBE;
+    background: #DBEBD3;
+    border-radius: 5px;
+
+}
+.numberInput:invalid{
+    border: 2px solid #BD1449;
+}
+
+.th {
+    font-size: 16px;
+}
+.sortSelect {
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 15px;
+    height: 30px;
+    width: 160px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+
+}
+select {
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 15px;
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+
+}
+.teacherWorkButton {
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 17px;
+    width: 240px;
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: .5em;
+}
+.sortButton{
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 15px;
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: .5em;
+}
+
+.teacherWorkButton:hover {
+    border: 4px solid #158a80;
+}
+.accesReg {
+    box-sizing: content-box;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 21%;
+    text-align: center;
+    font-size: 19px;
+    background-color: #99D597;
+    border-radius: 7px;
+    color: #72157C;
+}
+
+.deniedRegisterM {
+    box-sizing: content-box;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 29%;
+    text-align: center;
+    font-size: 19px;
+    background-color: #F7C3CF;
+    border-radius: 7px;
+    color: #BD1449;
+}
+.deleteButton {
+    font-family: Arial, Verdana, sans-serif;
+    color: #BD1449;
+    font-size: 17px;
+    width: 165px;
+    height: 30px;
+    border: 4px solid #BD1449;
+    background: #F7C3CF;
+    border-radius: 5px;
+}
+
+.deleteButton:hover {
+    border: 3px solid #BD1449;;
+}
+
+.redactButton {
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 17px;
+    width: 175px;
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+}
+
+.redactButton:hover {
+    border: 4px solid #158a80;
+}
+.emptyTd{
+    border:0;
+}

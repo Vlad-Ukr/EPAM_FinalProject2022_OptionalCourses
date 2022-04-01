@@ -1,0 +1,56 @@
+.header {
+    background-image: url("../images/headerBG.png");
+    font-size: 18px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    padding: 0.5em;
+    filter: alpha(Opacity=70);
+    border: 2px solid #72157C;
+    border-radius: 5px;
+}
+
+.confirmSelectButton {
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 17px;
+    width: 85px;
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: .5em;
+}
+
+.confirmSelectButton:hover {
+    border: 3px solid #23CFBE;
+
+}
+
+a {
+    padding: 0.2em;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    font-size: 17px;
+
+    border-radius: 5px;
+    margin: .5em;
+}
+
+a:hover {
+    text-decoration: none; /* Убираем подчеркивание */
+    color: #72157C; /* Цвет ссылки при наведении на нее курсора мыши */
+
+}
+
+.languageSelect {
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    margin-left: 410px;
+    font-size: 17px;
+    width: 120px;
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+
+}

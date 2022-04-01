@@ -1,0 +1,251 @@
+body{
+    background-image:url("../images/BackGround1.png");
+    font-size: 18px;
+    color: #72157C;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.workSpace{
+    margin-top:10px;
+    width: 350px;
+    background-image: url("../images/formBackGround.png");
+    border: 3px solid #72157C;
+    border-radius: 5px;
+
+}
+button{
+    font-family:Arial, Verdana, sans-serif;color:#72157C;
+    font-size: 17px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: .5em;
+}
+.showCoursesButton{
+    width:150px;
+}
+.showAllCoursesButton{
+    margin-left:175px;
+    width: 200px;
+}
+.instruction{
+    background-image: url("../images/formBackGround.png");
+    position:fixed; top: 50%; left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 2.5em;
+    border: 3px solid #72157C;
+    border-radius: 5px;
+    text-align: center;
+}
+.header{
+    background-image:url("../images/headerBG.png");
+    font-size: 18px;
+    font-family:Arial, Verdana, sans-serif;color:#72157C;
+    padding: 0.5em;
+    filter: alpha(Opacity=70);
+    border: 2px solid #72157C;
+    border-radius: 5px;
+}
+.logOutButton {
+    font-family:Arial, Verdana, sans-serif;color:#72157C;
+    font-size: 17px;
+    width: 75px;
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: .5em;
+}
+.logOutButton:hover {
+    border: 4px  solid #158a80;
+}
+.languageSelect{
+    font-family:Arial, Verdana, sans-serif;color:#72157C;
+    margin-left: 810px;
+    font-size: 17px;
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+}
+
+.homePage{
+    font-family:Arial, Verdana, sans-serif;color:#72157C;
+    font-size: 17px;
+    height: 30px;
+    width: 170px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: .5em;
+}
+button:hover{
+    border: 4px solid #158a80;
+}
+.infoTable{
+    margin-top: 10px;
+}
+.studentInfoTh{
+    background-image: url("../images/formBackGround.png");
+    border: 3px solid #72157C;
+}
+.infoTh{
+    padding-left:150px;
+}
+#statusInput {
+    box-sizing: border-box;
+    width: 150px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 16px;
+    border: 2px solid #23CFBE;
+    background: #DBEBD3;
+    border-radius: 5px;
+
+}
+
+.numberInput {
+    box-sizing: border-box;
+    width: 35px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 16px;
+    border: 2px solid #23CFBE;
+    background: #DBEBD3;
+    border-radius: 5px;
+
+}
+.Info{
+    padding: 10px;
+    float: left;
+    width: 10.5%;
+    margin-right: 2%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+}
+.studentInfo{
+    padding: 5px;
+    background-image: url("../images/formBackGround.png");
+    border: 3px solid #72157C;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.courseInfoTable {
+    background-image: url("../images/headerBG.png");
+    border: 3px solid #72157C;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.courseTableTd, .courseTr {
+    padding: 3px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid #72157C; /* Параметры рамки */
+    text-align: center; /* Выравниваем текст по центру ячейки */
+}
+.dataInput {
+    box-sizing: border-box;
+    width: 250px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 16px;
+    border: 2px solid #23CFBE;
+    background: #DBEBD3;
+    border-radius: 5px;
+}
+.workSpace{
+    background-image: url("../images/headerBG.png");
+    border: 3px solid #72157C;
+    width: 28%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.selectCourseJournal{
+    background-image: url("../images/formBackGround.png");
+    padding-bottom: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    width: 28%;
+   margin-left: auto;
+    margin-right: auto;
+}
+.courseSelectButton{
+    margin-left: 100px;
+}
+.closeCourse{
+    font-family: Arial, Verdana, sans-serif;
+    color: #BD1449;
+    font-size: 17px;
+    height: 30px;
+    border: 4px solid #BD1449;
+    background: #F7C3CF;
+    border-radius: 5px;
+    margin-left: 50px;
+}
+.closeCourse:hover{
+    border: 3px solid #BD1449;
+}
+.goBackButton{
+    font-family:Arial, Verdana, sans-serif;color:#72157C;
+    font-size: 17px;
+    height: 30px;
+    width: 150px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin-left: 50px;
+}
+.endMessage{
+    box-sizing: content-box;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 21%;
+    text-align: center;
+    font-size: 19px;
+    background-color: #99D597;
+    border-radius: 7px;
+    color: #72157C;
+}
+.studentInfo{
+    padding: 2px;
+    background-image: url("../images/formBackGround.png");
+    border: 3px solid #72157C;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.dataInput {
+    box-sizing: border-box;
+    width: 250px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 16px;
+    border: 2px solid #23CFBE;
+    background: #DBEBD3;
+    border-radius: 5px;
+
+}
+.numberInput {
+    box-sizing: border-box;
+    width: 55px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 16px;
+    border: 2px solid #23CFBE;
+    background: #DBEBD3;
+    border-radius: 5px;
+
+}
+caption{
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 18px;
+}

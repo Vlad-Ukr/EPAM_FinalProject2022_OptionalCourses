@@ -1,0 +1,194 @@
+body {
+    background-image: url("../images/BackGround1.png");
+    font-size: 18px;
+    color: #72157C;
+}
+
+.header {
+    background-image: url("../images/headerBG.png");
+    font-size: 18px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    padding: 0.5em;
+    filter: alpha(Opacity=70);
+    border: 2px solid #72157C;
+    border-radius: 5px;
+}
+
+.logOutButton {
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 17px;
+    width: 75px;
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: .5em;
+}
+
+.logOutButton:hover {
+    border: 4px solid #158a80;
+
+}
+
+a {
+    padding: 0.2em;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    font-size: 17px;
+    text-decoration: none; /* Убираем подчеркивание */
+    color: #72157C; /* Цвет ссылки при наведении на нее курсора мыши */
+    border-radius: 5px;
+
+}
+
+.languageSelect {
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    margin-left: 510px;
+    font-size: 17px;
+    width: 120px;
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+
+}
+
+.teacherInfoTable {
+    background-image: url("../images/headerBG.png");
+    border: 3px solid #72157C;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.workSpaceTable {
+    background-image: url("../images/headerBG.png");
+    border: 3px solid #72157C;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+td, tr {
+    padding: 5px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid #72157C; /* Параметры рамки */
+    text-align: center; /* Выравниваем текст по центру ячейки */
+}
+
+.teacherTableTd {
+    padding: 5px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid #72157C; /* Параметры рамки */
+    text-align: center; /* Выравниваем текст по центру ячейки */
+}
+
+.inputForm {
+    font: 1em sans-serif;
+    width: 250px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    border-width: 3px;
+    border-color: green;
+}
+
+.inputForm:invalid {
+    font: 1em sans-serif;
+    width: 250px;
+    box-sizing: border-box;
+    border-color: #ff3c00;
+}
+
+#registerButton {
+    font-size: 17px;
+    width: 155px;
+    height: 40px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: .5em;
+}
+
+#registerButton:hover {
+    border: 4px solid #158a80;
+
+}
+
+.studentWorkButton {
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 17px;
+    width: 225px;
+    height: 30px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: .5em;
+}
+
+.studentWorkButton:hover {
+    border: 4px solid #158a80;
+}
+.courseWorkButton{
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 17px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: .5em;
+}
+.courseWorkButton:hover {
+    border: 4px solid #158a80;
+}
+.dataInput {
+    box-sizing: border-box;
+    width: 250px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #72157C;
+    font-size: 16px;
+    border: 2px solid #23CFBE;
+    background: #DBEBD3;
+    border-radius: 5px;
+
+}
+
+#inputTeacherFullName {
+    width: 300px;
+}
+
+#inputTeacherId {
+    width: 25px;
+}
+
+.accesReg {
+    box-sizing: content-box;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 21%;
+    text-align: center;
+    font-size: 19px;
+    background-color: #99D597;
+    border-radius: 7px;
+    color: #72157C;
+}
+
+.deniedRegisterM {
+    box-sizing: content-box;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 29%;
+    text-align: center;
+    font-size: 19px;
+    background-color: #F7C3CF;
+    border-radius: 7px;
+    color: #BD1449;
+}
+

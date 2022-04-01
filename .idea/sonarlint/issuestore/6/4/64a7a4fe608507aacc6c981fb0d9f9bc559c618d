@@ -1,0 +1,19 @@
+
+q	java:S116"WRename this field "FIRST_COURSE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚џ»юяяяя
+m	java:S116"XRename this field "SECOND_COURSE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ѓо¬Ж
+l	java:S116"WRename this field "THIRD_COURSE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(мбћЫ
+~	java:S116"dRename this field "FIRST_COURSE_REQUEST_NAME" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(еЭ§”эяяяя
+z	java:S116"eRename this field "SECOND_COURSE_REQUEST_NAME" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€Ш•€
+y	java:S116"dRename this field "THIRD_COURSE_REQUEST_NAME" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ДЁ¦Ю
+<
+java:S1170"!Make this final field static too.(‚џ»юяяяя
+7
+java:S1170"!Make this final field static too.(Ѓо¬Ж
+7
+java:S1170"!Make this final field static too.(мбћЫ
+<
+java:S1170"!Make this final field static too.(еЭ§”эяяяя
+7
+java:S1170"!Make this final field static too.(€Ш•€
+7
+java:S1170"!Make this final field static too.(ДЁ¦Ю
