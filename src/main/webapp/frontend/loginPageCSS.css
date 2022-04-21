@@ -18,18 +18,6 @@ input, textarea {
     border: 1px solid #999;
 }
 
-.loginForm {
-    background-image: url("../images/formBackGround.png");
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    padding: 2.5em;
-    border-radius: 10px;
-    border-width: 20px;
-}
 
 H3 {
     text-align: center
@@ -53,11 +41,6 @@ H3 {
     border-radius: 5px;
     margin: .5em;
 }
-
-#loginButton:hover {
-    border: 4px solid #158a80;
-}
-
 
 a:hover {
     text-decoration: none; /* Убираем подчеркивание */
@@ -103,4 +86,45 @@ input:invalid {
     background-color: #99D597;
     border-radius: 7px;
     color: #72157C;
+}
+.loginForm{
+    background-image: url("../images/formBackGround.png");
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 2.5em;
+    border-radius: 10px;
+    border-width: 20px;
+}
+.changeLocaleForm{
+    position: fixed;
+    top: 68%;
+    left: 48%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.changeLocale{
+    font-family:Arial, Verdana, sans-serif;color:#72157C;
+    font-size: 13px;
+    height: 25px;
+    width: 120px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+.changeLocaleSelect{
+    font-family:Arial, Verdana, sans-serif;color:#72157C;
+    font-size: 13px;
+    height: 25px;
+    border: 4px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+}
+button:hover{
+    border: 4px solid #158a80;
 }

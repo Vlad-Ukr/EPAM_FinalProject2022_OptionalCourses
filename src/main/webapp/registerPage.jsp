@@ -12,9 +12,10 @@
     <script src="frontend/confirmPassword.js"></script>
     <head/>
 <body style="font-family:Arial, Verdana, sans-serif;color:#72157C">
+<c:set var="currentPage" value="registerPage.jsp" scope="session"/>
 <form class="registerForm" action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
       method="post">
-    <h3 class="registerH3">Регистрация</h3>
+    <h3 class="registerH3"><fmt:message key="login.register.link"/></h3>
 
     <div id="emailInput">
         <label>Email:</label>
@@ -23,21 +24,21 @@
                title="Введите свой email согласно шаблону:'epam@epam.com'">
     </div>
     <div id="fullNameInput">
-        <label>ФИО:</label>
+        <label><fmt:message key="register.table.SNP"/>:</label>
         <input class="inputForm" type="text" id="fullname" name="user_fullname" required
                placeholder="Фамилия Имя Отчество"
                pattern="^[А-ЯЁЇ][а-яёї]{1,}([-][А-ЯЁї][а-яёї]{1,})?\s[А-ЯЁЇ][а-яёї]{2,}\s[А-ЯЁЇ][а-яёї]{1,}$"
                title="Введите свой email согласно шаблону: 'Иванов Иван Иваныч'">
     </div>
     <div id="phoneNumber">
-        <label>Номер телефона:</label>
+        <label><fmt:message key="register.phone.number"/>:</label>
         <input class="inputForm" type="text" id="phone_number" name="user_fullname" required placeholder="+380*********"
                pattern="\+\d{12}"
                title="Введите свой номер телефона согласно шаблону: '+380111111111'">
     </div>
 
     <div id="passwordInput">
-        <label>Пароль:</label>
+        <label><fmt:message key="login.password.text"/>:</label>
         <input class="inputForm" type="password" id="password" name="user_password" required placeholder="********"
                minlength="8" onkeyup='check();'
                required
@@ -49,7 +50,7 @@
         <input class="inputForm" type="hidden" name="pageName" value="insertUser"/>
     </div>
     <div id="confirmPassword">
-        <label>Подтвердите пароль:</label>
+        <label><fmt:message key="register.table.repeat.table"/>:</label>
         <input class="inputForm" type="password" id="confirm_password" name="confirm_password" required
                placeholder="********"
                title="Повторите пароль" onkeyup='check();'>
@@ -60,11 +61,11 @@
             <th>
                 <button style="font-family:Arial, Verdana, sans-serif;color:#72157C"
                         id="registerButton" type="submit" name="pageName" value="insertUser" onkeyup='check();'>
-                    Регистрация
+                    <fmt:message key="login.register.link"/>
                 </button>
             </th>
             <th>
-                <a id="loginLink" href="loginPage.jsp">Авторизация</a>
+                <a id="loginLink" href="loginPage.jsp"><fmt:message key="security.link"/></a>
             </th>
         </tr>
     </table>
@@ -72,7 +73,7 @@
 <c:choose>
     <c:when test="${not empty deniedRegister}">
         <div class="deniedRegisterM">
-                ${deniedRegister}
+               <text><fmt:message key="user.already.exists"/></text>
         </div>
 
     </c:when>

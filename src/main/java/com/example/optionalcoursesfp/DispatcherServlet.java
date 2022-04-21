@@ -41,6 +41,7 @@ public class DispatcherServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         log.info(request.getParameter("pageName")+" request parameter");
+        request.getSession().setAttribute("pageName",request.getParameter("pageName"));
         commandController.invoke(request.getParameter("pageName"), request, response);
     }
 
@@ -50,6 +51,7 @@ public class DispatcherServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         log.info(request.getParameter("pageName")+" request parameter");
+        request.getSession().setAttribute("pageName",request.getParameter("pageName"));
         commandController.invoke(request.getParameter("pageName"), request, response);
     }
 

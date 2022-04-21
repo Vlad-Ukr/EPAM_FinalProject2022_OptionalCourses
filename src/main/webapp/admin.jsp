@@ -2,9 +2,8 @@
 <html>
 <head>
     <title>Admin</title>
-    <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    <%@ include file="/jspf/taglib.jspf" %>
+    <%@ page contentType="text/html; charset=UTF-8" %>
     <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
     <fmt:requestEncoding value="UTF-8"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
@@ -16,32 +15,54 @@
     <script src="frontend/confirmPassword.js"></script>
 </head>
 <body>
+<c:set var="currentPage" value="admin.jsp" scope="session"/>
 <c:set var="pageRole" scope="request" value="admin"/>
 <tags:security>security</tags:security>
 <tags:pagination>pagination</tags:pagination>
 <div class="header">
     <div class="topBar">
-        <h4 class="greetingsHeader">Добрый день,${sessionScope.userLogin}</h4>
+        <h4 class="greetingsHeader"><fmt:message key="greetings.message"></fmt:message> ,${sessionScope.user.login}</h4>
     </div>
-    <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()" method="get">
-        <div class="bottomBar">
-            <button class="courseWorkButton" name="pageName" type="submit" value="showCourses">Работа с курсами
-            </button>
-            <button class="teacherWorkButton" name="pageName" type="submit" value="showTeachers">Работа с
-                преподователями
-            </button>
-            <button class="studentWorkButton" name="pageName" type="submit" value="showStudents">Работа с студентами
-            </button>
-            <input name="userRole" value="admin" type="hidden"></td>
-            <select class="languageSelect" size="1">
-                <option disabled>Выберите язык</option>
-                <option value="russian">Русский</option>
-                <option value="ukrainian">Українська</option>
-                <option value="english">English</option>
-            </select>
-            <button class="logOutButton" name="pageName" type="submit" value="logOut">Выйти</button>
-        </div>
-    </form>
+    <div class="bottomBar">
+        <table id="topBarTable">
+            <td class="emptyTd">
+                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+                      method="get">
+                    <button class="courseWorkButton" name="pageName" type="submit" value="showCourses"><fmt:message key="work.with.courses.button"/>
+                    </button>
+                    <button class="teacherWorkButton" name="pageName" type="submit" value="showTeachers">
+                        <fmt:message key="work.with.teachers.button"/>
+                    </button>
+                    <button class="studentWorkButton" name="pageName" type="submit" value="showStudents">
+                        <fmt:message key="work.with.students.button"/>
+                    </button>
+                    <input name="userRole" value="admin" type="hidden">
+                </form>
+            </td>
+            <td class="emptyTd">
+                <form action="changeLocale.jsp" method="post">
+                    <select class="changeLocaleSelect" name="locale">
+                        <c:forEach items="${applicationScope.locales}" var="locale">
+                            <c:set var="selected" value="${locale.key == currentLocale ? 'selected' : '' }"/>
+                            <option value="${locale.key}" ${selected}>${locale.value}</option>
+                        </c:forEach>
+                    </select>
+                    <input class="changeLocale" type="submit" value="<fmt:message key='set.language.button'/>">
+                    <input type="hidden" name="pageName" value="${pageName}">
+                </form>
+            </td>
+
+            <td class="emptyTd">
+                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+                      method="get">
+                    <button class="logOutButton" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
+                            name="pageName" type="submit" value="logOut">
+                        <fmt:message key="log.out.button"/>
+                    </button>
+                </form>
+            </td>
+        </table>
+    </div>
 </div>
 </div>
 <c:set var="mainPage" scope="request" value="instruction"/>
@@ -51,8 +72,8 @@
 <c:choose>
     <c:when test="${pageName==mainPage}">
         <div class="instruction">
-            <h3>Добро пожаловать, ${sessionScope.userLogin}!</h3>
-            <text>Для начала работы кликните на нужную вам кнопку, находящиеся в верхней панели управления</text>
+            <h3><fmt:message key="welcome.message"/> , ${sessionScope.userLogin}!</h3>
+            <text><fmt:message key="instruction.message"/> </text>
         </div>
     </c:when>
     <c:when test="${pageName==studentPage}">
@@ -60,23 +81,23 @@
             <table class="workSpaceTable" id="table-id">
                 <tr>
                     <th>Id</th>
-                    <th>Логин</th>
-                    <th>ФИО</th>
-                    <th>Статус</th>
-                    <th>Курсы</th>
+                    <th><fmt:message key="teacher.table.login"/></th>
+                    <th><fmt:message key="register.table.SNP"/> </th>
+                    <th><fmt:message key="course.table.status"/> </th>
+                    <th><fmt:message key="teacher.table.courses"/></th>
                     <th>
                         <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
                               method="get">
                             <select class="selectBy" name="courseSelect" size="1">
-                                <option disabled>Выберите Курс</option>
-                                <option value="allCourses">Все курсы</option>
+                                <option disabled><fmt:message key="student.table.select"/> </option>
+                                <option value="allCourses"><fmt:message key="course.table.select.select"/> </option>
                                 <c:forEach var="course" items="${requestScope.courseList}">
                                     <option value="${course.id}">${course.name}</option>
                                 </c:forEach>
                             </select>
                             <br>
                             <button class="confirmSelectButton" name="pageName" type="submit" value="selectStudents">
-                                Выбрать
+                                <fmt:message key="student.table.select.button"/>
                             </button>
                         </form>
                     </th>
@@ -95,7 +116,7 @@
                             </td>
                             <td>
                                 <details>
-                                    <summary>Записан на курсы</summary>
+                                    <summary><fmt:message key="student.table.fixed.courses"/> </summary>
                                     <c:forEach var="course" items="${requestScope.courseList}">
                                         <c:if test="${student.firstCourseId==course.id||student.secondCourseId==course.id||student.thirdCourseId==course.id}">
                                             ${course.name}
@@ -106,11 +127,12 @@
                             </td>
                             <td>
                                 <button class="unBlockButton" name="pageName" type="submit" value="unBlock">
-                                    Разблокировать
+                                <fmt:message key="student.table.unblock.button"/>
                                 </button>
                             </td>
                             <td>
-                                <button class="blockButton" name="pageName" type="submit" value="block">Заблокировать
+                                <button class="blockButton" name="pageName" type="submit" value="block">
+                                <fmt:message key="student.table.block.button"/>
                                 </button>
                             </td>
                         </tr>
@@ -137,7 +159,7 @@
                     </td>
                     <td>
                         <div id="fullNameInput">
-                            <label>ФИО:</label>
+                            <label><fmt:message key="register.table.SNP"/>:</label>
                             <input class="inputForm" type="text" id="fullname" name="user_fullname" required
                                    placeholder="Фамилия Имя Отчество"
                                    pattern="^[А-ЯЁЇ][а-яёї]{1,}([-][А-ЯЁї][а-яёї]{1,})?\s[А-ЯЁЇ][а-яёї]{2,}\s[А-ЯЁЇ][а-яёї]{1,}$"
@@ -147,7 +169,7 @@
                     <tr>
                         <td>
                             <div id="passwordInput">
-                                <label>Пароль:</label>
+                                <label><fmt:message key="register.table.password"/>:</label>
                                 <input class="inputForm" type="password" id="password" name="user_password" required
                                        placeholder="********" minlength="8" onkeyup=check();
                                        pattern="(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}"
@@ -160,7 +182,7 @@
                         </td>
                         <td>
                             <div id="confirmPassword">
-                                <label>Подтвердите пароль:</label>
+                                <label><fmt:message key="register.table.repeat.table"/>:</label>
                                 <input class="inputForm" type="password" id="confirm_password" name="confirm_password"
                                        required
                                        placeholder="********"
@@ -172,7 +194,7 @@
                             <button style="font-family:Arial, Verdana, sans-serif;color:#72157C"
                                     id="registerButton" type="submit" name="pageName" value="insertTeacher"
                                     onkeyup=check()>
-                                Зарегестрировать
+                                <fmt:message key="register.table.register.button"/>
                             </button>
                         </td>
                 </form>
@@ -180,7 +202,7 @@
             <c:choose>
                 <c:when test="${not empty registerMessage}">
                     <div class="accesReg">
-                            ${registerMessage}
+                          <text><fmt:message key="register.message"/></text>
                     </div>
 
                 </c:when>
@@ -189,7 +211,7 @@
             <c:choose>
                 <c:when test="${ not empty deniedRegister}">
                     <div class="deniedRegisterM">
-                            ${deniedRegister}
+                        <text><fmt:message key="user.already.exists"/></text>
                     </div>
 
                 </c:when>
@@ -198,9 +220,9 @@
             <table class="teacherInfoTable" id="table-id">
                 <tr>
                     <th>Id</th>
-                    <th>Логин</th>
-                    <th>ФИО</th>
-                    <th>Курсы</th>
+                    <th><fmt:message key="teacher.table.login"/></th>
+                    <th><fmt:message key="register.table.SNP"/></th>
+                    <th><fmt:message key="teacher.table.courses"/></th>
                 </tr>
                 <c:forEach var="teacher" items="${requestScope.teacherList}">
                     <tr>
@@ -213,7 +235,7 @@
                                                           value="${teacher.fullName}" readonly="readonly"></td>
                         <td>
                             <details>
-                                <summary>Закрепленные курсы</summary>
+                                <summary><fmt:message key="teacher.table.fixed.courses"/></summary>
                                 <c:forEach var="course" items="${requestScope.courseList}">
                                     <c:if test="${course.teacherId==teacher.id}">
                                         ${course.name}
@@ -235,12 +257,12 @@
                       method="get">
                     <td>
                         <div id="nameInput">
-                            <label>Название:</label>
+                            <label><fmt:message key="add.course.table.name"/>:</label>
                             <input class="inputForm" type="text" id="name" name="courseName" required>
                         </div>
                     <td>
                         <div id="durationInput">
-                            <label>Длительность в часах:</label>
+                            <label><fmt:message key="add.course.table.duration.in.hours"/>:</label>
                             <input class="inputForm" type="number" id="duration" name="courseDuration" required
                                    value="1"
                                    min="1" required>
@@ -248,7 +270,7 @@
                     </td>
                     <td>
                         <div id="maxAmountInput">
-                            <label>Количество студентов:</label>
+                            <label><fmt:message key="course.table.max.amount"/>:</label>
                             <input class="inputForm" type="number" id="maxAmount" name="maxAmount" required value="1"
                                    min="1" required>
                             <input class="inputForm" type="hidden" name="pageName" value="insertCourse"/>
@@ -256,15 +278,15 @@
                     </td>
                     <td>
                         <div id="topicInput">
-                            <label>Тема:</label>
+                            <label><fmt:message key="add.course.table.topic"/>:</label>
                             <input class="inputForm" type="text" id="topic" name="topic" required>
                         </div>
                     </td>
                     </td>
                     <td>
-                        <label>Преподаватель:</label>
+                        <label><fmt:message key="add.course.table.teacher"/>:</label>
                         <select class="teacherSelect" name="teacherSelect" size="1" required>
-                            <option disabled>Выберите преподавателя</option>
+                            <option disabled><fmt:message key="course.table.select.teacher"/> </option>
                             <c:forEach var="teacher" items="${requestScope.teacherList}">
                                 <option value="${teacher.id}">${teacher.fullName}</option>
                             </c:forEach>
@@ -273,7 +295,7 @@
                     <td>
                         <button style="font-family:Arial, Verdana, sans-serif;color:#72157C"
                                 id="addButton" type="submit" name="pageName" value="insertCourse">
-                            Добавить
+                           <fmt:message key="add.course.table.add.button"/>
                         </button>
                     </td>
                 </form>
@@ -281,7 +303,7 @@
             <c:choose>
                 <c:when test="${not empty registerMessage}">
                     <div class="accesReg">
-                            ${registerMessage}
+                            <text><fmt:message key="success.update.course"/></text>
                     </div>
 
                 </c:when>
@@ -290,7 +312,7 @@
             <c:choose>
                 <c:when test="${ not empty deniedRegister}">
                     <div class="deniedRegisterM">
-                            ${deniedRegister}
+                            <fmt:message key="same.course.name"/>
                     </div>
 
                 </c:when>
@@ -301,23 +323,23 @@
                       method="get">
                     <tr class="courseTr">
                         <th class="courseTh">Id</th>
-                        <th class="courseTh">Название</th>
-                        <th class="courseTh">Длительность</th>
-                        <th class="courseTh">Количество студентов</th>
-                        <th class="courseTh">Макс. кол. мест</th>
-                        <th class="courseTh">Тема</th>
-                        <th class="courseTh">Перподаватель</th>
-                        <th class="courseTh">Статус</th>
+                        <th class="courseTh"><fmt:message key="add.course.table.name"/></th>
+                        <th class="courseTh"><fmt:message key="add.course.table.duration.in.hours"/></th>
+                        <th class="courseTh"><fmt:message key="add.course.table.amount.of.student"/></th>
+                        <th class="courseTh"><fmt:message key="course.table.max.amount"/></th>
+                        <th class="courseTh"><fmt:message key="add.course.table.topic"/></th>
+                        <th class="courseTh"><fmt:message key="add.course.table.teacher"/></th>
+                        <th class="courseTh"><fmt:message key="course.table.status"/></th>
                         <td class="emptyTd">
                             <input name="studentPageMarker" value="false" type="hidden">
                             <select class="sortSelect" name="sortSelect" size="1" required>
-                                <option disabled>Выберите сортировку</option>
-                                <option value="byNameA-Z">По алфавиту(а-я)</option>
-                                <option value="byNameZ-A">По алфавиту(я-а)</option>
-                                <option value="byDuration">По длительности</option>
-                                <option value="byStudents">По кол. студентов</option>
+                                <option disabled><fmt:message key="course.table.select.sort"/></option>
+                                <option value="byNameA-Z"><fmt:message key="course.table.select.sort.[a-z]"/></option>
+                                <option value="byNameZ-A"><fmt:message key="course.table.select.sort.[z-a]"/></option>
+                                <option value="byDuration"><fmt:message key="course.table.select.sort.duration"/></option>
+                                <option value="byStudents"><fmt:message key="course.table.select.sort.amount.of.student"/></option>
                             </select>
-                            <button class="sortButton" name="pageName" type="submit" value="sortCourse">Сортирвать
+                            <button class="sortButton" name="pageName" type="submit" value="sortCourse"><fmt:message key="course.table.sort.button"/>
                             </button>
                             <input name="userRole" value="admin" type="hidden">
                         </td>
@@ -364,12 +386,12 @@
                                 <td class="emptyTd"></td>
                                 <td>
                                     <button class="redactButton" name="pageName" type="submit" value="updateCourse">
-                                        Редактировать
+                                        <fmt:message key="course.table.redact.button"/>
                                     </button>
                                 </td>
                                 <td>
                                     <button class="deleteButton" name="pageName" type="submit" value="deleteCourse">
-                                        Удалить
+                                        <fmt:message key="course.table.delete.button"/>
                                     </button>
                                 </td>
                             </tr>

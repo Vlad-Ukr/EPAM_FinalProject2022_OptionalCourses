@@ -1,53 +1,68 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <fmt:requestEncoding value="UTF-8"/>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Факультатив</title>
     <link href="frontend/loginPageCSS.css" rel="stylesheet" type="text/css">
     <script src="frontend/sendFormController.js"></script>
     <head/>
 <body style="font-family:Arial, Verdana, sans-serif;color:#72157C">
-<form class="loginForm" action="/OptionalCoursesFP_war_exploded/dispatcher-servlet"  onsubmit="return doSubmit()" method="post">
-    <h3 class="loginH3">Авторизация</h3>
+<c:set var="currentPage" value="loginPage.jsp" scope="session"/>
+<form class="loginForm" action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+      method="post">
+    <h3 class="loginH3"><fmt:message key="login.header"/></h3>
     <div id="loginInput">
-        <label> Логин(email):</label>
+        <label> <fmt:message key="login.login.text"/>(email):</label>
         <input class="inputForm" type="text" id="login" name="user_login" required placeholder="epam@epam.com"
                title="Введите свой email согласно шаблону:'epam@epam.com'">
     </div>
 
     <div id="passwordInput">
-        <label>Пароль:</label>
+        <label><fmt:message key="login.password.text"/>:</label>
         <input class="inputForm" type="password" id="password" name="user_password" required placeholder="********">
     </div>
     <table>
         <tr>
             <th>
-                <button style="font-family:Arial, Verdana, sans-serif;color:#72157C" id="loginButton" name="pageName"
-                        value="loginUser" type="submit">Войти
+                <button style="font-family:Arial, Verdana, sans-serif;color:#72157C" id="loginButton"
+                        name="pageName"
+                        value="loginUser" type="submit"><fmt:message key="login.entry.button"/>
                 </button>
             </th>
             <th>
-                <a id="registerLink" href="registerPage.jsp">Регистрация</a>
+                <a id="registerLink" href="registerPage.jsp"><fmt:message key="login.register.link"/></a>
             </th>
         </tr>
     </table>
 </form>
+<form class="changeLocaleForm" action="changeLocale.jsp" method="post">
+    <select class="changeLocaleSelect" name="locale">
+        <c:forEach items="${applicationScope.locales}" var="locale">
+            <c:set var="selected" value="${locale.key == currentLocale ? 'selected' : '' }"/>
+            <option value="${locale.key}" ${selected}>${locale.value}</option>
+        </c:forEach>
+    </select>
+    <br>
+    <input class="changeLocale" type="submit" value="<fmt:message key='set.language.button'/>">
+    <input type="hidden" name="pageName" value="${pageName}">
+
+</form>
+
 <c:choose>
     <c:when test="${not empty loginError}">
         <div class="error">
-                ${loginError}
+                <text><fmt:message key="incorrect.password.or.login"/></text>
         </div>
 
     </c:when>
 
     <c:when test="${ not empty registerMessage}">
         <div class="accesReg">
-                ${registerMessage}
+            <text><fmt:message key="register.message"/></text>
         </div>
 
     </c:when>

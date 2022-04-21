@@ -1,0 +1,11 @@
+
+o
+java:S2441 "MMake "List" and its parameters serializable or don't store it in the session.(–¡ÔÇøÿÿÿÿ8†åª¤ş/
+>
+java:S1116 "Remove this empty statement.(–¡ÔÇøÿÿÿÿ8åø¾Ôı/
+s
+java:S1128"QRemove this unused import 'com.example.optionalcoursesfp.service.TeacherService'.(»¿äûÿÿÿÿ8†åª¤ş/
+c
+java:S1192"MDefine a constant instead of duplicating this literal "courseStatus" 3 times.(Ó¸·á
+k
+java:S1192 "IDefine a constant instead of duplicating this literal "courseId" 4 times.(–¡ÔÇøÿÿÿÿ8åø¾Ôı/

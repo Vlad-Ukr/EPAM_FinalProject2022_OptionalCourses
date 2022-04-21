@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:requestEncoding value="UTF-8"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,30 +10,49 @@
     <link href="frontend/teacher.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<c:set var="currentPage" value="teacher.jsp" scope="session"/>
 <c:set var="pageRole" scope="request" value="teacher"/>
 <tags:security>security</tags:security>
 <div class="header">
     <div class="topBar">
-        <h4 class="greetingsHeader">Добрый день,${sessionScope.userLogin}</h4>
+        <h4 class="greetingsHeader"><fmt:message key="greetings.message"/>, ${sessionScope.userLogin}</h4>
     </div>
-    <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
         <div class="bottomBar">
+            <table>
+            <td class="emptyTd">
+            <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
             <button class="homePage" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
-                    formmethod="get" name="pageName" type="submit" value="homePage">Личный кабинет
+                    formmethod="get" name="pageName" type="submit" value="homePage"><fmt:message key="student.page.home.page"/>
             </button>
             <button class="showCoursesButton" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
-                    formmethod="get" name="pageName" type="submit" value="showCourses">Журнал
+                    formmethod="get" name="pageName" type="submit" value="showCourses"><fmt:message key="teacher.page.journal"/>
             </button>
-            <input name="userRole" value="teacher" type="hidden">
-            <select class="languageSelect" size="1">
-                <option disabled>Выберите язык</option>
-                <option value="russian">Русский</option>
-                <option value="ukrainian">Українська</option>
-                <option value="english">English</option>
-            </select>
-            <button class="logOutButton" name="pageName" type="submit" value="logOut">Выйти</button>
+            </form>
+            </td>
+                <td class="emptyTd">
+                    <form action="changeLocale.jsp" method="post">
+                        <select class="changeLocaleSelect" name="locale">
+                            <c:forEach items="${applicationScope.locales}" var="locale">
+                                <c:set var="selected" value="${locale.key == currentLocale ? 'selected' : '' }"/>
+                                <option value="${locale.key}" ${selected}>${locale.value}</option>
+                            </c:forEach>
+                        </select>
+                        <input class="changeLocale" type="submit" value="<fmt:message key='set.language.button'/>">
+                        <input type="hidden" name="pageName" value="${pageName}">
+                    </form>
+                </td>
+
+                <td class="emptyTd">
+                    <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+                          method="get">
+                        <button class="logOutButton" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
+                                name="pageName" type="submit" value="logOut">
+                            <fmt:message key="log.out.button"/>
+                        </button>
+                    </form>
+                </td>
+            </table>
         </div>
-    </form>
 </div>
 </div>
 <c:set var="mainPage" scope="request" value="instruction"/>
@@ -41,8 +62,8 @@
 <c:choose>
 <c:when test="${pageName==mainPage}">
     <div class="instruction">
-        <h3>Добро пожаловать, ${sessionScope.userLogin}!</h3>
-        <text>Для начала работы кликните на нужную вам кнопку, находящиеся в верхней панели управления</text>
+        <h3><fmt:message key="welcome.message"/>, ${sessionScope.userLogin}!</h3>
+        <text><fmt:message key="instruction.message"/></text>
     </div>
 </c:when>
 <c:when test="${pageName==homePage}">
@@ -51,18 +72,19 @@
         <th class="studentInfoTh">
             <div class="Info">
                 <h3>Email: ${sessionScope.teacher.login}</h3>
-                <h3>ФИО: ${sessionScope.teacher.fullName}</h3>
+                <h3><fmt:message key="register.table.SNP"/>: ${sessionScope.teacher.fullName}</h3>
             </div>
         </th>
 
         <th class="infoTh">
             <div class="studentInfo">
-                <h3>Ваши курсы</h3>
+                <h3><fmt:message key="teacher.page.your.courses"/></h3>
                 <table>
-                    <th>Название</th>
-                    <th>Кол. студентов</th>
-                    <th>Длительность</th>
-                    <th>Тема</th>
+                    <th><fmt:message key="add.course.table.name"/></th>
+                    <th><fmt:message key="add.course.table.amount.of.student"/></th>
+                    <th><fmt:message key="add.course.table.duration.in.hours"/></th>
+                    <th><fmt:message key="add.course.table.topic"/></th>
+                    <th><fmt:message key="course.table.status"/></th>
                     <c:forEach var="course" items="${requestScope.teacherCourses}">
                     <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
                         <tr>
@@ -91,13 +113,13 @@
                             <td><c:if test="${course.status=='Не начался'}">
                                 <c:if test="${course.amountOfStudent>0}">
                                     <button class="showCoursesButton" name="pageName" type="submit" value="startCourse">
-                                        Начать курс
+                                        <fmt:message key="teacher.page.start.course.button"/>
                                     </button>
                                 </c:if>
                             </c:if>
                                 <c:if test="${course.status=='В процессе'}">
                                     <button class="showCoursesButton" name="pageName" type="submit" value="showJournal">
-                                        Закончить
+                                        <fmt:message key="teacher.page.end.course.button"/>
                                     </button>
                                     <input name="userRole" value="teacher" type="hidden">
                                 </c:if></td>
@@ -110,7 +132,7 @@
     </c:when>
     <c:when test="${pageName==coursePage}">
     <div class="workSpace">
-        <h4>Выберете курс, которого хотите псомотреть журнал</h4>
+        <h4><fmt:message key="teacher.page.choose.course.journal"/></h4>
         <c:forEach var="course" items="${requestScope.courseList}">
             <div class="courseSelectButton">
                 <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
@@ -124,7 +146,7 @@
     </div>
     <c:if test="${not empty endMessage}">
     <div class="endMessage">
-            ${endMessage}
+         <text><fmt:message key="course.is.over.mark.exposed"/></text>
     </div>
     </c:if>
     </c:when>
@@ -132,12 +154,12 @@
     <div class="selectCourseJournal">
         <form class="studentInfoForm" action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
             <table class="studentInfo">
-                <caption>Студенты которые записаны на этом курсе</caption>
+                <caption><fmt:message key="teacher.page.students.on.course"/></caption>
                 <c:choose>
                     <c:when test="${requestScope.course.status=='В процессе'}">
                         <c:if test="${ empty sessionScope.students}">
                             <td>
-                                <h4>Список пуст</h4>
+                                <h4><fmt:message key="teacher.page.empty.list"/></h4>
                             </td>
                         </c:if>
                         <c:forEach var="student" items="${sessionScope.students}">
@@ -173,13 +195,14 @@
                                         <td>
                                                 <button class="gradeButton" name="pageName" type="submit"
                                                         value="gradingStudents">
-                                                    Выставить оценки
+                                                    <fmt:message key="teacher.page.submit.grades.button"/>
                                                 </button>
                                         </td>
                                         <td>
                                                 <button class="gradeButton" name="pageName" type="submit"
                                                         value="endCourse">
-                                                    Закончить курс
+
+                                                    <fmt:message key="teacher.page.end.course.button"/>
                                                 </button>
                                                 <input name="endCourseMarker" value="true" type="hidden">
                                             <input name="courseId" value="${requestScope.course.id}" type="hidden">
@@ -188,7 +211,7 @@
                                     <tr>
                                         <td>
                                             <button class="goBackButton" name="pageName" type="submit"
-                                                    value="showCourses">Вернуться
+                                                    value="showCourses"><fmt:message key="teacher.page.go.back.button"/>
                                             </button>
                                         </td>
                                     </tr>
@@ -206,7 +229,7 @@
                     <c:when test="${requestScope.course.status=='Закончен'}">
                         <c:if test="${ empty sessionScope.finishedCourses}">
                             <td>
-                                <h4>Список пуст</h4>
+                                <h4><fmt:message key="teacher.page.empty.list"/></h4>
                             </td>
                         </c:if>
                         <c:forEach var="finishedCourses" items="${sessionScope.finishedCourses}">
@@ -221,7 +244,7 @@
                             </tr>
                         </c:forEach>
                         <td>
-                            <button class="goBackButton" name="pageName" type="submit" value="showCourses">Вернуться
+                            <button class="goBackButton" name="pageName" type="submit" value="showCourses"><fmt:message key="teacher.page.go.back.button"/>
                             </button>
                         </td>
                         <input name="userRole" value="teacher" type="hidden">
@@ -229,7 +252,7 @@
                     <c:when test="${requestScope.course.status=='Не начался'}">
                         <c:if test="${ empty sessionScope.students}">
                             <td>
-                                <h4>Список пуст</h4>
+                                <h4><fmt:message key="teacher.page.empty.list"/></h4>
                             </td>
                         </c:if>
                         <c:forEach var="student" items="${sessionScope.students}">
@@ -258,7 +281,7 @@
                             </tr>
                         </c:forEach>
                         <td>
-                            <button class="goBackButton" name="pageName" type="submit" value="showCourses">Вернуться
+                            <button class="goBackButton" name="pageName" type="submit" value="showCourses"><fmt:message key="teacher.page.go.back.button"/>
                             </button>
                         </td>
                         <input name="userRole" value="teacher" type="hidden">

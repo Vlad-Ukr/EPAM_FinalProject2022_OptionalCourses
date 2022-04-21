@@ -9,7 +9,7 @@ var check = function () {
         document.getElementById('confirm_password').style.borderColor = 'green'
     } else {
         document.getElementById('message').style.color = 'red';
-        document.getElementById('message').innerHTML = 'Пароли не совпадают';
+        document.getElementById('message').innerHTML = 'Passwords do not match';
         document.getElementById('registerButton').disabled = true;
         document.getElementById('confirm_password').style.borderColor = 'red';
     }
