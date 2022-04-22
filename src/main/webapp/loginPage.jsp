@@ -4,7 +4,7 @@
     <%@ include file="/jspf/taglib.jspf" %>
     <fmt:requestEncoding value="UTF-8"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>Факультатив</title>
+    <title>Logging</title>
     <link href="frontend/loginPageCSS.css" rel="stylesheet" type="text/css">
     <script src="frontend/sendFormController.js"></script>
     <head/>

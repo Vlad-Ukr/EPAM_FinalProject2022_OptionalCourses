@@ -1,9 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%@ include file="/jspf/taglib.jspf" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Student</title>
+    <title>Optional Courses</title>
     <link href="frontend/student.css" rel="stylesheet" type="text/css">
 </head>
 <body>

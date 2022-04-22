@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin</title>
+    <title>Optional Courses</title>
     <%@ include file="/jspf/taglib.jspf" %>
     <%@ page contentType="text/html; charset=UTF-8" %>
     <fmt:requestEncoding value="UTF-8"/>

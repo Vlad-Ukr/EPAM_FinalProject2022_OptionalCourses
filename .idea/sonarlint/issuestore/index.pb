@@ -91,8 +91,6 @@ a
 1src/test/java/ServiceTest/StudentServiceTest.java,6\1\61b02bb1d28c7494669b1fd871ae382d2c7bed35
 
 Osrc/main/java/com/example/optionalcoursesfp/util/connection/ConnectionPool.java,d\3\d318b0cd167185b28772afcf904f94784f1f92e0
-Œ
-\src/main/java/com/example/optionalcoursesfp/command/commandcontroller/CommandController.java,a\4\a455e8e0a8b8c1bdc4e80acd63d0a0ea1fd56e2e
 
 Osrc/main/java/com/example/optionalcoursesfp/context/OptionalCoursesContext.java,e\5\e53b0ac450de16b6a5adcd8871182c9311545a59
 ^

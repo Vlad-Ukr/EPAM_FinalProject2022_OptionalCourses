@@ -1,10 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%@ include file="/jspf/taglib.jspf" %>
 <fmt:requestEncoding value="UTF-8"/>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Teacher</title>
+    <title>Optional Courses</title>
     <link href="frontend/teacher.css" rel="stylesheet" type="text/css">
 </head>
 <body>
