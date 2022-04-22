@@ -11,8 +11,10 @@ import com.example.optionalcoursesfp.service.StudentService;
 import com.example.optionalcoursesfp.service.TeacherService;
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class RegisterStudentOnCourseCommand implements Command {
     private final CourseService courseService;
@@ -52,7 +54,11 @@ public class RegisterStudentOnCourseCommand implements Command {
             request.getSession().setAttribute("student",student);
             log.info(request.getSession().getAttribute("student"));
         } catch (SQLQueryException e) {
-            e.printStackTrace();
+            try {
+                request.getRequestDispatcher("Error.jsp").forward(request,response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
         }catch (StudentAlreadyRegisteredException e){
             request.setAttribute("studentAlreadyRegistered", "Вы уже зарегестрированы на этот курс!");
         }catch (MaxAmountOfRegistrationException e){

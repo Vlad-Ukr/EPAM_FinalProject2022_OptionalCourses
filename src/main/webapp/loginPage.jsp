@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+    <%@ include file="/jspf/taglib.jspf" %>
     <fmt:requestEncoding value="UTF-8"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Факультатив</title>
@@ -55,7 +53,7 @@
 <c:choose>
     <c:when test="${not empty loginError}">
         <div class="error">
-                <text><fmt:message key="incorrect.password.or.login"/></text>
+            <text><fmt:message key="incorrect.password.or.login"/></text>
         </div>
 
     </c:when>

@@ -47,7 +47,11 @@ public class InsertTeacherCommand implements Command {
             request.setAttribute("registerMessage", "Регистрация прошла упешно!");
             new ShowTeacherCommand(teacherService, courseService).executeCommand(request, response);
         }  catch (DatabaseException | SQLQueryException throwables) {
-            throwables.printStackTrace();
+            try {
+                request.getRequestDispatcher("Error.jsp").forward(request,response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

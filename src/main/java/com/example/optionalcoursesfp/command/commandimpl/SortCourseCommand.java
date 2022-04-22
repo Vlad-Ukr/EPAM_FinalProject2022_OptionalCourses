@@ -7,8 +7,10 @@ import com.example.optionalcoursesfp.service.CourseService;
 import com.example.optionalcoursesfp.service.TeacherService;
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 
@@ -37,7 +39,11 @@ public class SortCourseCommand implements Command {
                 new ShowCoursesCommand(courseService, teacherService).executeCommand(request, response);
             }
         } catch (SQLQueryException e) {
-            e.printStackTrace();
+            try {
+                request.getRequestDispatcher("Error.jsp").forward(request,response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

@@ -33,7 +33,11 @@ public class HomeCommand implements Command {
             }
             forwardToUserHomePage(user, request, response);
         } catch (ServletException | IOException | SQLQueryException e) {
-            e.printStackTrace();
+            try {
+                request.getRequestDispatcher("Error.jsp").forward(request,response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

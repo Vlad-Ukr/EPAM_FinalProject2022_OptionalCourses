@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/jspf/taglib.jspf" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,41 +15,43 @@
     <div class="topBar">
         <h4 class="greetingsHeader"><fmt:message key="greetings.message"/>, ${sessionScope.userLogin}</h4>
     </div>
-        <div class="bottomBar">
-            <table id="topBarTable">
+    <div class="bottomBar">
+        <table id="topBarTable">
             <td class="emptyTd">
-            <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
-            <button class="homePage" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
-                    formmethod="get" name="pageName" type="submit" value="homePage"><fmt:message key="student.page.home.page"/>
-            </button>
-            <button class="showCoursesButton" name="pageName" type="submit" value="showCoursesStudent"><fmt:message key="student.page.all.courses"/>
-            </button>
-            </form>
+                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
+                    <button class="homePage" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
+                            formmethod="get" name="pageName" type="submit" value="homePage"><fmt:message
+                            key="student.page.home.page"/>
+                    </button>
+                    <button class="showCoursesButton" name="pageName" type="submit" value="showCoursesStudent">
+                        <fmt:message key="student.page.all.courses"/>
+                    </button>
+                </form>
             </td>
-                <td class="emptyTd">
-                    <form action="changeLocale.jsp" method="post">
-                        <select class="changeLocaleSelect" name="locale">
-                            <c:forEach items="${applicationScope.locales}" var="locale">
-                                <c:set var="selected" value="${locale.key == currentLocale ? 'selected' : '' }"/>
-                                <option value="${locale.key}" ${selected}>${locale.value}</option>
-                            </c:forEach>
-                        </select>
-                        <input class="changeLocale" type="submit" value="<fmt:message key='set.language.button'/>">
-                        <input type="hidden" name="pageName" value="${pageName}">
-                    </form>
-                </td>
+            <td class="emptyTd">
+                <form action="changeLocale.jsp" method="post">
+                    <select class="changeLocaleSelect" name="locale">
+                        <c:forEach items="${applicationScope.locales}" var="locale">
+                            <c:set var="selected" value="${locale.key == currentLocale ? 'selected' : '' }"/>
+                            <option value="${locale.key}" ${selected}>${locale.value}</option>
+                        </c:forEach>
+                    </select>
+                    <input class="changeLocale" type="submit" value="<fmt:message key='set.language.button'/>">
+                    <input type="hidden" name="pageName" value="${pageName}">
+                </form>
+            </td>
 
-                <td class="emptyTd">
-                    <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
-                          method="get">
-                        <button class="logOutButton" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
-                                name="pageName" type="submit" value="logOut">
-                            <fmt:message key="log.out.button"/>
-                        </button>
-                    </form>
-                </td>
-            </table>
-        </div>
+            <td class="emptyTd">
+                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+                      method="get">
+                    <button class="logOutButton" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
+                            name="pageName" type="submit" value="logOut">
+                        <fmt:message key="log.out.button"/>
+                    </button>
+                </form>
+            </td>
+        </table>
+    </div>
 </div>
 </div>
 <c:set var="mainPage" scope="request" value="instruction"/>
@@ -72,21 +72,22 @@
                     <fmt:message key="student.page.list.of.courses"/>
                 </button>
                 <select class="selectBy" name="teacherSelect" size="1">
-                    <option disabled><fmt:message key="course.table.select.teacher"/> </option>
-                    <option value="0"><fmt:message key="student.page.all.teachers"/> </option>
+                    <option disabled><fmt:message key="course.table.select.teacher"/></option>
+                    <option value="0"><fmt:message key="student.page.all.teachers"/></option>
                     <c:forEach var="teacher" items="${sessionScope.teacherList}">
                         <option value="${teacher.id}">${teacher.fullName}</option>
                     </c:forEach>
                 </select>
                 <select class="selectBy" name="topicSelect" size="1">
                     <option disabled><fmt:message key="student.page.select.topic"/></option>
-                    <option value="allTopics"><fmt:message key="student.page.all.topics"/> </option>
+                    <option value="allTopics"><fmt:message key="student.page.all.topics"/></option>
                     <c:forEach var="topic" items="${sessionScope.topicList}">
                         <option value="${topic}">${topic}</option>
                     </c:forEach>
                 </select>
 
-                <button class="confirmSelectButton" name="pageName" type="submit" value="selectCourses"><fmt:message key="student.table.select.button"/></button>
+                <button class="confirmSelectButton" name="pageName" type="submit" value="selectCourses"><fmt:message
+                        key="student.table.select.button"/></button>
 
                 <select class="sortSelect" name="sortSelect" size="1" required>
                     <option disabled><fmt:message key="course.table.select.sort"/></option>
@@ -95,7 +96,8 @@
                     <option value="byDuration"><fmt:message key="course.table.select.sort.duration"/></option>
                     <option value="byStudents"><fmt:message key="course.table.select.sort.amount.of.student"/></option>
                 </select>
-                <button class="sortButton" name="pageName" type="submit" value="sortCourse"><fmt:message key="course.table.sort.button"/></button>
+                <button class="sortButton" name="pageName" type="submit" value="sortCourse"><fmt:message
+                        key="course.table.sort.button"/></button>
             </form>
         </div>
         <c:choose>
@@ -106,7 +108,7 @@
             </c:when>
             <c:when test="${not empty maxAmountOfRegistration}">
                 <div class="errorMsg">
-                       <text><fmt:message key="already.registered.3.times"/></text>
+                    <text><fmt:message key="already.registered.3.times"/></text>
                 </div>
             </c:when>
             <c:when test="${not empty blockedStudent}">
@@ -116,7 +118,7 @@
             </c:when>
             <c:when test="${not empty accessedRegistration}">
                 <div class="accessMsg">
-                <text><fmt:message key="success.sign.on"/></text>
+                    <text><fmt:message key="success.sign.on"/></text>
                 </div>
             </c:when>
             <c:when test="${not empty maxAmountOfStudent}">
@@ -184,7 +186,7 @@
         <div id="pageNavPosition" style="padding-top: 20px" align="center">
         </div>
         <script type="text/javascript">
-            var pager = new Pager('table-id',5);
+            var pager = new Pager('table-id', 5);
             pager.init();
             pager.showPageNav('pager', 'pageNavPosition');
             pager.showPage(1);

@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/jspf/taglib.jspf" %>
 <fmt:requestEncoding value="UTF-8"/>
 <!DOCTYPE html>
 <html>
@@ -17,42 +15,44 @@
     <div class="topBar">
         <h4 class="greetingsHeader"><fmt:message key="greetings.message"/>, ${sessionScope.userLogin}</h4>
     </div>
-        <div class="bottomBar">
-            <table>
+    <div class="bottomBar">
+        <table>
             <td class="emptyTd">
-            <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
-            <button class="homePage" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
-                    formmethod="get" name="pageName" type="submit" value="homePage"><fmt:message key="student.page.home.page"/>
-            </button>
-            <button class="showCoursesButton" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
-                    formmethod="get" name="pageName" type="submit" value="showCourses"><fmt:message key="teacher.page.journal"/>
-            </button>
-            </form>
+                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
+                    <button class="homePage" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
+                            formmethod="get" name="pageName" type="submit" value="homePage"><fmt:message
+                            key="student.page.home.page"/>
+                    </button>
+                    <button class="showCoursesButton" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
+                            formmethod="get" name="pageName" type="submit" value="showCourses"><fmt:message
+                            key="teacher.page.journal"/>
+                    </button>
+                </form>
             </td>
-                <td class="emptyTd">
-                    <form action="changeLocale.jsp" method="post">
-                        <select class="changeLocaleSelect" name="locale">
-                            <c:forEach items="${applicationScope.locales}" var="locale">
-                                <c:set var="selected" value="${locale.key == currentLocale ? 'selected' : '' }"/>
-                                <option value="${locale.key}" ${selected}>${locale.value}</option>
-                            </c:forEach>
-                        </select>
-                        <input class="changeLocale" type="submit" value="<fmt:message key='set.language.button'/>">
-                        <input type="hidden" name="pageName" value="${pageName}">
-                    </form>
-                </td>
+            <td class="emptyTd">
+                <form action="changeLocale.jsp" method="post">
+                    <select class="changeLocaleSelect" name="locale">
+                        <c:forEach items="${applicationScope.locales}" var="locale">
+                            <c:set var="selected" value="${locale.key == currentLocale ? 'selected' : '' }"/>
+                            <option value="${locale.key}" ${selected}>${locale.value}</option>
+                        </c:forEach>
+                    </select>
+                    <input class="changeLocale" type="submit" value="<fmt:message key='set.language.button'/>">
+                    <input type="hidden" name="pageName" value="${pageName}">
+                </form>
+            </td>
 
-                <td class="emptyTd">
-                    <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
-                          method="get">
-                        <button class="logOutButton" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
-                                name="pageName" type="submit" value="logOut">
-                            <fmt:message key="log.out.button"/>
-                        </button>
-                    </form>
-                </td>
-            </table>
-        </div>
+            <td class="emptyTd">
+                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+                      method="get">
+                    <button class="logOutButton" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
+                            name="pageName" type="submit" value="logOut">
+                        <fmt:message key="log.out.button"/>
+                    </button>
+                </form>
+            </td>
+        </table>
+    </div>
 </div>
 </div>
 <c:set var="mainPage" scope="request" value="instruction"/>
@@ -146,7 +146,7 @@
     </div>
     <c:if test="${not empty endMessage}">
     <div class="endMessage">
-         <text><fmt:message key="course.is.over.mark.exposed"/></text>
+        <text><fmt:message key="course.is.over.mark.exposed"/></text>
     </div>
     </c:if>
     </c:when>
@@ -193,18 +193,18 @@
                                 <table>
                                     <tr>
                                         <td>
-                                                <button class="gradeButton" name="pageName" type="submit"
-                                                        value="gradingStudents">
-                                                    <fmt:message key="teacher.page.submit.grades.button"/>
-                                                </button>
+                                            <button class="gradeButton" name="pageName" type="submit"
+                                                    value="gradingStudents">
+                                                <fmt:message key="teacher.page.submit.grades.button"/>
+                                            </button>
                                         </td>
                                         <td>
-                                                <button class="gradeButton" name="pageName" type="submit"
-                                                        value="endCourse">
+                                            <button class="gradeButton" name="pageName" type="submit"
+                                                    value="endCourse">
 
-                                                    <fmt:message key="teacher.page.end.course.button"/>
-                                                </button>
-                                                <input name="endCourseMarker" value="true" type="hidden">
+                                                <fmt:message key="teacher.page.end.course.button"/>
+                                            </button>
+                                            <input name="endCourseMarker" value="true" type="hidden">
                                             <input name="courseId" value="${requestScope.course.id}" type="hidden">
                                         </td>
                                     </tr>
@@ -244,7 +244,8 @@
                             </tr>
                         </c:forEach>
                         <td>
-                            <button class="goBackButton" name="pageName" type="submit" value="showCourses"><fmt:message key="teacher.page.go.back.button"/>
+                            <button class="goBackButton" name="pageName" type="submit" value="showCourses"><fmt:message
+                                    key="teacher.page.go.back.button"/>
                             </button>
                         </td>
                         <input name="userRole" value="teacher" type="hidden">
@@ -281,7 +282,8 @@
                             </tr>
                         </c:forEach>
                         <td>
-                            <button class="goBackButton" name="pageName" type="submit" value="showCourses"><fmt:message key="teacher.page.go.back.button"/>
+                            <button class="goBackButton" name="pageName" type="submit" value="showCourses"><fmt:message
+                                    key="teacher.page.go.back.button"/>
                             </button>
                         </td>
                         <input name="userRole" value="teacher" type="hidden">

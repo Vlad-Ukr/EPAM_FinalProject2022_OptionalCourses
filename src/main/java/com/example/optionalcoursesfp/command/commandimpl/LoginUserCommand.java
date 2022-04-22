@@ -33,7 +33,7 @@ public class LoginUserCommand implements Command {
      than send denied message
      */
     @Override
-    public void executeCommand(HttpServletRequest request, HttpServletResponse response) {
+    public void executeCommand(HttpServletRequest request, HttpServletResponse response)  {
         User user = new User();
         try {
             user = userService.getUserByLoginAndPassword(request.getParameter("user_login"), request.getParameter("user_password"));
@@ -53,11 +53,9 @@ public class LoginUserCommand implements Command {
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("userLogin", user.getLogin());
         try {
-            request.getRequestDispatcher(getAddressToUserRolePage(user, request, response)).forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+           request.getRequestDispatcher(getAddressToUserRolePage(user, request, response)).forward(request, response);
+       } catch (ServletException | IOException e) {
+           e.printStackTrace();
         }
     }
     /*
@@ -75,7 +73,11 @@ public class LoginUserCommand implements Command {
                 try {
                     request.getSession().setAttribute("student", studentService.getStudentByLogin(user.getLogin()));
                 } catch (SQLQueryException e) {
-                    e.printStackTrace();
+                    try {
+                        request.getRequestDispatcher("Error.jsp").forward(request,response);
+                    } catch (ServletException | IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
                 request.setAttribute("pageName", "instruction");
                 request.getSession().setAttribute("userRole", "student");
@@ -85,7 +87,11 @@ public class LoginUserCommand implements Command {
                 try {
                     request.getSession().setAttribute("teacher", teacherService.getTeacherByLogin(user.getLogin()));
                 } catch (SQLQueryException e) {
-                    e.printStackTrace();
+                    try {
+                        request.getRequestDispatcher("Error.jsp").forward(request,response);
+                    } catch (ServletException | IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
                 request.setAttribute("pageName", "instruction");
                 request.getSession().setAttribute("userRole", "teacher");

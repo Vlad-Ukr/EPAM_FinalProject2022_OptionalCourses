@@ -40,7 +40,11 @@ public class ShowJournalCommand implements Command {
             request.setAttribute("course", courseService.getCourseById(Integer.parseInt(request.getParameter("courseId"))));
             request.getRequestDispatcher("teacher.jsp").forward(request, response);
         } catch (SQLQueryException | ServletException | IOException e) {
-            e.printStackTrace();
+            try {
+                request.getRequestDispatcher("Error.jsp").forward(request,response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

@@ -42,10 +42,15 @@ public class InsertStudentCommand implements Command {
                     ,request.getParameter("user_password"),request.getParameter("user_fullname"));
              log.info("student- "+request.getParameter("user_email")+"was added successfully");
             request.setAttribute("registerMessage", "Регистрация прошла упешно!");
-
                 request.getRequestDispatcher("loginPage.jsp").forward(request,response);
-        } catch (ServletException | IOException | DatabaseException | SQLQueryException e) {
+        } catch (ServletException | IOException e) {
             e.printStackTrace();
+        } catch (SQLQueryException | DatabaseException throwables) {
+            try {
+                request.getRequestDispatcher("Error.jsp").forward(request,response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
         }
 
     }

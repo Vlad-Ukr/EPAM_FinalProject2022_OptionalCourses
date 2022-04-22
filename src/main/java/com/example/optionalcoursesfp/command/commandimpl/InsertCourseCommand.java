@@ -44,8 +44,14 @@ public class InsertCourseCommand implements Command {
                 request.setAttribute("teacherList",teacherService.getAllTeachers());
                 request.setAttribute("pageName","showCourses");
                 request.getRequestDispatcher("admin.jsp").forward(request,response);
-            } catch (ServletException | SQLQueryException | IOException e) {
-                e.printStackTrace();
+            } catch (ServletException | IOException e) {
+               e.printStackTrace();
+            } catch (SQLQueryException throwables) {
+                try {
+                    request.getRequestDispatcher("Error.jsp").forward(request,response);
+                } catch (ServletException | IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
     }

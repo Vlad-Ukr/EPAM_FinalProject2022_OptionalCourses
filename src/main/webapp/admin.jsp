@@ -4,7 +4,6 @@
     <title>Admin</title>
     <%@ include file="/jspf/taglib.jspf" %>
     <%@ page contentType="text/html; charset=UTF-8" %>
-    <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
     <fmt:requestEncoding value="UTF-8"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <link href="frontend/adminPage.css" rel="stylesheet" type="text/css">

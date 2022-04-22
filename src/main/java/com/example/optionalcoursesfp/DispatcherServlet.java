@@ -3,6 +3,7 @@ package com.example.optionalcoursesfp;
 
 import com.example.optionalcoursesfp.command.commandcontroller.CommandController;
 import com.example.optionalcoursesfp.context.OptionalCoursesContext;
+import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.service.CourseService;
 import com.example.optionalcoursesfp.service.StudentService;
 import com.example.optionalcoursesfp.service.TeacherService;
@@ -47,12 +48,12 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=UTF-8");
+         request.setCharacterEncoding("UTF-8");
+       response.setContentType("text/html; charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         log.info(request.getParameter("pageName")+" request parameter");
         request.getSession().setAttribute("pageName",request.getParameter("pageName"));
-        commandController.invoke(request.getParameter("pageName"), request, response);
+       commandController.invoke(request.getParameter("pageName"), request, response);
     }
 
 

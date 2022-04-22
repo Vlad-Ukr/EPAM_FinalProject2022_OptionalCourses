@@ -41,7 +41,13 @@ public class ShowTeacherCommand implements Command {
             request.setAttribute("courseList",courseList);
             request.setAttribute("pageName", "showTeachers");
             request.getRequestDispatcher("admin.jsp").forward(request, response);
-        } catch (SQLQueryException | ServletException | IOException e) {
+        } catch (SQLQueryException e) {
+            try {
+                request.getRequestDispatcher("Error.jsp").forward(request,response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
+        } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
     }
