@@ -16,7 +16,6 @@
 <body>
 <c:set var="currentPage" value="admin.jsp" scope="session"/>
 <c:set var="pageRole" scope="request" value="admin"/>
-<tags:security>security</tags:security>
 <tags:pagination>pagination</tags:pagination>
 <div class="header">
     <div class="topBar">

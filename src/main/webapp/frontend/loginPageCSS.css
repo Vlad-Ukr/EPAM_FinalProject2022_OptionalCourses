@@ -4,7 +4,6 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
-
 table {
     border-collapse: separate; /* Способ отображения границы */
     width: 100%; /* Ширина таблицы */
@@ -41,7 +40,9 @@ H3 {
     border-radius: 5px;
     margin: .5em;
 }
-
+#loginButton:hover{
+    border: 4px solid #158a80;
+}
 a:hover {
     text-decoration: none; /* Убираем подчеркивание */
     color: #72157C; /* Цвет ссылки при наведении на нее курсора мыши */
@@ -127,4 +128,16 @@ input:invalid {
 }
 button:hover{
     border: 4px solid #158a80;
+}
+.changeLocaleButton{
+    font-family:Arial, Verdana, sans-serif;color:#72157C;
+    font-size: 14px;
+    border: 3px solid #23CFBE;
+    background: #4ee0ab;
+    border-radius: 5px;
+    margin: 0.3em;
+
+}
+.changeLocaleButton:hover{
+    border: 3px solid #158a80;
 }

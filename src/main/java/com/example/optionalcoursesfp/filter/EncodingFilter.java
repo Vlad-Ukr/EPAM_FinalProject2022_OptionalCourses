@@ -1,9 +1,12 @@
 package com.example.optionalcoursesfp.filter;
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.*;
 import java.io.IOException;
 
 public class EncodingFilter implements Filter {
+    private static final Logger log = Logger.getLogger(EncodingFilter.class);
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);
@@ -14,6 +17,7 @@ public class EncodingFilter implements Filter {
         servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setContentType("text/html; charset=UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
+        log.info("ENCODING FILTER IS WORKING");
         filterChain.doFilter(servletRequest,servletResponse);
     }
 

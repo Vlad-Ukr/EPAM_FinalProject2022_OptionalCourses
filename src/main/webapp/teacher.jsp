@@ -10,7 +10,6 @@
 <body>
 <c:set var="currentPage" value="teacher.jsp" scope="session"/>
 <c:set var="pageRole" scope="request" value="teacher"/>
-<tags:security>security</tags:security>
 <div class="header">
     <div class="topBar">
         <h4 class="greetingsHeader"><fmt:message key="greetings.message"/>, ${sessionScope.userLogin}</h4>

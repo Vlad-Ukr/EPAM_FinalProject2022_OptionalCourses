@@ -5,7 +5,7 @@
     <fmt:requestEncoding value="UTF-8"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Logging</title>
-    <link href="frontend/loginPageCSS.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/loginPageCSS.css" >
     <script src="frontend/sendFormController.js"></script>
     <head/>
 <body style="font-family:Arial, Verdana, sans-serif;color:#72157C">
@@ -38,16 +38,11 @@
     </table>
 </form>
 <form class="changeLocaleForm" action="changeLocale.jsp" method="post">
-    <select class="changeLocaleSelect" name="locale">
-        <c:forEach items="${applicationScope.locales}" var="locale">
-            <c:set var="selected" value="${locale.key == currentLocale ? 'selected' : '' }"/>
-            <option value="${locale.key}" ${selected}>${locale.value}</option>
-        </c:forEach>
-    </select>
+    <button class="changeLocaleButton" value="eu" name="locale">Eu</button>
+    <button class="changeLocaleButton" value="ru" name="locale">Ru</button>
+    <button class="changeLocaleButton" value="ua" name="locale">Ua</button>
     <br>
-    <input class="changeLocale" type="submit" value="<fmt:message key='set.language.button'/>">
     <input type="hidden" name="pageName" value="${pageName}">
-
 </form>
 
 <c:choose>

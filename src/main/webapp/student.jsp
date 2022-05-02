@@ -9,7 +9,6 @@
 <body>
 <c:set var="currentPage" value="student.jsp" scope="session"/>
 <c:set var="pageRole" scope="request" value="student"/>
-<tags:security>security</tags:security>
 <tags:pagination>pagination</tags:pagination>
 <div class="header">
     <div class="topBar">
