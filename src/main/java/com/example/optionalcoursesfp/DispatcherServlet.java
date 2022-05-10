@@ -53,7 +53,12 @@ public class DispatcherServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         log.info(request.getParameter("pageName")+" request parameter");
         request.getSession().setAttribute("pageName",request.getParameter("pageName"));
-       commandController.invoke(request.getParameter("pageName"), request, response);
+        try {
+            commandController.invoke(request.getParameter("pageName"), request, response);
+        }catch (NullPointerException e){
+            commandController.invoke("loadAvatar",request,response);
+        }
+
     }
 
 

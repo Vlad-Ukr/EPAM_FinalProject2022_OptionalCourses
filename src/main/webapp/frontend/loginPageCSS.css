@@ -1,5 +1,5 @@
 body {
-    background-image: url("../images/BackGround1.png");
+    background-image: url("../images/backgrounds/BackGround1.png");
     font-size: 18px;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -89,7 +89,7 @@ input:invalid {
     color: #72157C;
 }
 .loginForm{
-    background-image: url("../images/formBackGround.png");
+    background-image: url("../images/backgrounds/formBackGround.png");
     position: fixed;
     top: 50%;
     left: 50%;
@@ -140,4 +140,10 @@ button:hover{
 }
 .changeLocaleButton:hover{
     border: 3px solid #158a80;
+}
+#standWithUA{
+    position: fixed; left: -40px; bottom: 10px; width: 150px; height: 42px;
+    transform: rotate(45deg);
+    z-index: 999;
+    background: linear-gradient(-180deg, rgb(0, 91, 187) 50%, rgb(255, 213, 0) 50%);
 }

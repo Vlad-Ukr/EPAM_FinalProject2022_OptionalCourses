@@ -81,7 +81,7 @@ public class UserServiceTest {
             e.printStackTrace();
         }
         try {
-            userService.insertUser("login","password",1);
+            userService.insertUser("login","password",1,"+380663004233");
         } catch (SQLQueryException | DatabaseException e) {
             e.printStackTrace();
         }
@@ -114,7 +114,7 @@ public class UserServiceTest {
         }
         int actual = 0;
         try {
-            actual=userService.isTheUserAlready("login");
+            actual=userService.isTheUserAlready("login","+380663004233");
         } catch (DatabaseException throwables) {
             throwables.printStackTrace();
         }

@@ -26,14 +26,15 @@ public class InsertTeacherCommand implements Command {
         this.teacherService = teacherService;
         this.courseService = courseService;
     }
+
     /*
             This command inserts new teacher
             */
     @Override
     public void executeCommand(HttpServletRequest request, HttpServletResponse response) {
         try {
-            if (userService.isTheUserAlready(request.getParameter("user_email")) == 0) {
-                userService.insertUser(request.getParameter("user_email"), request.getParameter("user_password"), UserRole.determineUserRoleNumber(UserRole.TEACHER));
+            if (userService.isTheUserAlready(request.getParameter("user_email"), request.getParameter("phone_number")) == 0) {
+                userService.insertUser(request.getParameter("user_email"), request.getParameter("user_password"), UserRole.determineUserRoleNumber(UserRole.TEACHER), request.getParameter("phone_number"));
             } else {
                 request.setAttribute("deniedRegister", "Пользователь с таким логином уже существует!");
                 log.info("teacher- " + request.getParameter("user_email") + "wasn't added");
@@ -46,9 +47,9 @@ public class InsertTeacherCommand implements Command {
             log.info("teacher- " + request.getParameter("user_email") + "was added successfully");
             request.setAttribute("registerMessage", "Регистрация прошла упешно!");
             new ShowTeacherCommand(teacherService, courseService).executeCommand(request, response);
-        }  catch (DatabaseException | SQLQueryException throwables) {
+        } catch (DatabaseException | SQLQueryException throwables) {
             try {
-                request.getRequestDispatcher("Error.jsp").forward(request,response);
+                request.getRequestDispatcher("Error.jsp").forward(request, response);
             } catch (ServletException | IOException ex) {
                 ex.printStackTrace();
             }

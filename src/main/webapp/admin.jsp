@@ -26,7 +26,8 @@
             <td class="emptyTd">
                 <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
                       method="get">
-                    <button class="courseWorkButton" name="pageName" type="submit" value="showCourses"><fmt:message key="work.with.courses.button"/>
+                    <button class="courseWorkButton" name="pageName" type="submit" value="showCourses"><fmt:message
+                            key="work.with.courses.button"/>
                     </button>
                     <button class="teacherWorkButton" name="pageName" type="submit" value="showTeachers">
                         <fmt:message key="work.with.teachers.button"/>
@@ -71,24 +72,28 @@
     <c:when test="${pageName==mainPage}">
         <div class="instruction">
             <h3><fmt:message key="welcome.message"/> , ${sessionScope.userLogin}!</h3>
-            <text><fmt:message key="instruction.message"/> </text>
+            <text><fmt:message key="instruction.message"/></text>
         </div>
     </c:when>
     <c:when test="${pageName==studentPage}">
         <div class="workSpace">
+            <c:if test="${requestScope.studentList.size()==0}">
+             <h4 class="emptyListMessage"><fmt:message key="empty.student.course.list.admin.page"/></h4>
+            </c:if>
+            <c:if test="${requestScope.studentList.size()!=0}">
             <table class="workSpaceTable" id="table-id">
                 <tr>
                     <th>Id</th>
                     <th><fmt:message key="teacher.table.login"/></th>
-                    <th><fmt:message key="register.table.SNP"/> </th>
-                    <th><fmt:message key="course.table.status"/> </th>
+                    <th><fmt:message key="register.table.SNP"/></th>
+                    <th><fmt:message key="course.table.status"/></th>
                     <th><fmt:message key="teacher.table.courses"/></th>
                     <th>
                         <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
                               method="get">
                             <select class="selectBy" name="courseSelect" size="1">
-                                <option disabled><fmt:message key="student.table.select"/> </option>
-                                <option value="allCourses"><fmt:message key="course.table.select.select"/> </option>
+                                <option disabled><fmt:message key="student.table.select"/></option>
+                                <option value="allCourses"><fmt:message key="course.table.select.select"/></option>
                                 <c:forEach var="course" items="${requestScope.courseList}">
                                     <option value="${course.id}">${course.name}</option>
                                 </c:forEach>
@@ -109,12 +114,23 @@
                                        readonly="readonly"></td>
                             <td><input class="fullNameInput" name="studentFullName" value="${student.fullName}"
                                        readonly="readonly"></td>
-                            <td><input class="inputStatus" name="studentStatusId" value="${student.status}"
-                                       readonly="readonly">
+                            <td>
+                                <c:choose>
+                                    <c:when test="${student.status == 'Unblocked'}">
+                                        <input class="inputStatus" name="studentStatusId"
+                                               value="<fmt:message key="unblocked.status"/>"
+                                               readonly="readonly">
+                                    </c:when>
+                                    <c:when test="${student.status == 'Blocked'}">
+                                        <input class="inputStatus" name="studentStatusId"
+                                               value="<fmt:message key="blocked.status"/>"
+                                               readonly="readonly">
+                                    </c:when>
+                                </c:choose>
                             </td>
                             <td>
                                 <details>
-                                    <summary><fmt:message key="student.table.fixed.courses"/> </summary>
+                                    <summary><fmt:message key="student.table.fixed.courses"/></summary>
                                     <c:forEach var="course" items="${requestScope.courseList}">
                                         <c:if test="${student.firstCourseId==course.id||student.secondCourseId==course.id||student.thirdCourseId==course.id}">
                                             ${course.name}
@@ -125,18 +141,19 @@
                             </td>
                             <td>
                                 <button class="unBlockButton" name="pageName" type="submit" value="unBlock">
-                                <fmt:message key="student.table.unblock.button"/>
+                                    <fmt:message key="student.table.unblock.button"/>
                                 </button>
                             </td>
                             <td>
                                 <button class="blockButton" name="pageName" type="submit" value="block">
-                                <fmt:message key="student.table.block.button"/>
+                                    <fmt:message key="student.table.block.button"/>
                                 </button>
                             </td>
                         </tr>
                     </form>
                 </c:forEach>
             </table>
+            </c:if>
             <tags:pager>pager</tags:pager>
         </div>
     </c:when>
@@ -162,6 +179,15 @@
                                    placeholder="Фамилия Имя Отчество"
                                    pattern="^[А-ЯЁЇ][а-яёї]{1,}([-][А-ЯЁї][а-яёї]{1,})?\s[А-ЯЁЇ][а-яёї]{2,}\s[А-ЯЁЇ][а-яёї]{1,}$"
                                    title="Введите свой email согласно шаблону: 'Иванов Иван Иваныч'">
+                        </div>
+                    </td>
+                    <td>
+                        <div id="phoneNumber">
+                            <label><fmt:message key="register.phone.number"/>:</label>
+                            <input class="inputForm" type="text" id="phone_number" name="phone_number" required
+                                   placeholder="+380*********"
+                                   pattern="\+\d{12}"
+                                   title="Введите свой номер телефона согласно шаблону: '+380111111111'">
                         </div>
                     </td>
                     <tr>
@@ -200,7 +226,7 @@
             <c:choose>
                 <c:when test="${not empty registerMessage}">
                     <div class="accesReg">
-                          <text><fmt:message key="register.message"/></text>
+                        <text><fmt:message key="register.message"/></text>
                     </div>
 
                 </c:when>
@@ -215,6 +241,10 @@
                 </c:when>
 
             </c:choose>
+            <c:if test="${requestScope.teacherList.size()==0}">
+                <h4 class="emptyListMessage"><fmt:message key="empty.teacher.course.list.admin.page"/></h4>
+            </c:if>
+            <c:if test="${requestScope.teacherList.size()!=0}">
             <table class="teacherInfoTable" id="table-id">
                 <tr>
                     <th>Id</th>
@@ -245,6 +275,7 @@
                     </tr>
                 </c:forEach>
             </table>
+            </c:if>
             <tags:pager>pager</tags:pager>
         </div>
     </c:when>
@@ -284,7 +315,7 @@
                     <td>
                         <label><fmt:message key="add.course.table.teacher"/>:</label>
                         <select class="teacherSelect" name="teacherSelect" size="1" required>
-                            <option disabled><fmt:message key="course.table.select.teacher"/> </option>
+                            <option disabled><fmt:message key="course.table.select.teacher"/></option>
                             <c:forEach var="teacher" items="${requestScope.teacherList}">
                                 <option value="${teacher.id}">${teacher.fullName}</option>
                             </c:forEach>
@@ -293,7 +324,7 @@
                     <td>
                         <button style="font-family:Arial, Verdana, sans-serif;color:#72157C"
                                 id="addButton" type="submit" name="pageName" value="insertCourse">
-                           <fmt:message key="add.course.table.add.button"/>
+                            <fmt:message key="add.course.table.add.button"/>
                         </button>
                     </td>
                 </form>
@@ -301,7 +332,16 @@
             <c:choose>
                 <c:when test="${not empty registerMessage}">
                     <div class="accesReg">
-                            <text><fmt:message key="success.update.course"/></text>
+                        <text><fmt:message key="success.added.course"/></text>
+                    </div>
+
+                </c:when>
+
+            </c:choose>
+            <c:choose>
+                <c:when test="${not empty updateMessage}">
+                    <div class="accesReg">
+                        <text><fmt:message key="success.update.course"/></text>
                     </div>
 
                 </c:when>
@@ -310,12 +350,16 @@
             <c:choose>
                 <c:when test="${ not empty deniedRegister}">
                     <div class="deniedRegisterM">
-                            <fmt:message key="same.course.name"/>
+                        <fmt:message key="same.course.name"/>
                     </div>
 
                 </c:when>
 
             </c:choose>
+            <c:if test="${requestScope.courseList.size()==0}">
+                <h4 class="emptyListMessage"><fmt:message key="empty.course.course.list.admin.page"/></h4>
+            </c:if>
+            <c:if test="${requestScope.courseList.size()!=0}">
             <table class="courseInfoTable" id="table-id">
                 <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
                       method="get">
@@ -334,10 +378,13 @@
                                 <option disabled><fmt:message key="course.table.select.sort"/></option>
                                 <option value="byNameA-Z"><fmt:message key="course.table.select.sort.[a-z]"/></option>
                                 <option value="byNameZ-A"><fmt:message key="course.table.select.sort.[z-a]"/></option>
-                                <option value="byDuration"><fmt:message key="course.table.select.sort.duration"/></option>
-                                <option value="byStudents"><fmt:message key="course.table.select.sort.amount.of.student"/></option>
+                                <option value="byDuration"><fmt:message
+                                        key="course.table.select.sort.duration"/></option>
+                                <option value="byStudents"><fmt:message
+                                        key="course.table.select.sort.amount.of.student"/></option>
                             </select>
-                            <button class="sortButton" name="pageName" type="submit" value="sortCourse"><fmt:message key="course.table.sort.button"/>
+                            <button class="sortButton" name="pageName" type="submit" value="sortCourse"><fmt:message
+                                    key="course.table.sort.button"/>
                             </button>
                             <input name="userRole" value="admin" type="hidden">
                         </td>
@@ -370,10 +417,28 @@
                                 <td class="courseTableTd"><input class="dataInput" name="courseTeacherId"
                                                                  value="${course.teacherFullName}"
                                                                  readonly="readonly"></td>
-                                <td class="courseTableTd"><input class="dataInput" id="statusInput"
-                                                                 name="courseStatus"
-                                                                 value="${course.status}"
-                                                                 readonly="readonly"></td>
+                                <td class="courseTableTd">
+                                    <c:choose>
+                                    <c:when test="${course.status=='Not started'}">
+                                        <input class="statusInput"
+                                               name="courseStatus"
+                                               value="<fmt:message key="not.started.status"/>"
+                                               readonly="readonly">
+                                    </c:when>
+                                    <c:when test="${course.status=='In process'}">
+                                    <input class="statusInput"
+                                           name="courseStatus"
+                                           value="<fmt:message key="in.process.status"/>"
+                                           readonly="readonly"></td>
+                                </c:when>
+                                <c:when test="${course.status=='Ended'}">
+                                    <input class="statusInput"
+                                           name="courseStatus"
+                                           value="<fmt:message key="ended.status"/>"
+                                           readonly="readonly">
+                                </c:when>
+                                </c:choose>
+                                </td>
                             </tr>
                             <tr class="courseInfoTr">
                                 <td class="emptyTd"></td>
@@ -399,9 +464,11 @@
                     </tbody>
                 </form>
             </table>
+            </c:if>
             <tags:pager>pager</tags:pager>
         </div>
     </c:when>
 </c:choose>
+<div title="We stand with Ukraine" id="standWithUA"></div>
 </body>
 </html>

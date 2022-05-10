@@ -105,7 +105,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void registerStudentOnCourse(Student student, int courseId) throws SQLQueryException, StudentAlreadyRegisteredException, MaxAmountOfRegistrationException, BlockedStudentException {
+    public void registerStudentOnCourse(Student student, int courseId) throws SQLQueryException, StudentAlreadyRegisteredException, MaxAmountOfRegistrationException {
         log.info(student);
         try (Connection connection = connectionPool.getConnection()) {
             transactionManager.doTransaction(connection, con -> {
@@ -119,8 +119,6 @@ public class StudentServiceImpl implements StudentService {
             throw new StudentAlreadyRegisteredException();
         } catch (MaxAmountOfRegistrationException e) {
             throw new MaxAmountOfRegistrationException();
-        } catch (BlockedStudentException e) {
-            throw new BlockedStudentException();
         }
     }
 

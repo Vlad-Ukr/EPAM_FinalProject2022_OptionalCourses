@@ -32,21 +32,31 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public void insertUser(String login, String password, int userRoleNumber) throws DatabaseException {
+    public void insertUser(String login, String password, int userRoleNumber, String userPhoneNumber) throws DatabaseException {
         try (Connection con = connectionPool.getConnection()) {
-            userRepository.insertUser(login, password, userRoleNumber, con);
+            userRepository.insertUser(login, password, userRoleNumber, userPhoneNumber, con);
         } catch (SQLException throwables) {
             throw new DatabaseException();
         }
     }
 
-    public int isTheUserAlready(String login) throws DatabaseException {
+    public int isTheUserAlready(String login, String phoneNumber) throws DatabaseException {
         int isTheUserAlreadyOutput;
         try (Connection con = connectionPool.getConnection()) {
-            isTheUserAlreadyOutput = userRepository.isTheUserAlready(login, con);
+            isTheUserAlreadyOutput = userRepository.isTheUserAlready(login, phoneNumber, con);
         } catch (SQLException throwables) {
             throw new DatabaseException();
         }
         return isTheUserAlreadyOutput;
     }
+
+    @Override
+    public void changeAvatar(String login, String avatarName) throws DatabaseException {
+      try(Connection connection = connectionPool.getConnection()) {
+          userRepository.changeAvatar(login,avatarName,connection);
+      } catch (SQLException throwables) {
+          throw new DatabaseException();
+      }
+    }
+
 }

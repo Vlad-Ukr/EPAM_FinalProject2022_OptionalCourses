@@ -25,13 +25,13 @@
     <div id="fullNameInput">
         <label><fmt:message key="register.table.SNP"/>:</label>
         <input class="inputForm" type="text" id="fullname" name="user_fullname" required
-               placeholder="Фамилия Имя Отчество"
+               placeholder="Иванов Иван Иваныч"
                pattern="^[А-ЯЁЇ][а-яёї]{1,}([-][А-ЯЁї][а-яёї]{1,})?\s[А-ЯЁЇ][а-яёї]{2,}\s[А-ЯЁЇ][а-яёї]{1,}$"
                title="Введите свой email согласно шаблону: 'Иванов Иван Иваныч'">
     </div>
     <div id="phoneNumber">
         <label><fmt:message key="register.phone.number"/>:</label>
-        <input class="inputForm" type="text" id="phone_number" name="user_fullname" required placeholder="+380*********"
+        <input class="inputForm" type="text" id="phone_number" name="phone_number" required placeholder="+380*********"
                pattern="\+\d{12}"
                title="Введите свой номер телефона согласно шаблону: '+380111111111'">
     </div>
@@ -78,4 +78,5 @@
     </c:when>
 
 </c:choose>
+<div title="We stand with Ukraine" id="standWithUA"></div>
 </body>

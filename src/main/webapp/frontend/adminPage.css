@@ -1,12 +1,12 @@
 body{
-    background-image:url("../images/BackGround1.png");
+    background-image:url("../images/backgrounds/BackGround1.png");
     font-size: 18px;
     color: #72157C;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 .instruction{
-    background-image: url("../images/formBackGround.png");
+    background-image: url("../images/backgrounds/formBackGround.png");
     position:fixed; top: 50%; left: 50%;
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
@@ -17,7 +17,7 @@ body{
     text-align: center;
 }
 .header{
-    background-image:url("../images/headerBG.png");
+    background-image:url("../images/backgrounds/headerBG.png");
     font-size: 18px;
     font-family:Arial, Verdana, sans-serif;color:#72157C;
     padding: 0.5em;
@@ -140,4 +140,20 @@ button:hover{
 }
 .emptyTd{
     border: 0;
+}
+.emptyListMessage{
+    border-radius: 5px;
+    border: solid #72157C;
+    background-color:#FDBBC2;
+    padding: 5px;
+    font-family:Arial, Verdana, sans-serif;color:#72157C;
+    font-size: 18px;
+    text-align: center;
+    position:fixed; top: 50%; left: 40%;
+}
+#standWithUA{
+    position: fixed; left: -40px; bottom: 10px; width: 150px; height: 42px;
+    transform: rotate(45deg);
+    z-index: 999;
+    background: linear-gradient(-180deg, rgb(0, 91, 187) 50%, rgb(255, 213, 0) 50%);
 }

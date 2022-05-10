@@ -41,6 +41,9 @@ public class EndCourse implements Command {
         try {
             log.info(request.getParameter("endCourseMarker"));
             for (Student student : studentList) {
+                if(student.getStatus().equals("Blocked")){
+                    continue;
+                }
                 if (request.getParameter("firstCourseMark" + student.getId()) != null) {
                     log.info(student + "grading firstCourseMark");
                         endCourse(student,FIRST_COURSE,FIRST_COURSE_REQUEST_NAME,request);

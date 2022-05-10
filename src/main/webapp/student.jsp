@@ -136,6 +136,11 @@
                 </div>
             </c:when>
         </c:choose>
+
+        <c:if test="${requestScope.courseList.size()==0}">
+            <fmt:message key="empty.all.course.list"/>
+        </c:if>
+        <c:if test="${requestScope.courseList.size()!=0}">
         <table class="courseInfoTable" id="table-id">
             <th class="courseTh"><fmt:message key="add.course.table.name"/></th>
             <th class="courseTh"><fmt:message key="add.course.table.duration.in.hours"/></th>
@@ -168,9 +173,26 @@
                         <td class="courseTableTd"><input class="dataInput" name="courseTeacherId"
                                                          value="${course.teacherFullName}"
                                                          readonly="readonly"></td>
-                        <td class="courseTableTd"><input class="dataInput" id="statusInput" name="  endCourse"
-                                                         value="${course.status}"
-                                                         readonly="readonly"></td>
+                        <td class="courseTableTd"><c:choose>
+                            <c:when test="${course.status=='Not started'}">
+                                <input class="statusInput"
+                                       name="courseStatusView"
+                                       value="<fmt:message key="not.started.status"/>"
+                                       readonly="readonly">
+                            </c:when>
+                            <c:when test="${course.status=='In process'}">
+                            <input class="statusInput"
+                                   name="courseStatusView"
+                                   value="<fmt:message key="in.process.status"/>"
+                                   readonly="readonly"></td>
+                        </c:when>
+                        <c:when test="${course.status=='Ended'}">
+                            <input class="statusInput"
+                                   name="courseStatusView"
+                                   value="<fmt:message key="ended.status"/>"
+                                   readonly="readonly">
+                        </c:when>
+                        </c:choose></td>
                         <td>
                             <input name="courseId" value="${course.id}" type="hidden">
                             <input name="courseStatus" value="${course.status}" type="hidden">
@@ -182,6 +204,7 @@
                 </form>
             </c:forEach>
         </table>
+        </c:if>
         <div id="pageNavPosition" style="padding-top: 20px" align="center">
         </div>
         <script type="text/javascript">
@@ -198,15 +221,42 @@
             <table class="infoTable">
                 <th class="studentInfoTh">
                     <div class="Info">
-                        <h3>Email: ${sessionScope.student.login}</h3>
-                        <h3><fmt:message key="register.table.SNP"/>: ${sessionScope.student.fullName}</h3>
-                        <h3><fmt:message key="course.table.status"/>: ${sessionScope.student.status}</h3>
+                        <img src="data:image/jpeg;base64,${sessionScope.base64Encoded}" alt="avatar"
+                             width="140" height="140"/>
+                        <c:choose>
+                            <c:when test="${ not empty deniedMessage}">
+                                <div class="deniedRegisterM">
+                                    <input class="photoMessage" type="text"  value='<fmt:message key="load.error"/>' readonly >
+                                </div>
+                            </c:when>
+                        </c:choose>
+                        <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="post" enctype="multipart/form-data">
+                            <input type="file" name="loadAvatar" id="headImg">
+                            <style>#headImg::before {  content:'<fmt:message key="select.avatar.button"/>';}</style>
+                            <button class="loadAvatar" name="pageName" type="submit" value="loadAvatar"><fmt:message key="load.button"/></button>
+                        </form>
+                        <h3>Email:${sessionScope.student.login}</h3>
+                        <h3><fmt:message key="register.table.SNP"/>: ${sessionScope.student.fullName}
+                         </h3>
+                        <h3><fmt:message key="register.phone.number"/>: ${sessionScope.user.phoneNumber}</h3>
+                       <c:choose>
+                           <c:when test="${sessionScope.student.status == 'Unblocked'}">
+                               <h3><fmt:message key="course.table.status"/>:<fmt:message key="unblocked.status"/></h3>
+                           </c:when>
+                           <c:when test="${sessionScope.student.status == 'Blocked'}">
+                               <h3><fmt:message key="course.table.status"/>:<fmt:message key="blocked.status"/></h3>
+                           </c:when>
+                       </c:choose>
                     </div>
                 </th>
 
                 <th class="infoTh">
                     <div class="studentInfo">
                         <h3><fmt:message key="student.home.page.course.info"/></h3>
+                        <c:if test="${requestScope.studentCourses.size()==0 && requestScope.finishedStudentCourses.size()==0}">
+                            <h4><fmt:message key="empty.student.course.list"/></h4>
+                        </c:if>
+                        <c:if test="${requestScope.studentCourses.size()!=0 || requestScope.finishedStudentCourses.size()!=0}">
                         <table>
                             <th class="courseTh"><fmt:message key="add.course.table.name"/></th>
                             <th class="courseTh"><fmt:message key="add.course.table.duration.in.hours"/></th>
@@ -215,7 +265,7 @@
                             <th class="courseTh"><fmt:message key="course.table.status"/></th>
                             <th class="courseTh"><fmt:message key="student.home.page.mark"/></th>
                             <c:forEach var="course" items="${requestScope.studentCourses}">
-                                <c:if test="${course.status!='Закончен'}">
+                                <c:if test="${course.status!='Ended'}">
                                     <tr>
                                         <td class="courseTableTd"><input class="dataInput" name="courseName"
                                                                          value="${course.name}"
@@ -229,10 +279,26 @@
                                         <td class="courseTableTd"><input class="dataInput" name="courseTeacherId"
                                                                          value="${course.teacherFullName}"
                                                                          readonly="readonly"></td>
-                                        <td class="courseTableTd"><input class="dataInput" id="status"
-                                                                         name="courseStatus"
-                                                                         value="${course.status}"
-                                                                         readonly="readonly">
+                                        <td class="courseTableTd"><c:choose>
+                                            <c:when test="${course.status=='Not started'}">
+                                                <input class="statusInput"
+                                                       name="courseStatusView"
+                                                       value="<fmt:message key="not.started.status"/>"
+                                                       readonly="readonly">
+                                            </c:when>
+                                            <c:when test="${course.status=='In process'}">
+                                            <input class="statusInput"
+                                                   name="courseStatusView"
+                                                   value="<fmt:message key="in.process.status"/>"
+                                                   readonly="readonly"></td>
+                                        </c:when>
+                                        <c:when test="${course.status=='Ended'}">
+                                            <input class="statusInput"
+                                                   name="courseStatusView"
+                                                   value="<fmt:message key="ended.status"/>"
+                                                   readonly="readonly">
+                                        </c:when>
+                                        </c:choose>
                                             <input name="courseId" value="${course.id}" type="hidden"></td>
                                     </tr>
                                 </c:if>
@@ -251,15 +317,33 @@
                                 <td class="courseTableTd"><input class="dataInput" name="courseTeacherId"
                                                                  value="${course.teacherFullName}"
                                                                  readonly="readonly"></td>
-                                <td class="courseTableTd"><input class="dataInput" id="status3" name="courseStatus"
-                                                                 value="${course.status}"
-                                                                 readonly="readonly">
+                                <td class="courseTableTd"><c:choose>
+                                    <c:when test="${course.status=='Not started'}">
+                                        <input class="statusInput"
+                                               name="courseStatus"
+                                               value="<fmt:message key="not.started.status"/>"
+                                               readonly="readonly">
+                                    </c:when>
+                                    <c:when test="${course.status=='In process'}">
+                                    <input class="statusInput"
+                                           name="courseStatus"
+                                           value="<fmt:message key="in.process.status"/>"
+                                           readonly="readonly"></td>
+                                </c:when>
+                                <c:when test="${course.status=='Ended'}">
+                                <input class="statusInput"
+                                       name="courseStatus"
+                                       value="<fmt:message key="ended.status"/>"
+                                       readonly="readonly">
+                                </c:when>
+                                </c:choose></td>
                                 <td><input class="markInput" name="mark"
                                            value="${course.mark}"
                                            type="number" readonly="readonly"></td>
-                            <tr>
+                            </tr>
                                 </c:forEach>
                         </table>
+                        </c:if>
                     </div>
                 </th>
 
@@ -268,4 +352,5 @@
         </div>
     </c:when>
 </c:choose>
+<div title="We stand with Ukraine" id="standWithUA"></div>
 </body>

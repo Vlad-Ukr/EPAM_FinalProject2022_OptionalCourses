@@ -44,7 +44,7 @@
     <br>
     <input type="hidden" name="pageName" value="${pageName}">
 </form>
-
+<div title="We stand with Ukraine" id="standWithUA"></div>
 <c:choose>
     <c:when test="${not empty loginError}">
         <div class="error">

@@ -28,7 +28,7 @@ public class ShowJournalCommand implements Command {
     @Override
     public void executeCommand(HttpServletRequest request, HttpServletResponse response) {
         try {
-            if(request.getParameter("courseStatus").equals("Закончен")){
+            if(request.getParameter("courseStatus").equals("Ended")){
                 request.getSession().setAttribute("finishedCourses",studentService.getStudentsFromFinishedCourses(Integer.parseInt(request.getParameter("courseId"))));;
             }
             else {

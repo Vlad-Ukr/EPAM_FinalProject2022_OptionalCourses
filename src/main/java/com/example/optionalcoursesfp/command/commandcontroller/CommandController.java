@@ -37,6 +37,7 @@ public class CommandController {
         commandHashMap.put("startCourse",new StartCourseCommand(courseService));
         commandHashMap.put("selectStudents",new SelectStudentCommand(studentService,courseService));
         commandHashMap.put("endCourse",new EndCourse(studentService,courseService,teacherService));
+        commandHashMap.put("loadAvatar",new UploadAvatarCommand(userService,courseService));
     }
 
     public void invoke(String command, HttpServletRequest request, HttpServletResponse response) {

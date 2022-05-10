@@ -1,5 +1,5 @@
 body {
-    background-image: url("../images/BackGround1.png");
+    background-image: url("../images/backgrounds/BackGround1.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     font-size: 18px;
@@ -7,7 +7,7 @@ body {
 }
 
 .header {
-    background-image: url("../images/headerBG.png");
+    background-image: url("../images/backgrounds/headerBG.png");
     font-size: 18px;
     font-family: Arial, Verdana, sans-serif;
     color: #72157C;
@@ -60,7 +60,7 @@ a {
 
 
 .workSpaceTable {
-    background-image: url("../images/headerBG.png");
+    background-image: url("../images/backgrounds/headerBG.png");
     border: 3px solid #72157C;
     border-radius: 5px;
     margin-top: 10px;
@@ -69,7 +69,7 @@ a {
 
 }
 .courseInfoTable {
-    background-image: url("../images/headerBG.png");
+    background-image: url("../images/backgrounds/headerBG.png");
     border: 3px solid #72157C;
     border-radius: 5px;
     margin-top: 20px;
@@ -151,7 +151,7 @@ a {
     border: 2px solid #BD1449;
 }
 
-#statusInput {
+.statusInput {
     box-sizing: border-box;
     width: 150px;
     font-family: Arial, Verdana, sans-serif;

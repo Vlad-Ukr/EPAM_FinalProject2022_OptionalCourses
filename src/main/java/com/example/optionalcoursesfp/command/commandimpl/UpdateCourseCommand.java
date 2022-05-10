@@ -29,7 +29,7 @@ than command send denied message
         try {
             courseService.updateCourse(Integer.parseInt(request.getParameter("courseId")),request.getParameter("courseName")
                     ,Integer.parseInt(request.getParameter("courseDuration")),Integer.parseInt(request.getParameter("courseMaxAmountOfStudent")),request.getParameter("courseTopic"));
-            request.setAttribute("registerMessage", "Курс упешно обновлен!");
+            request.setAttribute("updateMessage", "Курс упешно обновлен!");
             new ShowCoursesCommand(courseService,teacherService).executeCommand(request,response);
         } catch (SQLQueryException e) {
             try {

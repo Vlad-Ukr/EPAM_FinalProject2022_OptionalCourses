@@ -36,10 +36,8 @@ public class SecurityFilter implements Filter {
         if (user == null && !uri.equals("/OptionalCoursesFP_war_exploded/loginPage.jsp")
                 && !uri.equals("/OptionalCoursesFP_war_exploded/registerPage.jsp")) {
             httpRequest.getRequestDispatcher("securityError.jsp").forward(httpRequest, httpResponse);
-            log.info("SECURITY IS WORKING");
         } else if (!user.getRole().toString().toLowerCase().equals(role)) {
             httpRequest.getRequestDispatcher("securityError.jsp").forward(httpRequest, httpResponse);
-            log.info("SECURITY FILTER IS WORKING");
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
