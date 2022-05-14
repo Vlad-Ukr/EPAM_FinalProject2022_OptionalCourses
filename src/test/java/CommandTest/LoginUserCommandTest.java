@@ -1,7 +1,6 @@
 package CommandTest;
 
 import com.example.optionalcoursesfp.command.commandimpl.LoginUserCommand;
-import com.example.optionalcoursesfp.entity.Teacher;
 import com.example.optionalcoursesfp.entity.User;
 import com.example.optionalcoursesfp.entity.UserRole;
 import com.example.optionalcoursesfp.exeption.DatabaseException;

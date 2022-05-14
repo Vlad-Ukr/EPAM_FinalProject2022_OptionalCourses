@@ -35,16 +35,16 @@ public class InsertStudentCommand implements Command {
                 userService.insertUser(request.getParameter("user_email")
                         , request.getParameter("user_password"), UserRole.determineUserRoleNumber(UserRole.STUDENT), request.getParameter("phone_number"));
             } else {
-                request.setAttribute("deniedRegister", "Пользователь с таким логином уже существует!");
-                request.getRequestDispatcher("registerPage.jsp").forward(request, response);
+                request.getSession().setAttribute("deniedRegister", "Пользователь с таким логином уже существует!");
+                response.sendRedirect("registerPage.jsp");
                 return;
             }
             studentService.insertStudent(request.getParameter("user_email")
                     , request.getParameter("user_password"), request.getParameter("user_fullname"));
             log.info("student- " + request.getParameter("user_email") + "was added successfully");
-            request.setAttribute("registerMessage", "Регистрация прошла упешно!");
-            request.getRequestDispatcher("loginPage.jsp").forward(request, response);
-        } catch (ServletException | IOException e) {
+            request.getSession().setAttribute("registerMessage", "Регистрация прошла упешно!");
+            response.sendRedirect("loginPage.jsp");
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLQueryException | DatabaseException throwables) {
             try {

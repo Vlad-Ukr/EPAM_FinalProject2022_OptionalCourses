@@ -100,37 +100,37 @@
             </form>
         </div>
         <c:choose>
-            <c:when test="${not empty studentAlreadyRegistered}">
+            <c:when test="${deniedMessage=='studentAlreadyRegistered'}">
                 <div class="errorMsg">
                     <text><fmt:message key="already.registered"/></text>
                 </div>
             </c:when>
-            <c:when test="${not empty maxAmountOfRegistration}">
+            <c:when test="${deniedMessage=='maxAmountOfRegistration'}">
                 <div class="errorMsg">
                     <text><fmt:message key="already.registered.3.times"/></text>
                 </div>
             </c:when>
-            <c:when test="${not empty blockedStudent}">
+            <c:when test="${deniedMessage=='blockedStudent'}">
                 <div class="errorMsg">
                     <text><fmt:message key="block.message"/></text>
                 </div>
             </c:when>
-            <c:when test="${not empty accessedRegistration}">
+            <c:when test="${not empty successMessage}">
                 <div class="accessMsg">
                     <text><fmt:message key="success.sign.on"/></text>
                 </div>
             </c:when>
-            <c:when test="${not empty maxAmountOfStudent}">
+            <c:when test="${deniedMessage=='maxAmountOfRegistration'}">
                 <div class="errorMsg">
                     <text><fmt:message key="no.more.places.on.course"/></text>
                 </div>
             </c:when>
-            <c:when test="${not empty   endCourse}">
+            <c:when test="${deniedMessage=='endCourse'}">
                 <div class="errorMsg">
                     <text><fmt:message key="course.is.over"/></text>
                 </div>
             </c:when>
-            <c:when test="${not empty goingCourse}">
+            <c:when test="${deniedMessage=='goingCourse'}">
                 <div class="errorMsg">
                     <text><fmt:message key="closed.enrollment"/></text>
                 </div>
@@ -150,8 +150,7 @@
             <th class="courseTh"><fmt:message key="add.course.table.teacher"/></th>
             <th class="courseTh"><fmt:message key="course.table.status"/></th>
             <c:forEach var="course" items="${requestScope.courseList}">
-                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
-                      method="get">
+                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="post">
                     <tr>
                         <td class="courseTableTd"><input class="dataInput" name="courseName"
                                                          value="${course.name}"

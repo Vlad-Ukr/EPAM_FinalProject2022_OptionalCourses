@@ -224,16 +224,16 @@
                 </form>
             </table>
             <c:choose>
-                <c:when test="${not empty registerMessage}">
+                <c:when test="${not empty successMessage}">
                     <div class="accesReg">
-                        <text><fmt:message key="register.message"/></text>
+                        <text><fmt:message key="course.success.message"/></text>
                     </div>
 
                 </c:when>
 
             </c:choose>
             <c:choose>
-                <c:when test="${ not empty deniedRegister}">
+                <c:when test="${ not empty deniedMessage}">
                     <div class="deniedRegisterM">
                         <text><fmt:message key="user.already.exists"/></text>
                     </div>
@@ -241,10 +241,10 @@
                 </c:when>
 
             </c:choose>
-            <c:if test="${requestScope.teacherList.size()==0}">
+            <c:if test="${sessionScopee.teacherList.size()==0}">
                 <h4 class="emptyListMessage"><fmt:message key="empty.teacher.course.list.admin.page"/></h4>
             </c:if>
-            <c:if test="${requestScope.teacherList.size()!=0}">
+            <c:if test="${sessionScope.teacherList.size()!=0}">
             <table class="teacherInfoTable" id="table-id">
                 <tr>
                     <th>Id</th>
@@ -252,7 +252,7 @@
                     <th><fmt:message key="register.table.SNP"/></th>
                     <th><fmt:message key="teacher.table.courses"/></th>
                 </tr>
-                <c:forEach var="teacher" items="${requestScope.teacherList}">
+                <c:forEach var="teacher" items="${sessionScope.teacherList}">
                     <tr>
                         <td class="teacherTableTd"><input class="dataInput" id="inputTeacherId" name="teacherId"
                                                           value="${teacher.id}" readonly="readonly"></td>
@@ -282,8 +282,7 @@
     <c:when test="${pageName==coursePage}">
         <div class="workSpace">
             <table class="workSpaceTable">
-                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
-                      method="get">
+                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="post">
                     <td>
                         <div id="nameInput">
                             <label><fmt:message key="add.course.table.name"/>:</label>
@@ -330,31 +329,21 @@
                 </form>
             </table>
             <c:choose>
-                <c:when test="${not empty registerMessage}">
+                <c:when test="${not empty successMessage}">
                     <div class="accesReg">
-                        <text><fmt:message key="success.added.course"/></text>
+                        <text><fmt:message key="course.success.message"/></text>
                     </div>
 
                 </c:when>
 
             </c:choose>
             <c:choose>
-                <c:when test="${not empty updateMessage}">
-                    <div class="accesReg">
-                        <text><fmt:message key="success.update.course"/></text>
-                    </div>
-
-                </c:when>
-
-            </c:choose>
-            <c:choose>
-                <c:when test="${ not empty deniedRegister}">
+                <c:when test="${ not empty deniedMessage}">
                     <div class="deniedRegisterM">
-                        <fmt:message key="same.course.name"/>
+                        <text><fmt:message key="same.course.name"/></text>
                     </div>
 
                 </c:when>
-
             </c:choose>
             <c:if test="${requestScope.courseList.size()==0}">
                 <h4 class="emptyListMessage"><fmt:message key="empty.course.course.list.admin.page"/></h4>
@@ -391,9 +380,7 @@
                     </tr>
                     <tbody>
                     <c:forEach var="course" items="${requestScope.courseList}">
-                        <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
-                              onsubmit="return doSubmit()"
-                              method="get">
+                        <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="post">
                             <tr class="courseInfoTr">
                                 <td class="courseTableTd"><input class="numberInput" name="courseId"
                                                                  value="${course.id}"

@@ -1,21 +1,14 @@
 package CommandTest;
 
-import com.example.optionalcoursesfp.command.commandimpl.LoginUserCommand;
 import com.example.optionalcoursesfp.command.commandimpl.ShowCoursesCommand;
 import com.example.optionalcoursesfp.command.commandimpl.ShowCoursesForStudentCommand;
 import com.example.optionalcoursesfp.command.commandimpl.SortCourseCommand;
 import com.example.optionalcoursesfp.entity.Course;
-import com.example.optionalcoursesfp.entity.User;
-import com.example.optionalcoursesfp.entity.UserRole;
 import com.example.optionalcoursesfp.exeption.DatabaseException;
-import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.repository.CourseRepository;
 import com.example.optionalcoursesfp.repository.impl.CourseRepositoryImpl;
 import com.example.optionalcoursesfp.service.CourseService;
-import com.example.optionalcoursesfp.service.StudentService;
 import com.example.optionalcoursesfp.service.TeacherService;
-import com.example.optionalcoursesfp.service.UserService;
-import com.example.optionalcoursesfp.service.impl.CourseServiceImp;
 import com.example.optionalcoursesfp.util.connection.ConnectionPool;
 import com.example.optionalcoursesfp.util.transaction.TransactionManager;
 import org.junit.jupiter.api.Test;

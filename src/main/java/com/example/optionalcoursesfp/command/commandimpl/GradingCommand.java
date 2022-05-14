@@ -55,14 +55,15 @@ and set student mark into DB
                     log.info(student + "grading thirdCourseMark");
                 }
             }
-            request.setAttribute("userRole", "teacher");
-            new ShowCoursesCommand(courseService, teacherService).executeCommand(request, response);
+            response.sendRedirect("dispatcher-servlet?pageName=showCourses&successMessage=marks");
         } catch (SQLQueryException e) {
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
             } catch (ServletException | IOException ex) {
                 ex.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

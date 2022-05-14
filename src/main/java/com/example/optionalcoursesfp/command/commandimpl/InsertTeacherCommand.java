@@ -36,23 +36,23 @@ public class InsertTeacherCommand implements Command {
             if (userService.isTheUserAlready(request.getParameter("user_email"), request.getParameter("phone_number")) == 0) {
                 userService.insertUser(request.getParameter("user_email"), request.getParameter("user_password"), UserRole.determineUserRoleNumber(UserRole.TEACHER), request.getParameter("phone_number"));
             } else {
-                request.setAttribute("deniedRegister", "Пользователь с таким логином уже существует!");
                 log.info("teacher- " + request.getParameter("user_email") + "wasn't added");
-                new ShowTeacherCommand(teacherService, courseService).executeCommand(request, response);
+                response.sendRedirect("dispatcher-servlet?pageName=showTeachers&deniedMessage=message");
                 return;
             }
             log.info(request.getParameter("user_fullname"));
             teacherService.addTeacher(request.getParameter("user_email")
                     , request.getParameter("user_password"), request.getParameter("user_fullname"));
             log.info("teacher- " + request.getParameter("user_email") + "was added successfully");
-            request.setAttribute("registerMessage", "Регистрация прошла упешно!");
-            new ShowTeacherCommand(teacherService, courseService).executeCommand(request, response);
-        } catch (DatabaseException | SQLQueryException throwables) {
+           response.sendRedirect("dispatcher-servlet?pageName=showTeachers&successMessage=message");
+        } catch (DatabaseException | SQLQueryException e) {
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request, response);
             } catch (ServletException | IOException ex) {
                 ex.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

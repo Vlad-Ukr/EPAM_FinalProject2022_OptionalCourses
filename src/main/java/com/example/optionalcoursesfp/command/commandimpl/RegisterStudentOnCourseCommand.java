@@ -40,20 +40,20 @@ public class RegisterStudentOnCourseCommand implements Command {
             log.info(request.getParameter("courseStatus"));
             if ((Integer.parseInt(request.getParameter("courseAmountOfStudent")) - Integer.parseInt(request.getParameter("courseMaxAmountOfStudent"))) == 0) {
                 request.setAttribute("maxAmountOfStudent", "На этом курсе больше нет мест!");
-                new ShowCoursesForStudentCommand(courseService, teacherService).executeCommand(request, response);
+                response.sendRedirect("dispatcher-servlet?pageName=showCoursesStudent&deniedMessage=maxAmountOfStudent");
                 return;
             } else if (request.getParameter("courseStatus") != null && request.getParameter("courseStatus").equals("Ended")) {
                 request.setAttribute("endCourse", "Этот курс уже закончен!");
-                new ShowCoursesForStudentCommand(courseService, teacherService).executeCommand(request, response);
+                response.sendRedirect("dispatcher-servlet?pageName=showCoursesStudent&deniedMessage=endCourse");
                 return;
             } else if (request.getParameter("courseStatus") != null && request.getParameter("courseStatus").equals("In process")) {
                 request.setAttribute("goingCourse", "Набор на этот курс уже закончен!");
-                new ShowCoursesForStudentCommand(courseService, teacherService).executeCommand(request, response);
+                response.sendRedirect("dispatcher-servlet?pageName=showCoursesStudent&deniedMessage=goingCourse");
                 return;
             } else if (student.getStatus().equals("Blocked")) {
                 request.setAttribute("blockedStudent", "Вы не можете зарегестрироваться!" +
                         "\n Вы заблокированы! ");
-                new ShowCoursesForStudentCommand(courseService, teacherService).executeCommand(request, response);
+                response.sendRedirect("dispatcher-servlet?pageName=showCoursesStudent&deniedMessage=blockedStudent");
                 return;
             }
             studentService.registerStudentOnCourse(student, Integer.parseInt(request.getParameter("courseId")));
@@ -66,11 +66,30 @@ public class RegisterStudentOnCourseCommand implements Command {
                 ex.printStackTrace();
             }
         } catch (StudentAlreadyRegisteredException e) {
+            try {
+                response.sendRedirect("dispatcher-servlet?pageName=showCoursesStudent&deniedMessage=studentAlreadyRegistered");
+                return;
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             request.setAttribute("studentAlreadyRegistered", "Вы уже зарегестрированы на этот курс!");
         } catch (MaxAmountOfRegistrationException e) {
+            try {
+                response.sendRedirect("dispatcher-servlet?pageName=showCoursesStudent&deniedMessage=maxAmountOfRegistration");
+                return;
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             request.setAttribute("maxAmountOfRegistration", "Вы уже зарегестрированы на максимольное количество курсов(3)!");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        request.setAttribute("accessedRegistration", "Вы успешно записались на курс!");
-        new ShowCoursesForStudentCommand(courseService, teacherService).executeCommand(request, response);
+        try {
+            response.sendRedirect("dispatcher-servlet?pageName=showCoursesStudent&successMessage=message");
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
+

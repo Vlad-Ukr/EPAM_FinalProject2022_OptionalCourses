@@ -1,6 +1,8 @@
 
 F
 java:S2160"+Override the "equals" method in this class.(Á¨Ñ¼üÿÿÿÿ
+I
+java:S1948	",Make "courseList" transient or serializable.(•øþ´8„äÏé‹0
 O
 java:S11615":Add the "@Override" annotation above this method signature(’¹¾
 

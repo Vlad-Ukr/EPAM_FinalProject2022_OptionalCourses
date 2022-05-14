@@ -56,15 +56,15 @@ public class EndCourse implements Command {
                 }
             }
                 courseService.endCourse(Integer.parseInt(request.getParameter("courseId")));
-                request.setAttribute("endMessage", "Курс закончен! Оценки Выставлены!");
-            request.setAttribute("userRole", "teacher");
-            new ShowCoursesCommand(courseService, teacherService).executeCommand(request, response);
+            response.sendRedirect("dispatcher-servlet?pageName=showCourses&successMessage=endCourse ");
         } catch (SQLQueryException e) {
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
             } catch (ServletException | IOException ex) {
                 ex.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     /*

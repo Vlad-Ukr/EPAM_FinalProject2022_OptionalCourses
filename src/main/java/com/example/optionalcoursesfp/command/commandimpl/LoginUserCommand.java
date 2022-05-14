@@ -53,8 +53,9 @@ public class LoginUserCommand implements Command {
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("userLogin", user.getLogin());
         try {
-           request.getRequestDispatcher(getAddressToUserRolePage(user, request, response)).forward(request, response);
-       } catch (ServletException | IOException e) {
+            response.sendRedirect("dispatcher-servlet?rolePage=" +
+                    getAddressToUserRolePage(user, request, response)+"&pageName=instruction" );
+       } catch ( IOException e) {
            e.printStackTrace();
         }
     }
@@ -65,7 +66,6 @@ public class LoginUserCommand implements Command {
         switch (user.getRole()) {
             case ADMIN:
                 log.info(user.toString());
-                request.setAttribute("pageName", "instruction");
                 request.getSession().setAttribute("userRole", "admin");
                 return "admin.jsp";
             case STUDENT:
@@ -79,7 +79,6 @@ public class LoginUserCommand implements Command {
                         ex.printStackTrace();
                     }
                 }
-                request.setAttribute("pageName", "instruction");
                 request.getSession().setAttribute("userRole", "student");
                 return "student.jsp";
             case TEACHER:
@@ -93,7 +92,6 @@ public class LoginUserCommand implements Command {
                         ex.printStackTrace();
                     }
                 }
-                request.setAttribute("pageName", "instruction");
                 request.getSession().setAttribute("userRole", "teacher");
                 return "teacher.jsp";
         }

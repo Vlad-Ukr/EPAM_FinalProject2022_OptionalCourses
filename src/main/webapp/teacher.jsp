@@ -78,15 +78,15 @@
                         </div>
                     </c:when>
                 </c:choose>
-                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="post"
-                      enctype="multipart/form-data">
-                    <input type="file" name="loadAvatar" id="headImg">
-                    <style>#headImg::before {
-                        content: '<fmt:message key="select.avatar.button"/>';
-                    }</style>
-                    <button class="loadAvatar" name="pageName" type="submit" value="loadAvatar"><fmt:message
-                            key="load.button"/></button>
-                </form>
+                    <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="post"
+                          enctype="multipart/form-data">
+                        <input type="file" name="loadAvatar" id="headImg">
+                        <style>#headImg::before {
+                            content: '<fmt:message key="select.avatar.button"/>';
+                        }</style>
+                        <button class="loadAvatar" name="pageName" type="submit" value="loadAvatar"><fmt:message
+                                key="load.button"/></button>
+                    </form>
                 <h3>Email: ${sessionScope.teacher.login}</h3>
                 <h3><fmt:message key="register.table.SNP"/>: ${sessionScope.teacher.fullName}</h3>
                 <h3><fmt:message key="register.phone.number"/>: ${sessionScope.user.phoneNumber}</h3>
@@ -193,15 +193,20 @@
             </c:forEach>
         </c:if>
     </div>
-    <c:if test="${not empty endMessage}">
+    <c:if test="${successMessage=='endCourse'}">
     <div class="endMessage">
         <text><fmt:message key="course.is.over.mark.exposed"/></text>
+    </div>
+    </c:if>
+    <c:if test="${successMessage=='marks'}">
+    <div class="endMessage">
+        <text><fmt:message key="ratings.posted"/></text>
     </div>
     </c:if>
     </c:when>
     <c:when test="${pageName==journalPage}">
     <div class="selectCourseJournal">
-        <form class="studentInfoForm" action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
+        <form class="studentInfoForm" action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="post">
             <table class="studentInfo">
                 <caption><fmt:message key="teacher.page.students.on.course"/></caption>
                 <c:if test="${sessionScope.students.size()==0}">
@@ -213,31 +218,35 @@
                     <c:when test="${requestScope.course.status=='In process'}">
                         <c:forEach var="student" items="${sessionScope.students}">
                             <tr>
-                                <td><input class="dataInput" name="studentFullName" value="${student.fullName}"
-                                           readonly="readonly"></td>
-                                <td><input name="dataInput" value="${requestScope.course.id}"
-                                           type="hidden"></td>
 
                                 <c:if test="${student.status=='Blocked'}">
+                                    <td><input class="dataInput" name="studentFullName" value="${student.fullName}"
+                                               readonly="readonly" style="border: solid #ff3c00;"></td>
+                                    <td><input name="dataInput" value="${requestScope.course.id}"
+                                               type="hidden"></td>
                                     <c:choose>
                                         <c:when test="${student.firstCourseId==requestScope.course.id}">
                                             <td><input class="numberInput" name="firstCourseMark${student.id}"
                                                        value="${student.firstCourseMark}"
-                                                       type="number" readonly></td>
+                                                       type="number" readonly style="border: solid #ff3c00;"></td>
                                         </c:when>
                                         <c:when test="${student.secondCourseId==requestScope.course.id}">
                                             <td><input class="numberInput" name="secondCourseMark${student.id}"
                                                        value="${student.secondCourseMark}"
-                                                       type="number" readonly></td>
+                                                       type="number" readonly style="border: solid #ff3c00;"></td>
                                         </c:when>
                                         <c:when test="${student.thirdCourseId==requestScope.course.id}">
                                             <td><input class="numberInput" name="thirdCourseMark${student.id}"
                                                        value="${student.thirdCourseMark}"
-                                                       type="number" readonly></td>
+                                                       type="number" readonly style="border: solid #ff3c00;"></td>
                                         </c:when>
                                     </c:choose>
                                 </c:if>
                                 <c:if test="${student.status!='Blocked'}">
+                                    <td><input class="dataInput" name="studentFullName" value="${student.fullName}"
+                                               readonly="readonly"></td>
+                                    <td><input name="dataInput" value="${requestScope.course.id}"
+                                               type="hidden"></td>
                                     <c:choose>
                                         <c:when
                                                 test="${student.firstCourseId==requestScope.course.id}">

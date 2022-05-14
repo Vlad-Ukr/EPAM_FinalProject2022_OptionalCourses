@@ -53,7 +53,7 @@
 
     </c:when>
 
-    <c:when test="${ not empty registerMessage}">
+    <c:when test="${not empty sessionScope.registerMessage}">
         <div class="accesReg">
             <text><fmt:message key="register.message"/></text>
         </div>

@@ -35,13 +35,13 @@ public class ShowTeacherCommand implements Command {
         try {
             List<Teacher> teacherList = teacherService.getAllTeachers();
             List<Course> courseList = courseService.getAllCourses();
-                    logger.info(teacherList.toString());
             request.getSession().setAttribute("teacherList", teacherList);
-            request.setAttribute("teacherList", teacherList);
             request.setAttribute("courseList",courseList);
             request.setAttribute("pageName", "showTeachers");
+            logger.info(request.getAttribute("successMessage"));
             request.getRequestDispatcher("admin.jsp").forward(request, response);
         } catch (SQLQueryException e) {
+            e.printStackTrace();
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
             } catch (ServletException | IOException ex) {

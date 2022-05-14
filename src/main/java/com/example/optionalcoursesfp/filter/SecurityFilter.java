@@ -16,7 +16,7 @@ public class SecurityFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-       Filter.super.init(filterConfig);
+        Filter.super.init(filterConfig);
     }
 
     @Override
@@ -26,18 +26,25 @@ public class SecurityFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
         User user = (User) httpRequest.getSession().getAttribute("user");
         String uri = httpRequest.getRequestURI();
-        log.info(uri);
+        if (uri.matches(".*(css|jpg|png|gif|js)")) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
         Pattern pattern = Pattern.compile("\\w+\\.");
         Matcher matcher = pattern.matcher(uri);
         String role = "";
+        log.info(user);
+        log.info(uri);
         while (matcher.find()) {
             role = matcher.group().replaceAll("\\.", "");
         }
-        if (user == null && !uri.equals("/OptionalCoursesFP_war_exploded/loginPage.jsp")
-                && !uri.equals("/OptionalCoursesFP_war_exploded/registerPage.jsp")) {
+        if (user == null && (uri.contains("/loginPage.jsp") || uri.contains("/registerPage.jsp")
+                || uri.contains("/dispatcher-servlet") || uri.contains("/changeLocale"))) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        } else if (user == null || (!user.getRole().toString().toLowerCase().equals(role) && !uri.contains("/dispatcher-servlet") && !uri.contains("/changeLocale"))) {
             httpRequest.getRequestDispatcher("securityError.jsp").forward(httpRequest, httpResponse);
-        } else if (!user.getRole().toString().toLowerCase().equals(role)) {
-            httpRequest.getRequestDispatcher("securityError.jsp").forward(httpRequest, httpResponse);
+            return;
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

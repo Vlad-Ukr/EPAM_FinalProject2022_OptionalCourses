@@ -30,7 +30,7 @@ than command send denied message
             courseService.updateCourse(Integer.parseInt(request.getParameter("courseId")),request.getParameter("courseName")
                     ,Integer.parseInt(request.getParameter("courseDuration")),Integer.parseInt(request.getParameter("courseMaxAmountOfStudent")),request.getParameter("courseTopic"));
             request.setAttribute("updateMessage", "Курс упешно обновлен!");
-            new ShowCoursesCommand(courseService,teacherService).executeCommand(request,response);
+            response.sendRedirect("dispatcher-servlet?pageName=showCourses&successMessage=message");
         } catch (SQLQueryException e) {
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
@@ -39,7 +39,13 @@ than command send denied message
             }
         } catch (CourseAlreadyExistException e) {
             request.setAttribute("deniedRegister", "Курс с таким названием уже существует");
-            new ShowCoursesCommand(courseService,teacherService).executeCommand(request,response);
+            try {
+                response.sendRedirect("dispatcher-servlet?pageName=showCourses&deniedMessage=message");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
