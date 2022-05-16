@@ -16,7 +16,7 @@
 
             var rows = document.getElementById(tableName).rows;
 
-// i starts from 1 to skip table header row
+
 
             for (var i = 1; i < rows.length; i++) {
 

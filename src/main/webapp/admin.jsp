@@ -1,30 +1,30 @@
+<%@ include file="/jspf/taglib.jspf" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<fmt:requestEncoding value="UTF-8"/>
+<tags:pagination>pagination</tags:pagination>
+<tags:security>security</tags:security>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Optional Courses</title>
-    <%@ include file="/jspf/taglib.jspf" %>
-    <%@ page contentType="text/html; charset=UTF-8" %>
-    <fmt:requestEncoding value="UTF-8"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <link href="frontend/adminPage.css" rel="stylesheet" type="text/css">
     <link href="frontend/courseWorkPage.css" rel="stylesheet" type="text/css">
     <link href="frontend/teacherWorkPage.css" rel="stylesheet" type="text/css">
     <link href="frontend/studentWorkPage.css" rel="stylesheet" type="text/css">
-    <script src="frontend/sendFormController.js"></script>
-    <script src="frontend/confirmPassword.js"></script>
+    <script src="frontend/confirmPassword/confirmPassword.js" type="text/javascript"></script>
 </head>
 <body>
 <c:set var="currentPage" value="admin.jsp" scope="session"/>
 <c:set var="pageRole" scope="request" value="admin"/>
-<tags:pagination>pagination</tags:pagination>
 <div class="header">
     <div class="topBar">
-        <h4 class="greetingsHeader"><fmt:message key="greetings.message"></fmt:message> ,${sessionScope.user.login}</h4>
+        <h4 class="greetingsHeader"><fmt:message key="greetings.message"/> ,${sessionScope.user.login}</h4>
     </div>
     <div class="bottomBar">
         <table id="topBarTable">
             <td class="emptyTd">
-                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+                <form action="${pageContext.request.contextPath}/dispatcher-servlet"
                       method="get">
                     <button class="courseWorkButton" name="pageName" type="submit" value="showCourses"><fmt:message
                             key="work.with.courses.button"/>
@@ -52,8 +52,8 @@
             </td>
 
             <td class="emptyTd">
-                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
-                      method="get">
+                <form action="${pageContext.request.contextPath}/dispatcher-servlet"
+                      method="post">
                     <button class="logOutButton" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
                             name="pageName" type="submit" value="logOut">
                         <fmt:message key="log.out.button"/>
@@ -89,7 +89,7 @@
                     <th><fmt:message key="course.table.status"/></th>
                     <th><fmt:message key="teacher.table.courses"/></th>
                     <th>
-                        <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+                        <form action="${pageContext.request.contextPath}/dispatcher-servlet"
                               method="get">
                             <select class="selectBy" name="courseSelect" size="1">
                                 <option disabled><fmt:message key="student.table.select"/></option>
@@ -106,7 +106,7 @@
                     </th>
                 </tr>
                 <c:forEach var="student" items="${requestScope.studentList}">
-                    <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+                    <form action="${pageContext.request.contextPath}/dispatcher-servlet"
                           method="get">
                         <tr>
                             <td><input class="inputId" name="studentId" value="${student.id}" readonly="readonly"></td>
@@ -160,9 +160,7 @@
     <c:when test="${pageName==teacherPage}">
         <div class="workSpace">
             <table class="workSpaceTable">
-                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
-                      method="post">
-
+                <form action="${pageContext.request.contextPath}/dispatcher-servlet" method="post">
                     <td>
                         <div id="emailInput">
                             <label>Email:</label>
@@ -282,7 +280,7 @@
     <c:when test="${pageName==coursePage}">
         <div class="workSpace">
             <table class="workSpaceTable">
-                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="post">
+                <form action="${pageContext.request.contextPath}/dispatcher-servlet" method="post">
                     <td>
                         <div id="nameInput">
                             <label><fmt:message key="add.course.table.name"/>:</label>
@@ -291,7 +289,7 @@
                     <td>
                         <div id="durationInput">
                             <label><fmt:message key="add.course.table.duration.in.hours"/>:</label>
-                            <input class="inputForm" type="number" id="duration" name="courseDuration" required
+                            <input class="inputForm" type="number" id="duration" name="courseDuration"
                                    value="1"
                                    min="1" required>
                         </div>
@@ -299,7 +297,7 @@
                     <td>
                         <div id="maxAmountInput">
                             <label><fmt:message key="course.table.max.amount"/>:</label>
-                            <input class="inputForm" type="number" id="maxAmount" name="maxAmount" required value="1"
+                            <input class="inputForm" type="number" id="maxAmount" name="maxAmount"  value="1"
                                    min="1" required>
                             <input class="inputForm" type="hidden" name="pageName" value="insertCourse"/>
                         </div>
@@ -350,7 +348,7 @@
             </c:if>
             <c:if test="${requestScope.courseList.size()!=0}">
             <table class="courseInfoTable" id="table-id">
-                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+                <form action="${pageContext.request.contextPath}/dispatcher-servlet"
                       method="get">
                     <tr class="courseTr">
                         <th class="courseTh">Id</th>
@@ -380,7 +378,7 @@
                     </tr>
                     <tbody>
                     <c:forEach var="course" items="${requestScope.courseList}">
-                        <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="post">
+                        <form action="${pageContext.request.contextPath}/dispatcher-servlet" method="post">
                             <tr class="courseInfoTr">
                                 <td class="courseTableTd"><input class="numberInput" name="courseId"
                                                                  value="${course.id}"

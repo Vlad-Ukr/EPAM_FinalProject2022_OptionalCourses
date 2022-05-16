@@ -1,6 +1,7 @@
 package com.example.optionalcoursesfp.command.commandimpl;
 
 import com.example.optionalcoursesfp.command.Command;
+import com.example.optionalcoursesfp.entity.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +17,8 @@ public class LogOutCommand implements Command
     public void executeCommand(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().invalidate();
         try {
-            request.getRequestDispatcher("loginPage.jsp").forward(request,response);
-        } catch (ServletException | IOException e) {
+            response.sendRedirect("loginPage.jsp");
+        }  catch (IOException e) {
             e.printStackTrace();
         }
     }

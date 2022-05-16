@@ -7,8 +7,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Registration</title>
     <link href="frontend/registerPageCSS.css" rel="stylesheet" type="text/css">
-    <script src="frontend/sendFormController.js"></script>
-    <script src="frontend/confirmPassword.js"></script>
+    <script src="frontend/confirmPassword/confirmPassword.js"></script>
     <head/>
 <body style="font-family:Arial, Verdana, sans-serif;color:#72157C">
 <c:set var="currentPage" value="registerPage.jsp" scope="session"/>
@@ -76,7 +75,6 @@
         </div>
 
     </c:when>
-
 </c:choose>
 <div title="We stand with Ukraine" id="standWithUA"></div>
 </body>

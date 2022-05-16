@@ -1,15 +1,16 @@
-
 <%@ include file="/jspf/taglib.jspf" %>
+<tags:pagination>pagination</tags:pagination>
+<tags:security>security</tags:security>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Optional Courses</title>
     <link href="frontend/student.css" rel="stylesheet" type="text/css">
+    <script src="frontend/confirmPassword/confirmPassword.js" type="text/javascript"></script>
 </head>
 <body>
 <c:set var="currentPage" value="student.jsp" scope="session"/>
 <c:set var="pageRole" scope="request" value="student"/>
-<tags:pagination>pagination</tags:pagination>
 <div class="header">
     <div class="topBar">
         <h4 class="greetingsHeader"><fmt:message key="greetings.message"/>, ${sessionScope.userLogin}</h4>
@@ -17,7 +18,7 @@
     <div class="bottomBar">
         <table id="topBarTable">
             <td class="emptyTd">
-                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
+                <form action="${pageContext.request.contextPath}/dispatcher-servlet" method="get">
                     <button class="homePage" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
                             formmethod="get" name="pageName" type="submit" value="homePage"><fmt:message
                             key="student.page.home.page"/>
@@ -41,7 +42,7 @@
             </td>
 
             <td class="emptyTd">
-                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+                <form action="${pageContext.request.contextPath}/dispatcher-servlet" onsubmit="return doSubmit()"
                       method="get">
                     <button class="logOutButton" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
                             name="pageName" type="submit" value="logOut">
@@ -65,7 +66,7 @@
     </c:when>
     <c:when test="${pageName==coursePage}">
         <div class="workSpace">
-            <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
+            <form action="${pageContext.request.contextPath}/dispatcher-servlet" method="get">
                 <input name="studentPageMarker" value="true" type="hidden">
                 <button class="showAllCoursesButton" name="pageName" type="submit" value="showCoursesStudent">
                     <fmt:message key="student.page.list.of.courses"/>
@@ -150,7 +151,7 @@
             <th class="courseTh"><fmt:message key="add.course.table.teacher"/></th>
             <th class="courseTh"><fmt:message key="course.table.status"/></th>
             <c:forEach var="course" items="${requestScope.courseList}">
-                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="post">
+                <form action="${pageContext.request.contextPath}/dispatcher-servlet" method="post">
                     <tr>
                         <td class="courseTableTd"><input class="dataInput" name="courseName"
                                                          value="${course.name}"
@@ -229,7 +230,7 @@
                                 </div>
                             </c:when>
                         </c:choose>
-                        <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="post" enctype="multipart/form-data">
+                        <form action="${pageContext.request.contextPath}/dispatcher-servlet" method="post" enctype="multipart/form-data">
                             <input type="file" name="loadAvatar" id="headImg">
                             <style>#headImg::before {  content:'<fmt:message key="select.avatar.button"/>';}</style>
                             <button class="loadAvatar" name="pageName" type="submit" value="loadAvatar"><fmt:message key="load.button"/></button>

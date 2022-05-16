@@ -38,12 +38,16 @@ public class SecurityFilter implements Filter {
         while (matcher.find()) {
             role = matcher.group().replaceAll("\\.", "");
         }
-        if (user == null && (uri.contains("/loginPage.jsp") || uri.contains("/registerPage.jsp")
-                || uri.contains("/dispatcher-servlet") || uri.contains("/changeLocale"))) {
+        if ((uri.contains("/loginPage.jsp") || uri.contains("/registerPage.jsp")
+                 || uri.contains("/changeLocale"))||(user == null &&  uri.contains("/dispatcher-servlet"))) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
-        } else if (user == null || (!user.getRole().toString().toLowerCase().equals(role) && !uri.contains("/dispatcher-servlet") && !uri.contains("/changeLocale"))) {
-            httpRequest.getRequestDispatcher("securityError.jsp").forward(httpRequest, httpResponse);
+
+        }
+       else if((user==null && !uri.contains("/dispatcher-servlet"))
+                || (!user.getRole().toString().toLowerCase().equals(role) && !uri.contains("/dispatcher-servlet"))){
+            httpRequest.getSession().invalidate();
+            httpResponse.sendRedirect("loginPage.jsp");
             return;
         }
         filterChain.doFilter(servletRequest, servletResponse);

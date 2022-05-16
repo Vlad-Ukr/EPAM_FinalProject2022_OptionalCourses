@@ -1,10 +1,12 @@
 <%@ include file="/jspf/taglib.jspf" %>
-<fmt:requestEncoding value="UTF-8"/>
+<tags:pagination>pagination</tags:pagination>
+<tags:security>security</tags:security>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Optional Courses</title>
     <link href="frontend/teacher.css" rel="stylesheet" type="text/css">
+    <script src="frontend/confirmPassword/confirmPassword.js" type="text/javascript"></script>
 </head>
 <body>
 <c:set var="currentPage" value="teacher.jsp" scope="session"/>
@@ -16,7 +18,7 @@
     <div class="bottomBar">
         <table>
             <td class="emptyTd">
-                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
+                <form action="${pageContext.request.contextPath}/dispatcher-servlet" method="get">
                     <button class="homePage" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
                             formmethod="get" name="pageName" type="submit" value="homePage"><fmt:message
                             key="student.page.home.page"/>
@@ -41,7 +43,7 @@
             </td>
 
             <td class="emptyTd">
-                <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+                <form action="${pageContext.request.contextPath}/dispatcher-servlet"
                       method="get">
                     <button class="logOutButton" formaction="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
                             name="pageName" type="submit" value="logOut">
@@ -78,7 +80,7 @@
                         </div>
                     </c:when>
                 </c:choose>
-                    <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="post"
+                    <form action="${pageContext.request.contextPath}/dispatcher-servlet" method="post"
                           enctype="multipart/form-data">
                         <input type="file" name="loadAvatar" id="headImg">
                         <style>#headImg::before {
@@ -107,7 +109,7 @@
                         <th><fmt:message key="add.course.table.topic"/></th>
                         <th><fmt:message key="course.table.status"/></th>
                         <c:forEach var="course" items="${requestScope.teacherCourses}">
-                            <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
+                            <form action="${pageContext.request.contextPath}/dispatcher-servlet" method="get">
                                 <tr>
                                     <td class="courseTableTd"><input class="dataInput" name="courseName"
                                                                      value="${course.name}"
@@ -182,7 +184,7 @@
         <c:if test="${requestScope.courseList.size()!=0}">
             <c:forEach var="course" items="${requestScope.courseList}">
                 <div class="courseSelectButton">
-                    <form action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="get">
+                    <form action="${pageContext.request.contextPath}/dispatcher-servlet" method="get">
                         <button class="showCoursesButton" name="pageName" type="submit"
                                 value="showJournal">${course.name}
                         </button>
@@ -206,7 +208,7 @@
     </c:when>
     <c:when test="${pageName==journalPage}">
     <div class="selectCourseJournal">
-        <form class="studentInfoForm" action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" method="post">
+        <form class="studentInfoForm" action="${pageContext.request.contextPath}/dispatcher-servlet" method="post">
             <table class="studentInfo">
                 <caption><fmt:message key="teacher.page.students.on.course"/></caption>
                 <c:if test="${sessionScope.students.size()==0}">

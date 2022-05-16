@@ -23,13 +23,15 @@ public class DeleteCourseCommand implements Command {
     public void executeCommand(HttpServletRequest request, HttpServletResponse response) {
         try {
             courseService.deleteCourse(Integer.parseInt(request.getParameter("courseId")));
-            new ShowCoursesCommand(courseService, teacherService).executeCommand(request, response);
+            response.sendRedirect("dispatcher-servlet?pageName=showCourses");
         } catch (SQLQueryException e) {
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
             } catch (ServletException | IOException ex) {
                 ex.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

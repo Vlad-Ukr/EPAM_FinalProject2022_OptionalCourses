@@ -6,11 +6,10 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Logging</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/frontend/loginPageCSS.css" >
-    <script src="frontend/sendFormController.js"></script>
-    <head/>
+        <head/>
 <body style="font-family:Arial, Verdana, sans-serif;color:#72157C">
 <c:set var="currentPage" value="loginPage.jsp" scope="session"/>
-<form class="loginForm" action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+<form class="loginForm" action="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
       method="post">
     <h3 class="loginH3"><fmt:message key="login.header"/></h3>
     <div id="loginInput">

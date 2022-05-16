@@ -4,7 +4,7 @@ var check = function () {
         document.getElementById('confirm_password').value
         &&document.getElementById('password').value.length!==0&&document.getElementById('password').value.length){
         document.getElementById('message').style.color = 'green';
-        document.getElementById('message').innerHTML = 'Пароли совпадают';
+        document.getElementById('message').innerHTML = 'Passwords matches';
         document.getElementById('registerButton').disabled = false;
         document.getElementById('confirm_password').style.borderColor = 'green'
     } else {
