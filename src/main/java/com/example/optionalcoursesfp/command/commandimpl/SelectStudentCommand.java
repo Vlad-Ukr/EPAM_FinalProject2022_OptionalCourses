@@ -6,8 +6,10 @@ import com.example.optionalcoursesfp.service.CourseService;
 import com.example.optionalcoursesfp.service.StudentService;
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class SelectStudentCommand implements Command {
     private final StudentService studentService;
@@ -36,6 +38,11 @@ public class SelectStudentCommand implements Command {
             }
         } catch (SQLQueryException e) {
             e.printStackTrace();
+            try {
+                request.getRequestDispatcher("Error.jsp").forward(request,response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
         }
         new ShowStudentCommand(studentService,courseService).executeCommand(request,response);
     }

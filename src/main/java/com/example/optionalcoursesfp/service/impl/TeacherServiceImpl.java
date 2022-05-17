@@ -12,32 +12,27 @@ import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 public class TeacherServiceImpl implements TeacherService {
-    private static final Logger log =Logger.getLogger(TeacherServiceImpl.class);
     private final UserRepository userRepository;
     private final TeacherRepository teacherRepository;
     private final ConnectionPool connectionPool;
-    private final TransactionManager transactionManager;
 
-    public TeacherServiceImpl(UserRepository userRepository, TeacherRepository teacherRepository, ConnectionPool connectionPool, TransactionManager transactionManager) {
+    public TeacherServiceImpl(UserRepository userRepository, TeacherRepository teacherRepository, ConnectionPool connectionPool) {
         this.userRepository = userRepository;
         this.teacherRepository = teacherRepository;
         this.connectionPool = connectionPool;
-        this.transactionManager = transactionManager;
     }
 
     @Override
     public List<Teacher> getAllTeachers() throws SQLQueryException {
         try (Connection con = connectionPool.getConnection()){
             return teacherRepository.getAllTeachers(con);
-        } catch (DatabaseException exception) {
-            exception.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException exception) {
+            throw new SQLQueryException(exception.getMessage(),exception);
         }
-        return null;
     }
 
     @Override
@@ -45,7 +40,7 @@ public class TeacherServiceImpl implements TeacherService {
         try (Connection con = connectionPool.getConnection()) {
             teacherRepository.addTeacher(login,fullName,password,con,userRepository);
         } catch (SQLException throwables) {
-            throw new SQLQueryException();
+            throw new SQLQueryException(throwables.getMessage(),throwables);
         }
     }
 
@@ -54,7 +49,7 @@ public class TeacherServiceImpl implements TeacherService {
         try (Connection con = connectionPool.getConnection()) {
             return teacherRepository.getTeacherByLogin(login,con);
         } catch (SQLException throwables) {
-            throw new SQLQueryException();
+            throw new SQLQueryException(throwables.getMessage(),throwables);
         }
     }
 }

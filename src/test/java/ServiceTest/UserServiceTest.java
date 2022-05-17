@@ -4,9 +4,7 @@ import com.example.optionalcoursesfp.entity.User;
 import com.example.optionalcoursesfp.entity.UserRole;
 import com.example.optionalcoursesfp.exeption.DatabaseException;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
-import com.example.optionalcoursesfp.repository.TeacherRepository;
 import com.example.optionalcoursesfp.repository.UserRepository;
-import com.example.optionalcoursesfp.repository.impl.TeacherRepositoryImpl;
 import com.example.optionalcoursesfp.repository.impl.UserRepositoryImpl;
 import com.example.optionalcoursesfp.service.UserService;
 import com.example.optionalcoursesfp.service.impl.UserServiceImpl;
@@ -30,7 +28,7 @@ public class UserServiceTest {
         UserRepository userRepository=new UserRepositoryImpl();
         Connection connection=mock(Connection.class);
         ConnectionPool connectionPool=mock(ConnectionPool.class);
-        UserService userService=new UserServiceImpl(userRepository,connectionPool,transactionManager);
+        UserService userService=new UserServiceImpl(userRepository,connectionPool);
         try {
             when(connectionPool.getConnection()).thenReturn(connection);
         } catch (DatabaseException e) {
@@ -56,7 +54,7 @@ public class UserServiceTest {
         User actual = null;
         try {
             actual=userService.getUserByLoginAndPassword("login","password");
-        } catch (DatabaseException e) {
+        } catch ( SQLQueryException e) {
             e.printStackTrace();
         }
         assertEquals(expected,actual);
@@ -67,7 +65,7 @@ public class UserServiceTest {
         UserRepository userRepository=new UserRepositoryImpl();
         Connection connection=mock(Connection.class);
         ConnectionPool connectionPool=mock(ConnectionPool.class);
-        UserService userService=new UserServiceImpl(userRepository,connectionPool,transactionManager);
+        UserService userService=new UserServiceImpl(userRepository,connectionPool);
         try {
             when(connectionPool.getConnection()).thenReturn(connection);
         } catch (DatabaseException e) {
@@ -81,7 +79,7 @@ public class UserServiceTest {
             e.printStackTrace();
         }
         try {
-            userService.insertUser("login","password",1);
+            userService.insertUser("login","password",1,"+380663004233");
         } catch (SQLQueryException | DatabaseException e) {
             e.printStackTrace();
         }
@@ -92,7 +90,7 @@ public class UserServiceTest {
         UserRepository userRepository=new UserRepositoryImpl();
         Connection connection=mock(Connection.class);
         ConnectionPool connectionPool=mock(ConnectionPool.class);
-        UserService userService=new UserServiceImpl(userRepository,connectionPool,transactionManager);
+        UserService userService=new UserServiceImpl(userRepository,connectionPool);
         try {
             when(connectionPool.getConnection()).thenReturn(connection);
         } catch (DatabaseException e) {
@@ -114,8 +112,8 @@ public class UserServiceTest {
         }
         int actual = 0;
         try {
-            actual=userService.isTheUserAlready("login");
-        } catch (DatabaseException throwables) {
+            actual=userService.isTheUserAlready("login","+380663004233");
+        } catch (SQLQueryException throwables) {
             throwables.printStackTrace();
         }
         assertEquals(1,actual);

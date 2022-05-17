@@ -5,6 +5,7 @@ import com.example.optionalcoursesfp.entity.Student;
 import com.example.optionalcoursesfp.entity.Teacher;
 import com.example.optionalcoursesfp.entity.User;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
+import com.example.optionalcoursesfp.photo.PhotoManager;
 import com.example.optionalcoursesfp.service.CourseService;
 import org.apache.log4j.Logger;
 
@@ -12,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 
 public class HomeCommand implements Command {
     private final CourseService courseService;
@@ -29,11 +31,20 @@ public class HomeCommand implements Command {
         User user = (User) request.getSession().getAttribute("user");
         try {
             if (user == null) {
-                request.getRequestDispatcher("securityError.jsp").forward(request, response);
+                response.sendRedirect("loginPage.jsp");
+                return;
+            }
+            if(request.getSession().getAttribute("base64Encoded")==null){
+                PhotoManager photoManager = new PhotoManager("C:\\Users\\sasha\\apache-tomcat-9.0.58\\usersAvatars");
+                request.getSession().setAttribute("base64Encoded", photoManager.getByteStringOfUploadedPhoto(user.getAvatarImageName()));
             }
             forwardToUserHomePage(user, request, response);
         } catch (ServletException | IOException | SQLQueryException e) {
-            e.printStackTrace();
+            try {
+                request.getRequestDispatcher("Error.jsp").forward(request,response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

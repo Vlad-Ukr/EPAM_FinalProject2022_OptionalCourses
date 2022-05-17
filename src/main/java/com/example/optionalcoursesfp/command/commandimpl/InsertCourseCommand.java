@@ -33,8 +33,8 @@ public class InsertCourseCommand implements Command {
             request.setAttribute("courseList",courseService.getAllCourses());
             request.setAttribute("pageName","showCourses");
             try {
-                request.getRequestDispatcher("admin.jsp").forward(request,response);
-            } catch (ServletException | IOException e) {
+                response.sendRedirect("dispatcher-servlet?pageName=showCourses&successMessage=message");
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }catch (SQLQueryException | CourseAlreadyExistException exception){
@@ -43,9 +43,15 @@ public class InsertCourseCommand implements Command {
                 request.setAttribute("courseList",courseService.getAllCourses());
                 request.setAttribute("teacherList",teacherService.getAllTeachers());
                 request.setAttribute("pageName","showCourses");
-                request.getRequestDispatcher("admin.jsp").forward(request,response);
-            } catch (ServletException | SQLQueryException | IOException e) {
-                e.printStackTrace();
+                response.sendRedirect("dispatcher-servlet?pageName=showCourses&deniedMessage=message");
+            } catch (IOException e) {
+               e.printStackTrace();
+            } catch (SQLQueryException throwables) {
+                try {
+                    request.getRequestDispatcher("Error.jsp").forward(request,response);
+                } catch (ServletException | IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
     }

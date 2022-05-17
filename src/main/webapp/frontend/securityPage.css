@@ -1,5 +1,5 @@
 body {
-    background-image: url("../images/BackGround1.png");
+    background-image: url("../images/backgrounds/BackGround1.png");
     font-size: 18px;
     color: #72157C;
     background-repeat: no-repeat;
@@ -7,7 +7,7 @@ body {
 }
 
 .securityMessage{
-    background-image: url("../images/formBackGround.png");
+    background-image: url("../images/backgrounds/formBackGround.png");
     position: fixed;
     top: 50%;
     left: 50%;

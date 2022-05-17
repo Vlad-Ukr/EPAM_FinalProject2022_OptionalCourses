@@ -26,8 +26,8 @@ public class CourseRepositoryImpl implements CourseRepository {
     private static final String GET_COURSES_BY_TOPIC="SELECT * FROM courses LEFT OUTER JOIN teacher ON teacher_id=teacher.id WHERE topic=?";
     private static final String GET_COURSES_BY_TEACHER="SELECT * FROM courses LEFT OUTER JOIN teacher ON teacher_id=teacher.id WHERE teacher_id=?";
     private static final String GET_STUDENT_REGISTERED_COURSES="SELECT * FROM courses LEFT OUTER JOIN teacher ON teacher_id=teacher.id WHERE courses.id=? OR courses.id=? OR courses.id=?";
-    private static final String START_COURSE="UPDATE courses SET courses.status='В процессе' WHERE courses.id=?";
-    private static final String END_COURSE="UPDATE courses SET courses.status='Закончен' WHERE courses.id=?";
+    private static final String START_COURSE="UPDATE courses SET courses.status='In process' WHERE courses.id=?";
+    private static final String END_COURSE="UPDATE courses SET courses.status='Ended' WHERE courses.id=?";
     private static final String ADD_FINISHED_COURSE="INSERT INTO finishedcourses(name,topic,teacherName,duration,status,mark,studentId,courseId) VALUES (?,?,?,?,?,?,?,?)";
     private static final String GET_STUDENT_FINISHED_COURSES="SELECT  * FROM finishedcourses WHERE studentId=?";
     private static final Logger log = Logger.getLogger(CourseRepositoryImpl.class);
@@ -60,7 +60,7 @@ public class CourseRepositoryImpl implements CourseRepository {
                         , resultSet.getInt("teacher_id"), resultSet.getString("status"));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return null;
     }
@@ -104,7 +104,7 @@ public class CourseRepositoryImpl implements CourseRepository {
             preparedStatement.executeUpdate();
             log.info("course was update");
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -121,7 +121,7 @@ public class CourseRepositoryImpl implements CourseRepository {
                         , resultSet.getInt("teacher_id"), resultSet.getString("status"), resultSet.getString("full_name")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }
@@ -138,7 +138,7 @@ public class CourseRepositoryImpl implements CourseRepository {
                         , resultSet.getInt("teacher_id"), resultSet.getString("status"), resultSet.getString("full_name")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }
@@ -155,7 +155,7 @@ public class CourseRepositoryImpl implements CourseRepository {
                         , resultSet.getInt("teacher_id"), resultSet.getString("status"), resultSet.getString("full_name")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }
@@ -174,7 +174,7 @@ public class CourseRepositoryImpl implements CourseRepository {
                         , resultSet.getInt("teacher_id"), resultSet.getString("status"), resultSet.getString("full_name")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }
@@ -185,7 +185,7 @@ public class CourseRepositoryImpl implements CourseRepository {
             preparedStatement.setInt(1, courseId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -195,7 +195,7 @@ public class CourseRepositoryImpl implements CourseRepository {
             preparedStatement.setInt(1, courseId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -206,13 +206,13 @@ public class CourseRepositoryImpl implements CourseRepository {
             ps.setString(2, topic);
             ps.setString(3, teacherFullName);
             ps.setInt(4, duration);
-            ps.setString(5, "Закончен");
+            ps.setString(5, "Ended");
             ps.setInt(6, mark);
             ps.setInt(7, studentId);
             ps.setInt(8, courseId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -228,7 +228,7 @@ public class CourseRepositoryImpl implements CourseRepository {
                         , resultSet.getString("status"), resultSet.getString("teacherName"), resultSet.getInt("mark")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }

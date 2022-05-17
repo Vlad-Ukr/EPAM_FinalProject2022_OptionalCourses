@@ -6,8 +6,11 @@ import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.service.CourseService;
 import com.example.optionalcoursesfp.service.TeacherService;
 import org.apache.log4j.Logger;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 public class SelectCoursesCommand implements Command {
@@ -33,6 +36,11 @@ public class SelectCoursesCommand implements Command {
             new ShowCoursesForStudentCommand(courseService, teacherService).executeCommand(request, response);
         } catch (SQLQueryException e) {
             e.printStackTrace();
+            try {
+                request.getRequestDispatcher("Error.jsp").forward(request,response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
     private List<Course> selectingCourses(int teacherId,String topic) throws SQLQueryException {

@@ -2,11 +2,9 @@ package com.example.optionalcoursesfp.command.commandimpl;
 
 import com.example.optionalcoursesfp.command.Command;
 import com.example.optionalcoursesfp.entity.Course;
-import com.example.optionalcoursesfp.entity.Student;
 import com.example.optionalcoursesfp.entity.Teacher;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.service.CourseService;
-import com.example.optionalcoursesfp.service.StudentService;
 import com.example.optionalcoursesfp.service.TeacherService;
 import org.apache.log4j.Logger;
 
@@ -35,13 +33,19 @@ public class ShowTeacherCommand implements Command {
         try {
             List<Teacher> teacherList = teacherService.getAllTeachers();
             List<Course> courseList = courseService.getAllCourses();
-                    logger.info(teacherList.toString());
             request.getSession().setAttribute("teacherList", teacherList);
-            request.setAttribute("teacherList", teacherList);
             request.setAttribute("courseList",courseList);
             request.setAttribute("pageName", "showTeachers");
+            logger.info(request.getAttribute("successMessage"));
             request.getRequestDispatcher("admin.jsp").forward(request, response);
-        } catch (SQLQueryException | ServletException | IOException e) {
+        } catch (SQLQueryException e) {
+            e.printStackTrace();
+            try {
+                request.getRequestDispatcher("Error.jsp").forward(request,response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
+        } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
     }

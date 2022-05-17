@@ -7,6 +7,8 @@ public class User implements Serializable {
     private int id;
     private String login;
     private String password;
+    private String phoneNumber;
+    private String avatarImageName;
     private UserRole role;
 
     public User() {
@@ -15,6 +17,22 @@ public class User implements Serializable {
     public User(String login, String password, UserRole role) {
         this.login = login;
         this.password = password;
+        this.role = role;
+    }
+
+    public User(int id, String login, String password, String phoneNumber, String avatarImageName, UserRole role) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.avatarImageName = avatarImageName;
+        this.role = role;
+    }
+
+    public User(String login, String password, String phoneNumber, UserRole role) {
+        this.login = login;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
         this.role = role;
     }
 
@@ -54,8 +72,20 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public static User createUser(String login, String password, UserRole role) {
-        return new User(login, password, role);
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAvatarImageName() {
+        return avatarImageName;
+    }
+
+    public void setAvatarImageName(String avatarImageName) {
+        this.avatarImageName = avatarImageName;
     }
 
     @Override
@@ -77,6 +107,8 @@ public class User implements Serializable {
                 "id=" + id +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", avatarImageName='" + avatarImageName + '\'' +
                 ", role=" + role +
                 '}';
     }

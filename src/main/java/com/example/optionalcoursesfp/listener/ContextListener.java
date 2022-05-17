@@ -27,6 +27,9 @@ import org.apache.log4j.PropertyConfigurator;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 public class ContextListener implements ServletContextListener {
     private static final Logger log = Logger.getLogger(ContextListener.class);
@@ -42,14 +45,26 @@ public class ContextListener implements ServletContextListener {
        ConnectionPool pool= new ConnectionPool();
         TransactionManager transactionManager=new TransactionManager();
         UserRepository userRepository =new UserRepositoryImpl();
-        UserService userService = new UserServiceImpl(userRepository,pool,transactionManager);
+        UserService userService = new UserServiceImpl(userRepository,pool);
         StudentRepository studentRepository=new StudentRepositoryImpl();
         StudentService studentService = new StudentServiceImpl(userRepository, studentRepository,pool,transactionManager);
         TeacherRepository teacherRepository=new TeacherRepositoryImpl();
-        TeacherService teacherService= new TeacherServiceImpl(userRepository, teacherRepository,pool,transactionManager);
+        TeacherService teacherService= new TeacherServiceImpl(userRepository, teacherRepository,pool);
         CourseRepository courseRepository=new CourseRepositoryImpl();
         CourseService courseService=new CourseServiceImp(courseRepository,pool,transactionManager);
         CommandController commandController = new CommandController(userService,studentService,teacherService,courseService);
+
+        ServletContext context = sce.getServletContext();
+        String localesFileName = context.getInitParameter("locales");
+        System.out.println(context.getInitParameter("locales"));
+        String localesFileRealPath = context.getRealPath(localesFileName);
+        Properties locales = new Properties();
+        try {
+            locales.load(new FileInputStream(localesFileRealPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        context.setAttribute("locales", locales);
         log.info("All services,repositories and command controller was initialized ");
         return new OptionalCoursesContext(userService,studentService,teacherService,courseService,commandController);
     }

@@ -31,24 +31,24 @@ public class CourseServiceImp implements CourseService {
 
     @Override
     public List<Course> getAllCourses() throws SQLQueryException {
-        try (Connection con = connectionPool.getConnection()){
+        try (Connection con = connectionPool.getConnection()) {
             return courseRepository.getAllCourses(con);
         } catch (DatabaseException exception) {
             exception.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return Collections.emptyList();
     }
 
     @Override
     public Course getCourseById(int courseId) throws SQLQueryException {
-        try (Connection con = connectionPool.getConnection()){
-            return courseRepository.getCourseById(courseId,con);
+        try (Connection con = connectionPool.getConnection()) {
+            return courseRepository.getCourseById(courseId, con);
         } catch (DatabaseException exception) {
             exception.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return null;
     }
@@ -56,125 +56,125 @@ public class CourseServiceImp implements CourseService {
     @Override
     public void addCourse(String name, int duration, int maxAmountOfStudent, String topic, int teacherId) throws SQLQueryException, CourseAlreadyExistException {
         try (Connection con = connectionPool.getConnection()) {
-            courseRepository.addCourse(name,duration,maxAmountOfStudent,topic,teacherId,con);
-        } catch (CourseAlreadyExistException exception){
-            throw new CourseAlreadyExistException(Messages.COURSE_IS_ALREADY_EXISTS,exception);
+            courseRepository.addCourse(name, duration, maxAmountOfStudent, topic, teacherId, con);
+        } catch (CourseAlreadyExistException exception) {
+            throw new CourseAlreadyExistException(Messages.COURSE_IS_ALREADY_EXISTS, exception);
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
     @Override
-    public void updateCourse(int id,String name, int duration, int maxAmountOfStudent, String topic) throws SQLQueryException,CourseAlreadyExistException {
+    public void updateCourse(int id, String name, int duration, int maxAmountOfStudent, String topic) throws SQLQueryException, CourseAlreadyExistException {
         try (Connection con = connectionPool.getConnection()) {
-            transactionManager.doTransaction(con,connection -> {
+            transactionManager.doTransaction(con, connection -> {
                 try {
-                    courseRepository.updateCourse(id,name,duration,maxAmountOfStudent,topic,connection);
+                    courseRepository.updateCourse(id, name, duration, maxAmountOfStudent, topic, connection);
                 } catch (CourseAlreadyExistException e) {
-                    throw new CourseAlreadyExistException(Messages.COURSE_IS_ALREADY_EXISTS,e);
+                    throw new CourseAlreadyExistException(Messages.COURSE_IS_ALREADY_EXISTS, e);
                 }
-            }) ;
+            });
         } catch (SQLException e) {
-            throw new CourseAlreadyExistException(Messages.COURSE_IS_ALREADY_EXISTS,e);
+            throw new CourseAlreadyExistException(Messages.COURSE_IS_ALREADY_EXISTS, e);
         }
     }
 
     @Override
     public void deleteCourse(int id) throws SQLQueryException {
         try (Connection con = connectionPool.getConnection()) {
-            transactionManager.doTransaction(con,connection -> courseRepository.deleteCourse(id,connection));
+            transactionManager.doTransaction(con, connection -> courseRepository.deleteCourse(id, connection));
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
     @Override
     public List<Course> getCoursesByTopicAndTeacher(int teacherId, String topic) throws SQLQueryException {
-        try (Connection con = connectionPool.getConnection()){
-            return courseRepository.getCoursesByTopicAndTeacher(teacherId,topic,con);
+        try (Connection con = connectionPool.getConnection()) {
+            return courseRepository.getCoursesByTopicAndTeacher(teacherId, topic, con);
         } catch (DatabaseException exception) {
             exception.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return Collections.emptyList();
     }
 
     @Override
     public List<Course> getCoursesByTopic(String topic) throws SQLQueryException {
-        try (Connection con = connectionPool.getConnection()){
-            return courseRepository.getCoursesByTopic(topic,con);
+        try (Connection con = connectionPool.getConnection()) {
+            return courseRepository.getCoursesByTopic(topic, con);
         } catch (DatabaseException exception) {
             exception.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return Collections.emptyList();
     }
 
     @Override
     public List<Course> getCoursesByTeacher(int teacherId) throws SQLQueryException {
-        try (Connection con = connectionPool.getConnection()){
-            return courseRepository.getCoursesByTeacher(teacherId,con);
+        try (Connection con = connectionPool.getConnection()) {
+            return courseRepository.getCoursesByTeacher(teacherId, con);
         } catch (DatabaseException exception) {
             exception.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return Collections.emptyList();
     }
 
     @Override
     public List<Course> getStudentRegisteredCourses(Student student) throws SQLQueryException {
-        try (Connection con = connectionPool.getConnection()){
-            return courseRepository.getStudentRegisteredCourses(student,con);
+        try (Connection con = connectionPool.getConnection()) {
+            return courseRepository.getStudentRegisteredCourses(student, con);
         } catch (DatabaseException exception) {
             exception.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return Collections.emptyList();
     }
 
     @Override
     public void startCourse(int courseId) throws SQLQueryException {
-        try (Connection con = connectionPool.getConnection()){
-            courseRepository.startCourse(courseId,con);
+        try (Connection con = connectionPool.getConnection()) {
+            courseRepository.startCourse(courseId, con);
         } catch (DatabaseException exception) {
             exception.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
     @Override
     public void endCourse(int courseId) throws SQLQueryException {
-        try (Connection con = connectionPool.getConnection()){
-            courseRepository.endCourse(courseId,con);
+        try (Connection con = connectionPool.getConnection()) {
+            courseRepository.endCourse(courseId, con);
         } catch (DatabaseException exception) {
             exception.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
     @Override
-    public void addFinishedCourse(String name, String topic, String teacherFullName, int duration, int mark, int studentId,int courseId) throws SQLQueryException {
+    public void addFinishedCourse(String name, String topic, String teacherFullName, int duration, int mark, int studentId, int courseId) throws SQLQueryException {
         try (Connection con = connectionPool.getConnection()) {
-            courseRepository.addFinishedCourse(name,topic,teacherFullName,duration,mark,studentId,courseId,con);
+            courseRepository.addFinishedCourse(name, topic, teacherFullName, duration, mark, studentId, courseId, con);
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
     @Override
     public List<FinishedCourse> getStudentFinishedCourses(int studentId) throws SQLQueryException {
-        try (Connection con = connectionPool.getConnection()){
-            return courseRepository.getStudentFinishedCourses(studentId,con);
+        try (Connection con = connectionPool.getConnection()) {
+            return courseRepository.getStudentFinishedCourses(studentId, con);
         } catch (DatabaseException exception) {
             exception.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return Collections.emptyList();
     }

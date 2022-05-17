@@ -8,11 +8,12 @@ public class Hasher {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
             messageDigest.update(string.getBytes());
             byte[] digest = messageDigest.digest();
-            StringBuffer stringBuffer = new StringBuffer();
+            StringBuilder stringBuilder = new StringBuilder();
             for (byte b : digest) {
-                stringBuffer.append(String.format("%02x", b & 0xff));
+                stringBuilder.append(String.format("%02x", b & 0xff));
             }
-            return stringBuffer.toString();
+            return stringBuilder.toString();
         }
+
     }
 

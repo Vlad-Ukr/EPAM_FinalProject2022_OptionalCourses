@@ -30,10 +30,9 @@ public class TeacherServiceTest {
     public void getAllTeachersTest() {
         UserRepository userRepository = new UserRepositoryImpl();
         TeacherRepository teacherRepository = new TeacherRepositoryImpl();
-        TransactionManager transactionManager = mock(TransactionManager.class);
         Connection connection = mock(Connection.class);
         ConnectionPool connectionPool = mock(ConnectionPool.class);
-        TeacherService teacherService = new TeacherServiceImpl(userRepository, teacherRepository, connectionPool, transactionManager);
+        TeacherService teacherService = new TeacherServiceImpl(userRepository, teacherRepository, connectionPool);
         try {
             when(connectionPool.getConnection()).thenReturn(connection);
         } catch (DatabaseException e) {
@@ -74,7 +73,7 @@ public class TeacherServiceTest {
         TransactionManager transactionManager = mock(TransactionManager.class);
         Connection connection = mock(Connection.class);
         ConnectionPool connectionPool = mock(ConnectionPool.class);
-        TeacherService teacherService = new TeacherServiceImpl(userRepository, teacherRepository, connectionPool, transactionManager);
+        TeacherService teacherService = new TeacherServiceImpl(userRepository, teacherRepository, connectionPool);
         try {
             when(connectionPool.getConnection()).thenReturn(connection);
         } catch (DatabaseException e) {
@@ -98,10 +97,9 @@ public class TeacherServiceTest {
     public void getTeacherByLoginTest() {
         UserRepository userRepository = new UserRepositoryImpl();
         TeacherRepository teacherRepository = new TeacherRepositoryImpl();
-        TransactionManager transactionManager = mock(TransactionManager.class);
         Connection connection = mock(Connection.class);
         ConnectionPool connectionPool = mock(ConnectionPool.class);
-        TeacherService teacherService = new TeacherServiceImpl(userRepository, teacherRepository, connectionPool, transactionManager);
+        TeacherService teacherService = new TeacherServiceImpl(userRepository, teacherRepository, connectionPool);
         try {
             when(connectionPool.getConnection()).thenReturn(connection);
         } catch (DatabaseException e) {

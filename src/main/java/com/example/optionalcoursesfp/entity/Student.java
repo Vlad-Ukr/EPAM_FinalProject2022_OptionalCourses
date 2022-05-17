@@ -1,7 +1,6 @@
 package com.example.optionalcoursesfp.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class Student extends User {
     private int id;
@@ -110,13 +109,13 @@ public class Student extends User {
             return true;
         }else return this.getThirdCourseId() == courseId;
     }
+
     @Override
     public String toString() {
         return "Student{" +
                 "id=" + id +
-                ", login=" + super.getLogin() +
-                ", password=" + super.getPassword() +
-                ", statusId=" + status +
+                ", status='" + status + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", firstCourseId=" + firstCourseId +
                 ", secondCourseId=" + secondCourseId +
                 ", thirdCourseId=" + thirdCourseId +

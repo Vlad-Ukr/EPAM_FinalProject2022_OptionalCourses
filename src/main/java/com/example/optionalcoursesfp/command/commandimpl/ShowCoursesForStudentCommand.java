@@ -49,7 +49,14 @@ public class ShowCoursesForStudentCommand implements Command {
                 request.setAttribute("pageName", "showCourses");
                 request.getRequestDispatcher("student.jsp").forward(request, response);
             }
-        } catch (SQLQueryException | ServletException | IOException e) {
+        } catch (SQLQueryException e) {
+            e.printStackTrace();
+            try {
+                request.getRequestDispatcher("Error.jsp").forward(request,response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
+        } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
     }

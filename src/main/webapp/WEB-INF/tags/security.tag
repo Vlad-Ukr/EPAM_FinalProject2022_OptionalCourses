@@ -1,5 +1,7 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<c:if test="${empty sessionScope.userRole or sessionScope.userRole!=pageRole }">
-    <%request.getRequestDispatcher("securityError.jsp").forward(request, response);%>
-</c:if>
+<%@ tag import="com.example.optionalcoursesfp.entity.User" %><%
+    response.setHeader("Cache-Control","no-cache, no-store");
+    User user =(User)session.getAttribute("user");
+    if(user==null){
+        response.sendRedirect("loginPage.jsp");
+    }
+%>

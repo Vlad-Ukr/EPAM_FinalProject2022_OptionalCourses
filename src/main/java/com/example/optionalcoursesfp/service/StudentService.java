@@ -3,14 +3,11 @@ package com.example.optionalcoursesfp.service;
 
 import com.example.optionalcoursesfp.entity.FinishedCourse;
 import com.example.optionalcoursesfp.entity.Student;
-import com.example.optionalcoursesfp.exeption.BlockedStudentException;
 import com.example.optionalcoursesfp.exeption.MaxAmountOfRegistrationException;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.exeption.StudentAlreadyRegisteredException;
 
-import java.sql.Connection;
 import java.util.List;
-import java.util.Map;
 
 public interface StudentService {
      void insertStudent(String login, String password, String fullName) throws SQLQueryException;
@@ -19,7 +16,7 @@ public interface StudentService {
      void blockStudent(String login) throws SQLQueryException;
      void unBlockStudent(String login) throws SQLQueryException;
      Student getStudentByLogin(String login) throws SQLQueryException;
-     void registerStudentOnCourse(Student student, int courseId) throws SQLQueryException, StudentAlreadyRegisteredException, MaxAmountOfRegistrationException, BlockedStudentException;
+     void registerStudentOnCourse(Student student, int courseId) throws SQLQueryException, StudentAlreadyRegisteredException, MaxAmountOfRegistrationException;
      List<Student> getStudentsByCourseId(int courseId) throws  SQLQueryException;
      void grateStudent(Student student, int courseNumber, int mark) throws SQLQueryException;
      public List<FinishedCourse> getStudentsFromFinishedCourses( int courseId) throws SQLQueryException;
