@@ -37,6 +37,7 @@ public class SelectStudentCommand implements Command {
                 logger.info(studentService.getStudentsByCourseId(Integer.parseInt(request.getParameter("courseSelect"))));
             }
         } catch (SQLQueryException e) {
+            e.printStackTrace();
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
             } catch (ServletException | IOException ex) {

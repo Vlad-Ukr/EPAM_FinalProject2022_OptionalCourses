@@ -10,7 +10,6 @@
 </head>
 <body>
 <c:set var="currentPage" value="student.jsp" scope="session"/>
-<c:set var="pageRole" scope="request" value="student"/>
 <div class="header">
     <div class="topBar">
         <h4 class="greetingsHeader"><fmt:message key="greetings.message"/>, ${sessionScope.userLogin}</h4>
@@ -139,7 +138,7 @@
         </c:choose>
 
         <c:if test="${requestScope.courseList.size()==0}">
-            <fmt:message key="empty.all.course.list"/>
+            <text class="emptyListMessage"><fmt:message key="empty.all.course.list"/></text>
         </c:if>
         <c:if test="${requestScope.courseList.size()!=0}">
         <table class="courseInfoTable" id="table-id">

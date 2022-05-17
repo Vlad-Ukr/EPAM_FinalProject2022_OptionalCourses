@@ -21,6 +21,7 @@ public class StartCourseCommand implements Command {
         try {
             courseService.startCourse(Integer.parseInt(request.getParameter("courseId")));
         } catch (SQLQueryException e) {
+            e.printStackTrace();
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
             } catch (ServletException | IOException ex) {

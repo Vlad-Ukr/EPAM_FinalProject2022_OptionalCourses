@@ -35,7 +35,7 @@ public class StudentServiceImpl implements StudentService {
         try (Connection con = connectionPool.getConnection()) {
             studentRepository.insertStudent(login, password, fullName, con, userRepository);
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -44,7 +44,7 @@ public class StudentServiceImpl implements StudentService {
         try(Connection connection =connectionPool.getConnection()) {
            transactionManager.doTransaction(connection,connection1 -> studentRepository.setStudentCourseNull(student,courseNumber, connection1));
         } catch (SQLException throwables) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY,throwables);
+            throw new SQLQueryException(throwables.getMessage(),throwables);
         }
     }
     @Override
@@ -52,7 +52,7 @@ public class StudentServiceImpl implements StudentService {
         try (Connection connection = connectionPool.getConnection()) {
             studentRepository.updateStudentMark(student, courseNumber, mark, connection);
         } catch (SQLQueryException throwables) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY,throwables);
+            throw new SQLQueryException(throwables.getMessage(),throwables);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,7 +65,7 @@ public class StudentServiceImpl implements StudentService {
         } catch (DatabaseException exception) {
             exception.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return Collections.emptyList();
     }
@@ -77,7 +77,7 @@ public class StudentServiceImpl implements StudentService {
         } catch (DatabaseException e) {
             e.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -85,10 +85,8 @@ public class StudentServiceImpl implements StudentService {
     public void unBlockStudent(String login) throws SQLQueryException {
         try (Connection connection = connectionPool.getConnection()) {
             studentRepository.unBlockStudent(login, connection);
-        } catch (DatabaseException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+        }  catch (SQLException e) {
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -99,7 +97,7 @@ public class StudentServiceImpl implements StudentService {
         } catch (DatabaseException e) {
             e.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return null;
     }
@@ -111,10 +109,8 @@ public class StudentServiceImpl implements StudentService {
             transactionManager.doTransaction(connection, con -> {
                     studentRepository.registerStudentOnCourse(student, courseId, connection);
             });
-        } catch (DatabaseException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(),e);
         } catch (StudentAlreadyRegisteredException e) {
             throw new StudentAlreadyRegisteredException();
         } catch (MaxAmountOfRegistrationException e) {
@@ -129,7 +125,7 @@ public class StudentServiceImpl implements StudentService {
         } catch (DatabaseException e) {
             e.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return Collections.emptyList();
     }
@@ -140,7 +136,7 @@ public class StudentServiceImpl implements StudentService {
         } catch (DatabaseException e) {
             e.printStackTrace();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return Collections.emptyList();
     }

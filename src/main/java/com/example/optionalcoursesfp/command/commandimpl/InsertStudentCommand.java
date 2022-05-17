@@ -13,7 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+
 
 public class InsertStudentCommand implements Command {
     private static final Logger log = Logger.getLogger(InsertStudentCommand.class);

@@ -4,7 +4,6 @@ import com.example.optionalcoursesfp.command.Command;
 import com.example.optionalcoursesfp.entity.UserRole;
 import com.example.optionalcoursesfp.exeption.DatabaseException;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
-import com.example.optionalcoursesfp.service.CourseService;
 import com.example.optionalcoursesfp.service.TeacherService;
 import com.example.optionalcoursesfp.service.UserService;
 import org.apache.log4j.Logger;
@@ -13,18 +12,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 public class InsertTeacherCommand implements Command {
     private static final Logger log = Logger.getLogger(InsertTeacherCommand.class);
     private final UserService userService;
     private final TeacherService teacherService;
-    private final CourseService courseService;
 
-    public InsertTeacherCommand(UserService userService, TeacherService teacherService, CourseService courseService) {
+    public InsertTeacherCommand(UserService userService, TeacherService teacherService) {
         this.userService = userService;
         this.teacherService = teacherService;
-        this.courseService = courseService;
     }
 
     /*
@@ -46,6 +42,7 @@ public class InsertTeacherCommand implements Command {
             log.info("teacher- " + request.getParameter("user_email") + "was added successfully");
            response.sendRedirect("dispatcher-servlet?pageName=showTeachers&successMessage=message");
         } catch (DatabaseException | SQLQueryException e) {
+            e.printStackTrace();
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request, response);
             } catch (ServletException | IOException ex) {

@@ -30,15 +30,17 @@ public class ShowCoursesCommand implements Command {
     @Override
     public void executeCommand(HttpServletRequest request, HttpServletResponse response) {
         try {
-            log.info(request.getParameter("userRole"));
-            log.info(request.getAttribute("userRole"));
             User user= (User) request.getSession().getAttribute("user");
+            if(user==null){
+                response.sendRedirect("loginPage.jsp");
+                return;
+            }
             if (user.getRole()== UserRole.TEACHER) {
                 Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
                 request.setAttribute("courseList", courseService.getCoursesByTeacher(teacher.getId()));
                 request.setAttribute("pageName", "showCourses");
                 if (request.getParameter("endMessage") != null) {
-                    request.setAttribute("endMessage", "Курс закончен! Оценки Выставлены!");
+                    request.setAttribute("endMessage", "Course end! Ratings Shown!");
                 }
                 request.getRequestDispatcher("teacher.jsp").forward(request, response);
                 return;
@@ -56,6 +58,7 @@ public class ShowCoursesCommand implements Command {
             request.setAttribute("pageName", "showCourses");
             request.getRequestDispatcher("admin.jsp").forward(request, response);
         } catch (SQLQueryException | ServletException | IOException e) {
+            e.printStackTrace();
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
             } catch (ServletException | IOException ex) {

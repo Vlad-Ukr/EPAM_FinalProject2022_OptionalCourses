@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.util.List;
 
 public interface StudentRepository {
-
      void insertStudent(String login, String password, String fullName,Connection connection,UserRepository userRepository) throws SQLQueryException;
      void setStudentCourseNull(Student student, int courseNumber, Connection connection) throws SQLQueryException;
     List<Student> getAllStudent(Connection connection) throws SQLQueryException;

@@ -4,7 +4,6 @@ import com.example.optionalcoursesfp.command.Command;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.service.CourseService;
 import com.example.optionalcoursesfp.service.StudentService;
-import com.example.optionalcoursesfp.service.TeacherService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -40,6 +39,7 @@ public class ShowJournalCommand implements Command {
             request.setAttribute("course", courseService.getCourseById(Integer.parseInt(request.getParameter("courseId"))));
             request.getRequestDispatcher("teacher.jsp").forward(request, response);
         } catch (SQLQueryException | ServletException | IOException e) {
+            e.printStackTrace();
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
             } catch (ServletException | IOException ex) {

@@ -33,7 +33,6 @@ public class SecurityFilter implements Filter {
         Pattern pattern = Pattern.compile("\\w+\\.");
         Matcher matcher = pattern.matcher(uri);
         String role = "";
-        log.info(user);
         log.info(uri);
         while (matcher.find()) {
             role = matcher.group().replaceAll("\\.", "");

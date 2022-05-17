@@ -3,9 +3,7 @@ package com.example.optionalcoursesfp.command.commandimpl;
 import com.example.optionalcoursesfp.command.Command;
 import com.example.optionalcoursesfp.entity.Student;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
-import com.example.optionalcoursesfp.service.CourseService;
 import com.example.optionalcoursesfp.service.StudentService;
-import com.example.optionalcoursesfp.service.TeacherService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -16,8 +14,6 @@ import java.util.List;
 
 public class GradingCommand implements Command {
     private final StudentService studentService;
-    private final CourseService courseService;
-    private final TeacherService teacherService;
     private static final Logger log = Logger.getLogger(GradingCommand.class);
     private final int FIRST_COURSE = 1;
     private final int SECOND_COURSE = 2;
@@ -26,10 +22,8 @@ public class GradingCommand implements Command {
     private final String SECOND_COURSE_REQUEST_NAME = "secondCourseMark";
     private final String THIRD_COURSE_REQUEST_NAME = "thirdCourseMark";
 
-    public GradingCommand(StudentService studentService, CourseService courseService, TeacherService teacherService) {
+    public GradingCommand(StudentService studentService) {
         this.studentService = studentService;
-        this.courseService = courseService;
-        this.teacherService = teacherService;
     }
     /*
 This command getting list of students from session,
@@ -57,6 +51,7 @@ and set student mark into DB
             }
             response.sendRedirect("dispatcher-servlet?pageName=showCourses&successMessage=marks");
         } catch (SQLQueryException e) {
+            e.printStackTrace();
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
             } catch (ServletException | IOException ex) {

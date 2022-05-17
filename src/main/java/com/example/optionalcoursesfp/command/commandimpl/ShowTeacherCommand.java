@@ -2,11 +2,9 @@ package com.example.optionalcoursesfp.command.commandimpl;
 
 import com.example.optionalcoursesfp.command.Command;
 import com.example.optionalcoursesfp.entity.Course;
-import com.example.optionalcoursesfp.entity.Student;
 import com.example.optionalcoursesfp.entity.Teacher;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.service.CourseService;
-import com.example.optionalcoursesfp.service.StudentService;
 import com.example.optionalcoursesfp.service.TeacherService;
 import org.apache.log4j.Logger;
 

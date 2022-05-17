@@ -20,9 +20,6 @@ public class Course implements Serializable{
         return teacherFullName;
     }
 
-    public void setTeacherFullName(String teacherFullName) {
-        this.teacherFullName = teacherFullName;
-    }
 
     public Course(int id, String name, int duration, int amountOfStudent, int maxAmountOfStudent, String topic, int teacherId, String status, String teacherFullName) {
         this.id = id;
@@ -79,9 +76,6 @@ public class Course implements Serializable{
         return maxAmountOfStudent;
     }
 
-    public void setMaxAmountOfStudent(int maxAmountOfStudent) {
-        this.maxAmountOfStudent = maxAmountOfStudent;
-    }
 
     @Override
     public String toString() {
@@ -90,10 +84,11 @@ public class Course implements Serializable{
                 ", name='" + name + '\'' +
                 ", duration=" + duration +
                 ", amountOfStudent=" + amountOfStudent +
+                ", maxAmountOfStudent=" + maxAmountOfStudent +
                 ", topic='" + topic + '\'' +
-                ", teacher_id=" + teacherId +
+                ", teacherId=" + teacherId +
                 ", status='" + status + '\'' +
+                ", teacherFullName='" + teacherFullName + '\'' +
                 '}';
     }
-
 }

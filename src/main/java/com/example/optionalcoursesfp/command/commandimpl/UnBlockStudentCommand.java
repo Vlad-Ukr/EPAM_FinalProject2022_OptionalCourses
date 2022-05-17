@@ -4,7 +4,6 @@ import com.example.optionalcoursesfp.command.Command;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.service.CourseService;
 import com.example.optionalcoursesfp.service.StudentService;
-import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UnBlockStudentCommand  implements Command {
-    private static final Logger log = Logger.getLogger(UnBlockStudentCommand.class);
     private final StudentService studentService;
     private final CourseService courseService;
 
@@ -26,6 +24,7 @@ public class UnBlockStudentCommand  implements Command {
             studentService.unBlockStudent(request.getParameter("studentLogin"));
             new ShowStudentCommand(studentService,courseService).executeCommand(request,response);
         } catch (SQLQueryException e) {
+            e.printStackTrace();
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
             } catch (ServletException | IOException ex) {

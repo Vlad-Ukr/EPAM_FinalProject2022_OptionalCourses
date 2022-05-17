@@ -1,10 +1,7 @@
 package com.example.optionalcoursesfp.repository.impl;
 
 import com.example.optionalcoursesfp.entity.Teacher;
-import com.example.optionalcoursesfp.entity.UserRole;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
-import com.example.optionalcoursesfp.exeption.UserAlreadyExistException;
-import com.example.optionalcoursesfp.messages.Messages;
 import com.example.optionalcoursesfp.repository.TeacherRepository;
 import com.example.optionalcoursesfp.repository.UserRepository;
 import org.apache.log4j.Logger;
@@ -30,7 +27,7 @@ public class TeacherRepositoryImpl implements TeacherRepository {
                log.info((resultSet.getInt("id")+" "+resultSet.getString("login")+" "+resultSet.getString("full_name")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }
@@ -44,10 +41,10 @@ public class TeacherRepositoryImpl implements TeacherRepository {
                     ps.executeUpdate();
                     log.info("teacher-" + login + " was added into database");
                 } catch (SQLException e) {
-                    throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+                    throw new SQLQueryException(e.getMessage(), e);
                 }
         } catch (SQLQueryException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -64,7 +61,7 @@ public class TeacherRepositoryImpl implements TeacherRepository {
                 teacher.setFullName(resultSet.getString("full_name"));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         log.info(teacher);
         return teacher;

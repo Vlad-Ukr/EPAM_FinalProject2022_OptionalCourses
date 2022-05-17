@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface CourseRepository {
     List<Course> getAllCourses(Connection connection) throws SQLQueryException;
-    public Course getCourseById(int courseId,Connection connection) throws SQLQueryException;
+     Course getCourseById(int courseId,Connection connection) throws SQLQueryException;
     void addCourse(String name,int duration,int maxAmountOfStudent,String topic,int teacherId,Connection connection) throws SQLQueryException, CourseAlreadyExistException;
     void updateCourse(int id,String name,int duration,int maxAmountOfStudent,String topic,Connection connection) throws SQLQueryException, CourseAlreadyExistException;
     void  deleteCourse(int id,Connection connection) throws SQLQueryException;

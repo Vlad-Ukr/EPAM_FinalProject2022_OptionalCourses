@@ -20,23 +20,23 @@ public class CommandController {
         commandHashMap.put("logOut", new LogOutCommand());
         commandHashMap.put("showStudents", new ShowStudentCommand(studentService,courseService));
         commandHashMap.put("unBlock", new UnBlockStudentCommand(studentService,courseService));
-        commandHashMap.put("block", new BlockStudentCommand(studentService,courseService));
+        commandHashMap.put("block", new BlockStudentCommand(studentService));
         commandHashMap.put("showTeachers", new ShowTeacherCommand(teacherService,courseService));
-        commandHashMap.put("insertTeacher", new InsertTeacherCommand(userService,teacherService,courseService));
+        commandHashMap.put("insertTeacher", new InsertTeacherCommand(userService,teacherService));
         commandHashMap.put("showCourses", new ShowCoursesCommand(courseService, teacherService));
         commandHashMap.put("insertCourse", new InsertCourseCommand(courseService, teacherService));
-        commandHashMap.put("deleteCourse", new DeleteCourseCommand(courseService,teacherService));
-        commandHashMap.put("updateCourse", new UpdateCourseCommand(courseService,teacherService));
+        commandHashMap.put("deleteCourse", new DeleteCourseCommand(courseService));
+        commandHashMap.put("updateCourse", new UpdateCourseCommand(courseService));
         commandHashMap.put("sortCourse", new SortCourseCommand(courseService,teacherService));
         commandHashMap.put("showCoursesStudent",new ShowCoursesForStudentCommand(courseService,teacherService));
         commandHashMap.put("selectCourses",new SelectCoursesCommand(courseService,teacherService));
         commandHashMap.put("homePage",new HomeCommand(courseService));
-        commandHashMap.put("registerOnCourse",new RegisterStudentOnCourseCommand(courseService,teacherService,studentService));
+        commandHashMap.put("registerOnCourse",new RegisterStudentOnCourseCommand(studentService));
         commandHashMap.put("showJournal",new ShowJournalCommand(studentService,courseService));
-        commandHashMap.put("gradingStudents",new GradingCommand(studentService,courseService,teacherService));
+        commandHashMap.put("gradingStudents",new GradingCommand(studentService));
         commandHashMap.put("startCourse",new StartCourseCommand(courseService));
         commandHashMap.put("selectStudents",new SelectStudentCommand(studentService,courseService));
-        commandHashMap.put("endCourse",new EndCourse(studentService,courseService,teacherService));
+        commandHashMap.put("endCourse",new EndCourse(studentService,courseService));
         commandHashMap.put("loadAvatar",new UploadAvatarCommand(userService,courseService));
     }
 

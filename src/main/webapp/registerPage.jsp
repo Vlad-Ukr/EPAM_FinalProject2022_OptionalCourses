@@ -11,21 +11,21 @@
     <head/>
 <body style="font-family:Arial, Verdana, sans-serif;color:#72157C">
 <c:set var="currentPage" value="registerPage.jsp" scope="session"/>
-<form class="registerForm" action="/OptionalCoursesFP_war_exploded/dispatcher-servlet" onsubmit="return doSubmit()"
+<form class="registerForm" action="/OptionalCoursesFP_war_exploded/dispatcher-servlet"
       method="post">
     <h3 class="registerH3"><fmt:message key="login.register.link"/></h3>
 
     <div id="emailInput">
         <label>Email:</label>
         <input class="inputForm" type="email" id="email" name="user_email" required placeholder="epam@email.com"
-               pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+               pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
                title="Введите свой email согласно шаблону:'epam@epam.com'">
     </div>
     <div id="fullNameInput">
         <label><fmt:message key="register.table.SNP"/>:</label>
         <input class="inputForm" type="text" id="fullname" name="user_fullname" required
                placeholder="Иванов Иван Иваныч"
-               pattern="^[А-ЯЁЇ][а-яёї]{1,}([-][А-ЯЁї][а-яёї]{1,})?\s[А-ЯЁЇ][а-яёї]{2,}\s[А-ЯЁЇ][а-яёї]{1,}$"
+               pattern="^[А-ЯЁЇA-Z][а-яёїa-z]{1,}([-][А-ЯЁїA-Z][а-яёїa-z]{1,})?\s[А-ЯЁЇA-Z][а-яёїa-z]{1,}\s[А-ЯЁЇA-Z][а-яёїa-z]{1,}$"
                title="Введите свой email согласно шаблону: 'Иванов Иван Иваныч'">
     </div>
     <div id="phoneNumber">
@@ -40,7 +40,7 @@
         <input class="inputForm" type="password" id="password" name="user_password" required placeholder="********"
                minlength="8" onkeyup='check();'
                required
-               pattern="(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}"
+               pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
                title="Пароль должен содержать хотя бы одну цифру,
                                   специальный символ;
                                   заглавную латинскую букву;

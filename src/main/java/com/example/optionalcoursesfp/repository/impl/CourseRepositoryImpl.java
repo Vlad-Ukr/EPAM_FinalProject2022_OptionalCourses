@@ -60,7 +60,7 @@ public class CourseRepositoryImpl implements CourseRepository {
                         , resultSet.getInt("teacher_id"), resultSet.getString("status"));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return null;
     }
@@ -104,7 +104,7 @@ public class CourseRepositoryImpl implements CourseRepository {
             preparedStatement.executeUpdate();
             log.info("course was update");
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -121,7 +121,7 @@ public class CourseRepositoryImpl implements CourseRepository {
                         , resultSet.getInt("teacher_id"), resultSet.getString("status"), resultSet.getString("full_name")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }
@@ -138,7 +138,7 @@ public class CourseRepositoryImpl implements CourseRepository {
                         , resultSet.getInt("teacher_id"), resultSet.getString("status"), resultSet.getString("full_name")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }
@@ -155,7 +155,7 @@ public class CourseRepositoryImpl implements CourseRepository {
                         , resultSet.getInt("teacher_id"), resultSet.getString("status"), resultSet.getString("full_name")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }
@@ -174,7 +174,7 @@ public class CourseRepositoryImpl implements CourseRepository {
                         , resultSet.getInt("teacher_id"), resultSet.getString("status"), resultSet.getString("full_name")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }
@@ -185,7 +185,7 @@ public class CourseRepositoryImpl implements CourseRepository {
             preparedStatement.setInt(1, courseId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -195,7 +195,7 @@ public class CourseRepositoryImpl implements CourseRepository {
             preparedStatement.setInt(1, courseId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -212,7 +212,7 @@ public class CourseRepositoryImpl implements CourseRepository {
             ps.setInt(8, courseId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -228,7 +228,7 @@ public class CourseRepositoryImpl implements CourseRepository {
                         , resultSet.getString("status"), resultSet.getString("teacherName"), resultSet.getInt("mark")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }

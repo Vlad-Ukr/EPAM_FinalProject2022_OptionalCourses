@@ -318,6 +318,16 @@ button:hover{
     border: 0;
     color: #BD1449;
 }
+.emptyListMessage{
+    border-radius: 5px;
+    border: solid #72157C;
+    background-color:#FDBBC2;
+    padding: 5px;
+    font-family:Arial, Verdana, sans-serif;color:#72157C;
+    font-size: 18px;
+    text-align: center;
+    position:fixed; top: 50%; left: 40%;
+}
 #standWithUA{
     position: fixed; left: -40px; bottom: 10px; width: 150px; height: 42px;
     transform: rotate(45deg);

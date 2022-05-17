@@ -4,7 +4,6 @@ import com.example.optionalcoursesfp.command.Command;
 import com.example.optionalcoursesfp.exeption.CourseAlreadyExistException;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.service.CourseService;
-import com.example.optionalcoursesfp.service.TeacherService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +12,9 @@ import java.io.IOException;
 
 public class UpdateCourseCommand implements Command {
     private final CourseService courseService;
-    private final TeacherService teacherService;
 
-    public UpdateCourseCommand(CourseService courseService, TeacherService teacherService) {
+    public UpdateCourseCommand(CourseService courseService) {
         this.courseService = courseService;
-        this.teacherService = teacherService;
     }
 /*
 This command update course
@@ -32,6 +29,7 @@ than command send denied message
             request.setAttribute("updateMessage", "Курс упешно обновлен!");
             response.sendRedirect("dispatcher-servlet?pageName=showCourses&successMessage=message");
         } catch (SQLQueryException e) {
+            e.printStackTrace();
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
             } catch (ServletException | IOException ex) {

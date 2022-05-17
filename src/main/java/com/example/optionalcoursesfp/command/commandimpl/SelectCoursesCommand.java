@@ -35,6 +35,7 @@ public class SelectCoursesCommand implements Command {
             request.getSession().setAttribute("courseListForSorting", courseList);
             new ShowCoursesForStudentCommand(courseService, teacherService).executeCommand(request, response);
         } catch (SQLQueryException e) {
+            e.printStackTrace();
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
             } catch (ServletException | IOException ex) {

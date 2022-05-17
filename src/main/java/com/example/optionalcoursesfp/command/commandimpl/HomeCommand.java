@@ -31,7 +31,7 @@ public class HomeCommand implements Command {
         User user = (User) request.getSession().getAttribute("user");
         try {
             if (user == null) {
-                request.getRequestDispatcher("securityError.jsp").forward(request, response);
+                response.sendRedirect("loginPage.jsp");
                 return;
             }
             if(request.getSession().getAttribute("base64Encoded")==null){

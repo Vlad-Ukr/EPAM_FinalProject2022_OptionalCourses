@@ -2,7 +2,6 @@ package com.example.optionalcoursesfp.command.commandimpl;
 
 import com.example.optionalcoursesfp.command.Command;
 import com.example.optionalcoursesfp.entity.User;
-import com.example.optionalcoursesfp.exeption.DatabaseException;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.service.StudentService;
 import com.example.optionalcoursesfp.service.TeacherService;
@@ -37,11 +36,11 @@ public class LoginUserCommand implements Command {
         User user = new User();
         try {
             user = userService.getUserByLoginAndPassword(request.getParameter("user_login"), request.getParameter("user_password"));
-        } catch (DatabaseException e) {
+        } catch (SQLQueryException e) {
             e.printStackTrace();
         }
         if (user.getLogin() == null) {
-            request.setAttribute("loginError", "Неправильный логин или пароль!");
+            request.setAttribute("loginError", "Incorrect login or password!");
             try {
                 request.getRequestDispatcher("loginPage.jsp").forward(request, response);
             } catch (ServletException | IOException e) {
@@ -86,6 +85,7 @@ public class LoginUserCommand implements Command {
                 try {
                     request.getSession().setAttribute("teacher", teacherService.getTeacherByLogin(user.getLogin()));
                 } catch (SQLQueryException e) {
+                    e.printStackTrace();
                     try {
                         request.getRequestDispatcher("Error.jsp").forward(request,response);
                     } catch (ServletException | IOException ex) {

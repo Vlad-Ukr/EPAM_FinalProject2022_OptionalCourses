@@ -4,6 +4,7 @@ import com.example.optionalcoursesfp.command.commandimpl.LoginUserCommand;
 import com.example.optionalcoursesfp.entity.User;
 import com.example.optionalcoursesfp.entity.UserRole;
 import com.example.optionalcoursesfp.exeption.DatabaseException;
+import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.service.StudentService;
 import com.example.optionalcoursesfp.service.TeacherService;
 import com.example.optionalcoursesfp.service.UserService;
@@ -62,7 +63,7 @@ public class LoginUserCommandTest {
         }
         try {
             when(userService.getUserByLoginAndPassword("user_login","user_password")).thenReturn(testUser);
-        } catch (DatabaseException e) {
+        } catch (SQLQueryException e) {
             e.printStackTrace();
         }
         RequestDispatcher requestDispatcher=mock(RequestDispatcher.class);

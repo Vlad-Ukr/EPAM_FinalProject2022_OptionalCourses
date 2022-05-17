@@ -2,7 +2,6 @@ package com.example.optionalcoursesfp.repository.impl;
 
 import com.example.optionalcoursesfp.entity.FinishedCourse;
 import com.example.optionalcoursesfp.entity.Student;
-import com.example.optionalcoursesfp.entity.UserRole;
 import com.example.optionalcoursesfp.exeption.*;
 import com.example.optionalcoursesfp.messages.Messages;
 import com.example.optionalcoursesfp.repository.StudentRepository;
@@ -46,10 +45,10 @@ public class StudentRepositoryImpl implements StudentRepository {
                 ps.executeUpdate();
                 log.info("student-" + login + " was added into database");
             } catch (SQLException e) {
-                throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+                throw new SQLQueryException(e.getMessage(), e);
             }
         } catch (SQLQueryException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -66,7 +65,7 @@ public class StudentRepositoryImpl implements StudentRepository {
                         , resultSet.getInt("first_course_mark"), resultSet.getInt("second_course_mark"), resultSet.getInt("third_course_mark")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }
@@ -79,7 +78,7 @@ public class StudentRepositoryImpl implements StudentRepository {
             log.info("student-" + login + " was blocked");
         } catch (SQLException e) {
             log.info("student-" + login + " was blocked ERROR");
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -91,7 +90,7 @@ public class StudentRepositoryImpl implements StudentRepository {
             log.info("student-" + login + " was unblocked");
         } catch (SQLException e) {
             log.info("student-" + login + " was unblocked ERROR");
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -114,7 +113,7 @@ public class StudentRepositoryImpl implements StudentRepository {
                 student.setThirdCourseMark(resultSet.getInt("third_course_mark"));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return student;
     }
@@ -146,7 +145,7 @@ public class StudentRepositoryImpl implements StudentRepository {
             preparedStatementCourseUpdate.setInt(1, courseId);
             preparedStatementCourseUpdate.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -165,7 +164,7 @@ public class StudentRepositoryImpl implements StudentRepository {
                         , resultSet.getInt("first_course_mark"), resultSet.getInt("second_course_mark"), resultSet.getInt("third_course_mark")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }
@@ -185,7 +184,7 @@ public class StudentRepositoryImpl implements StudentRepository {
             preparedStatement.setInt(2, student.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -207,7 +206,7 @@ public class StudentRepositoryImpl implements StudentRepository {
             preparedStatement.setString(1, student.getLogin());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
     }
 
@@ -223,7 +222,7 @@ public class StudentRepositoryImpl implements StudentRepository {
                         , resultSet.getString("status"), resultSet.getString("teacherName"), resultSet.getString("full_name"), resultSet.getInt("mark")));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return result;
     }

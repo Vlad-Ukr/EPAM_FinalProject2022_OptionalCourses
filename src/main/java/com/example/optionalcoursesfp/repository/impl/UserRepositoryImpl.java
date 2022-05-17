@@ -5,7 +5,6 @@ import com.example.optionalcoursesfp.entity.UserRole;
 import com.example.optionalcoursesfp.exeption.DatabaseException;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.hashing.Hasher;
-import com.example.optionalcoursesfp.messages.Messages;
 import com.example.optionalcoursesfp.repository.UserRepository;
 
 import java.security.NoSuchAlgorithmException;
@@ -24,7 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
         User user = new User();
         try (PreparedStatement ps = connection.prepareStatement(GET_USER_BY_LOGIN_AND_PASSWORD)) {
             ps.setString(1, login);
-            ps.setString(2, String.valueOf(new Hasher().hashString(password)));
+            ps.setString(2, String.valueOf(new Hasher().hashString(password+login)));
             ResultSet resultSet = ps.executeQuery();
             if (resultSet.next()) {
                 user.setId(resultSet.getInt("id"));
@@ -35,7 +34,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setAvatarImageName(resultSet.getString("avatar_name"));
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -46,13 +45,13 @@ public class UserRepositoryImpl implements UserRepository {
     public void insertUser(String login, String password,int userRoleNumber,String userPhoneNumber,Connection connection) throws SQLQueryException {
         try(PreparedStatement ps = connection.prepareStatement(INSET_USER)){
             ps.setString(1,login);
-            ps.setString(2, String.valueOf(new Hasher().hashString(password)));
+            ps.setString(2, String.valueOf(new Hasher().hashString(password+login)));
             ps.setInt(3, userRoleNumber);
             ps.setString(4,userPhoneNumber);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -72,19 +71,19 @@ public class UserRepositoryImpl implements UserRepository {
                 return resultSet.getInt("count");
             }
         } catch (SQLException e) {
-            throw new SQLQueryException(Messages.ERR_CANNOT_EXECUTE_QUERY, e);
+            throw new SQLQueryException(e.getMessage(), e);
         }
         return -1;
     }
 
     @Override
-    public void changeAvatar(String login, String avatarName, Connection connection) throws DatabaseException {
+    public void changeAvatar(String login, String avatarName, Connection connection) throws SQLQueryException {
       try(PreparedStatement preparedStatement = connection.prepareStatement(SET_NEW_AVATAR)) {
           preparedStatement.setString(1,avatarName);
           preparedStatement.setString(2,login);
           preparedStatement.executeUpdate();
       } catch (SQLException throwables) {
-          throw new DatabaseException();
+          throw new SQLQueryException( throwables.getMessage(),throwables);
       }
     }
 }

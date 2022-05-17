@@ -45,11 +45,11 @@ public class ContextListener implements ServletContextListener {
        ConnectionPool pool= new ConnectionPool();
         TransactionManager transactionManager=new TransactionManager();
         UserRepository userRepository =new UserRepositoryImpl();
-        UserService userService = new UserServiceImpl(userRepository,pool,transactionManager);
+        UserService userService = new UserServiceImpl(userRepository,pool);
         StudentRepository studentRepository=new StudentRepositoryImpl();
         StudentService studentService = new StudentServiceImpl(userRepository, studentRepository,pool,transactionManager);
         TeacherRepository teacherRepository=new TeacherRepositoryImpl();
-        TeacherService teacherService= new TeacherServiceImpl(userRepository, teacherRepository,pool,transactionManager);
+        TeacherService teacherService= new TeacherServiceImpl(userRepository, teacherRepository,pool);
         CourseRepository courseRepository=new CourseRepositoryImpl();
         CourseService courseService=new CourseServiceImp(courseRepository,pool,transactionManager);
         CommandController commandController = new CommandController(userService,studentService,teacherService,courseService);

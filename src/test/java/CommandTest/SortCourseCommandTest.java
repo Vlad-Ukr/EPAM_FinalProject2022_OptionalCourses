@@ -46,8 +46,6 @@ public class SortCourseCommandTest {
         courseList.add(new Course(1,"name1",10,10,10,"topic1",1,"status1","full_name1"));
         courseList.add(new Course(2,"name2",10,10,10,"topic2",2,"status2","full_name2"));
         when(request.getSession().getAttribute("courseListForSorting")).thenReturn(courseList);
-        CourseRepository courseRepository=new CourseRepositoryImpl();
-        TransactionManager transactionManager = mock(TransactionManager.class);
         Connection connection = mock(Connection.class);
         ConnectionPool connectionPool = mock(ConnectionPool.class);
         try {

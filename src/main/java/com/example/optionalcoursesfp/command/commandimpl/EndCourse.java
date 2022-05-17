@@ -5,7 +5,6 @@ import com.example.optionalcoursesfp.entity.Student;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.service.CourseService;
 import com.example.optionalcoursesfp.service.StudentService;
-import com.example.optionalcoursesfp.service.TeacherService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -17,7 +16,6 @@ import java.util.List;
 public class EndCourse implements Command {
     private final StudentService studentService;
     private final CourseService courseService;
-    private final TeacherService teacherService;
     private static final Logger log = Logger.getLogger(EndCourse.class);
     private final  int FIRST_COURSE = 1;
     private final   int SECOND_COURSE = 2;
@@ -26,10 +24,9 @@ public class EndCourse implements Command {
     private final String SECOND_COURSE_REQUEST_NAME="secondCourseMark";
     private final String THIRD_COURSE_REQUEST_NAME="thirdCourseMark";
 
-    public EndCourse(StudentService studentService, CourseService courseService, TeacherService teacherService) {
+    public EndCourse(StudentService studentService, CourseService courseService) {
         this.studentService = studentService;
         this.courseService = courseService;
-        this.teacherService = teacherService;
     }
     /*
     This command getting list of students from jsp,
@@ -58,6 +55,7 @@ public class EndCourse implements Command {
                 courseService.endCourse(Integer.parseInt(request.getParameter("courseId")));
             response.sendRedirect("dispatcher-servlet?pageName=showCourses&successMessage=endCourse ");
         } catch (SQLQueryException e) {
+            e.printStackTrace();
             try {
                 request.getRequestDispatcher("Error.jsp").forward(request,response);
             } catch (ServletException | IOException ex) {

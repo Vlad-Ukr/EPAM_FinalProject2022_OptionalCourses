@@ -11,5 +11,5 @@ public interface UserRepository {
      User getUserByLoginAndPassword(String login, String password, Connection connection) throws SQLQueryException;
      void  insertUser(String login,String password,int userRoleNumber,String userPhoneNumber,Connection connection) throws SQLQueryException;
      int isTheUserAlready(String login,String phoneNumber,Connection connection) throws SQLQueryException;
-     void  changeAvatar(String login,String avatarName,Connection connection) throws DatabaseException;
+     void  changeAvatar(String login,String avatarName,Connection connection) throws SQLQueryException;
 }

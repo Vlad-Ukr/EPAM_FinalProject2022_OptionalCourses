@@ -16,7 +16,6 @@
 </head>
 <body>
 <c:set var="currentPage" value="admin.jsp" scope="session"/>
-<c:set var="pageRole" scope="request" value="admin"/>
 <div class="header">
     <div class="topBar">
         <h4 class="greetingsHeader"><fmt:message key="greetings.message"/> ,${sessionScope.user.login}</h4>
@@ -166,7 +165,7 @@
                             <label>Email:</label>
                             <input class="inputForm" type="email" id="email" name="user_email" required
                                    placeholder="epam@email.com"
-                                   pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                                   pattern="/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g"
                                    title="Введите свой email согласно шаблону:'epam@epam.com'">
                         </div>
                     </td>
@@ -175,7 +174,7 @@
                             <label><fmt:message key="register.table.SNP"/>:</label>
                             <input class="inputForm" type="text" id="fullname" name="user_fullname" required
                                    placeholder="Фамилия Имя Отчество"
-                                   pattern="^[А-ЯЁЇ][а-яёї]{1,}([-][А-ЯЁї][а-яёї]{1,})?\s[А-ЯЁЇ][а-яёї]{2,}\s[А-ЯЁЇ][а-яёї]{1,}$"
+                                   pattern="^[А-ЯЁЇA-Z][а-яёїa-z]{1,}([-][А-ЯЁїA-Z][а-яёїa-z]{1,})?\s[А-ЯЁЇA-Z][а-яёїa-z]{1,}\s[А-ЯЁЇA-Z][а-яёїa-z]{1,}$"
                                    title="Введите свой email согласно шаблону: 'Иванов Иван Иваныч'">
                         </div>
                     </td>
@@ -239,7 +238,7 @@
                 </c:when>
 
             </c:choose>
-            <c:if test="${sessionScopee.teacherList.size()==0}">
+            <c:if test="${sessionScope.teacherList.size()==0}">
                 <h4 class="emptyListMessage"><fmt:message key="empty.teacher.course.list.admin.page"/></h4>
             </c:if>
             <c:if test="${sessionScope.teacherList.size()!=0}">
