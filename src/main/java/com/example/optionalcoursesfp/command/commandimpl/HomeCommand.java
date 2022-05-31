@@ -56,15 +56,7 @@ public class HomeCommand implements Command {
         switch (user.getRole()) {
             case STUDENT:
                 request.setAttribute("pageName", "showHome");
-                if (request.getParameter("homePageMarker") != null) {
-                    request.setAttribute("studentCourses",
-                            sortedCourseList(request.getParameter("selectCourseSort"),
-                                    courseService.getStudentRegisteredCourses((Student) request.getSession().getAttribute("student"))));
-                    request.setAttribute("finishedStudentCourses",
-                    sortedFinishedCourseList(request.getParameter("selectCourseSort"),courseService.getStudentFinishedCourses(((Student) request.getSession().getAttribute("student")).getId())));
-                    request.getRequestDispatcher("student.jsp").forward(request, response);
-                    break;
-                }
+
                 request.setAttribute("studentCourses", courseService.getStudentRegisteredCourses((Student) request.getSession().getAttribute("student")));
                 request.setAttribute("finishedStudentCourses", courseService.getStudentFinishedCourses(((Student) request.getSession().getAttribute("student")).getId()));
                 log.info(courseService.getStudentRegisteredCourses((Student) request.getSession().getAttribute("student")));
@@ -75,13 +67,6 @@ public class HomeCommand implements Command {
                 request.setAttribute("pageName", "showHome");
                 Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
                 log.info(teacher);
-                if (request.getParameter("homePageMarker") != null) {
-                    request.setAttribute("teacherCourses",
-                            sortedCourseList(request.getParameter("selectCourseSort"),
-                                    courseService.getCoursesByTeacher(teacher.getId())));
-                    request.getRequestDispatcher("teacher.jsp").forward(request, response);
-                    break;
-                }
                 request.setAttribute("teacherCourses", courseService.getCoursesByTeacher(teacher.getId()));
                 request.getRequestDispatcher("teacher.jsp").forward(request, response);
                 break;
@@ -89,21 +74,5 @@ public class HomeCommand implements Command {
         }
     }
 
-    private List<Course> sortedCourseList(String sorting, List<Course> courseList) {
-        if (sorting.equals("sortA-Z")) {
-            courseList.sort(Comparator.comparing(Course::getName));
-            return courseList;
-        }
-        courseList.sort(Comparator.comparing(Course::getName).reversed());
-        return courseList;
-    }
 
-    private List<FinishedCourse> sortedFinishedCourseList(String sorting, List<FinishedCourse> courseList) {
-        if (sorting.equals("sortA-Z")) {
-            courseList.sort(Comparator.comparing(FinishedCourse::getName));
-            return courseList;
-        }
-        courseList.sort(Comparator.comparing(FinishedCourse::getName).reversed());
-        return courseList;
-    }
 }
