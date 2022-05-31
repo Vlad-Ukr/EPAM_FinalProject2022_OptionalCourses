@@ -263,6 +263,7 @@
                             <th class="courseTh"><fmt:message key="add.course.table.teacher"/></th>
                             <th class="courseTh"><fmt:message key="course.table.status"/></th>
                             <th class="courseTh"><fmt:message key="student.home.page.mark"/></th>
+
                             <c:forEach var="course" items="${requestScope.studentCourses}">
                                 <c:if test="${course.status!='Ended'}">
                                     <tr>
@@ -302,6 +303,7 @@
                                     </tr>
                                 </c:if>
                             </c:forEach>
+
                             <c:forEach var="course" items="${requestScope.finishedStudentCourses}">
                             <tr>
                                 <td class="courseTableTd"><input class="dataInput" name="courseName"

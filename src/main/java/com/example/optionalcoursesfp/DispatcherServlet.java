@@ -37,6 +37,16 @@ public class DispatcherServlet extends HttpServlet {
         teacherService = optionalCoursesContext.getTeacherService();
         courseService = optionalCoursesContext.getCourseService();
         commandController = optionalCoursesContext.getCommandController();
+        try {
+            log.info(userService.getUserByLoginAndPassword("admin","admin"));
+            log.info(studentService.getAllStudent());
+        log.info(teacherService.getTeacherByLogin("koval.andrey@gmail.com"));
+        log.info(courseService.getCourseById(34));
+        log.info(courseService.getStudentFinishedCourses(2));
+
+        } catch (SQLQueryException e) {
+            e.printStackTrace();
+        }
         log.info("Servlet was initialized");
     }
 

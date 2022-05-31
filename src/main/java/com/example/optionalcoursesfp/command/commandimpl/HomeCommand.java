@@ -1,9 +1,7 @@
 package com.example.optionalcoursesfp.command.commandimpl;
 
 import com.example.optionalcoursesfp.command.Command;
-import com.example.optionalcoursesfp.entity.Student;
-import com.example.optionalcoursesfp.entity.Teacher;
-import com.example.optionalcoursesfp.entity.User;
+import com.example.optionalcoursesfp.entity.*;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.photo.PhotoManager;
 import com.example.optionalcoursesfp.service.CourseService;
@@ -13,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
 
 
 public class HomeCommand implements Command {
@@ -34,14 +34,14 @@ public class HomeCommand implements Command {
                 response.sendRedirect("loginPage.jsp");
                 return;
             }
-            if(request.getSession().getAttribute("base64Encoded")==null){
+            if (request.getSession().getAttribute("base64Encoded") == null) {
                 PhotoManager photoManager = new PhotoManager("C:\\Users\\sasha\\apache-tomcat-9.0.58\\usersAvatars");
                 request.getSession().setAttribute("base64Encoded", photoManager.getByteStringOfUploadedPhoto(user.getAvatarImageName()));
             }
             forwardToUserHomePage(user, request, response);
         } catch (ServletException | IOException | SQLQueryException e) {
             try {
-                request.getRequestDispatcher("Error.jsp").forward(request,response);
+                request.getRequestDispatcher("Error.jsp").forward(request, response);
             } catch (ServletException | IOException ex) {
                 ex.printStackTrace();
             }
@@ -56,6 +56,15 @@ public class HomeCommand implements Command {
         switch (user.getRole()) {
             case STUDENT:
                 request.setAttribute("pageName", "showHome");
+                if (request.getParameter("homePageMarker") != null) {
+                    request.setAttribute("studentCourses",
+                            sortedCourseList(request.getParameter("selectCourseSort"),
+                                    courseService.getStudentRegisteredCourses((Student) request.getSession().getAttribute("student"))));
+                    request.setAttribute("finishedStudentCourses",
+                    sortedFinishedCourseList(request.getParameter("selectCourseSort"),courseService.getStudentFinishedCourses(((Student) request.getSession().getAttribute("student")).getId())));
+                    request.getRequestDispatcher("student.jsp").forward(request, response);
+                    break;
+                }
                 request.setAttribute("studentCourses", courseService.getStudentRegisteredCourses((Student) request.getSession().getAttribute("student")));
                 request.setAttribute("finishedStudentCourses", courseService.getStudentFinishedCourses(((Student) request.getSession().getAttribute("student")).getId()));
                 log.info(courseService.getStudentRegisteredCourses((Student) request.getSession().getAttribute("student")));
@@ -66,10 +75,35 @@ public class HomeCommand implements Command {
                 request.setAttribute("pageName", "showHome");
                 Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
                 log.info(teacher);
+                if (request.getParameter("homePageMarker") != null) {
+                    request.setAttribute("teacherCourses",
+                            sortedCourseList(request.getParameter("selectCourseSort"),
+                                    courseService.getCoursesByTeacher(teacher.getId())));
+                    request.getRequestDispatcher("teacher.jsp").forward(request, response);
+                    break;
+                }
                 request.setAttribute("teacherCourses", courseService.getCoursesByTeacher(teacher.getId()));
                 request.getRequestDispatcher("teacher.jsp").forward(request, response);
                 break;
 
         }
+    }
+
+    private List<Course> sortedCourseList(String sorting, List<Course> courseList) {
+        if (sorting.equals("sortA-Z")) {
+            courseList.sort(Comparator.comparing(Course::getName));
+            return courseList;
+        }
+        courseList.sort(Comparator.comparing(Course::getName).reversed());
+        return courseList;
+    }
+
+    private List<FinishedCourse> sortedFinishedCourseList(String sorting, List<FinishedCourse> courseList) {
+        if (sorting.equals("sortA-Z")) {
+            courseList.sort(Comparator.comparing(FinishedCourse::getName));
+            return courseList;
+        }
+        courseList.sort(Comparator.comparing(FinishedCourse::getName).reversed());
+        return courseList;
     }
 }

@@ -56,7 +56,6 @@ public class ContextListener implements ServletContextListener {
 
         ServletContext context = sce.getServletContext();
         String localesFileName = context.getInitParameter("locales");
-        System.out.println(context.getInitParameter("locales"));
         String localesFileRealPath = context.getRealPath(localesFileName);
         Properties locales = new Properties();
         try {

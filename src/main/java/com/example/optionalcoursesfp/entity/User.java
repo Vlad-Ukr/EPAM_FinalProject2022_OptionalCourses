@@ -3,7 +3,7 @@ package com.example.optionalcoursesfp.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class User implements Serializable {
+public class User extends Entity implements Serializable {
     private int id;
     private String login;
     private String password;

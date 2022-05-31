@@ -1,6 +1,6 @@
 package com.example.optionalcoursesfp.entity;
 
-public class FinishedCourse {
+public class FinishedCourse extends Entity {
     private int id;
     private String name;
     private int duration;

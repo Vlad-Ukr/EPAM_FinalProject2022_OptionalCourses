@@ -31,7 +31,8 @@ public class SortCourseCommand implements Command {
                 request.setAttribute("courseList", courseList);
                 request.setAttribute("showAllCourses","false");
                 new ShowCoursesForStudentCommand(courseService, teacherService).executeCommand(request, response);
-            } else {
+            }
+            else {
                 List<Course> courseList = sortCourseList(courseService.getAllCourses(), request.getParameter("sortSelect"));
                 request.setAttribute("courseList", courseList);
                 new ShowCoursesCommand(courseService, teacherService).executeCommand(request, response);

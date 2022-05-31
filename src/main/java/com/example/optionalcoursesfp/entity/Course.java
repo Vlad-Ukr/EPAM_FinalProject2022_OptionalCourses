@@ -2,7 +2,7 @@ package com.example.optionalcoursesfp.entity;
 
 import java.io.Serializable;
 
-public class Course implements Serializable{
+public class Course extends Entity implements Serializable{
     private int id;
     private String name;
     private int duration;
@@ -12,6 +12,7 @@ public class Course implements Serializable{
     private int teacherId;
     private String status;
     private  String teacherFullName;
+    private double price;
 
     public Course() {
     }
