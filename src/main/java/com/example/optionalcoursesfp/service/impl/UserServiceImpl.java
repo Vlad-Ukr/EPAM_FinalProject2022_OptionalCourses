@@ -1,6 +1,7 @@
 package com.example.optionalcoursesfp.service.impl;
 
 
+import com.example.optionalcoursesfp.dto.UserDTO;
 import com.example.optionalcoursesfp.exeption.SQLQueryException;
 import com.example.optionalcoursesfp.util.connection.ConnectionPool;
 import com.example.optionalcoursesfp.entity.User;
@@ -8,9 +9,13 @@ import com.example.optionalcoursesfp.exeption.DatabaseException;
 import com.example.optionalcoursesfp.repository.UserRepository;
 import com.example.optionalcoursesfp.service.UserService;
 import com.example.optionalcoursesfp.util.transaction.TransactionManager;
+import com.example.optionalcoursesfp.validator.RegFormValidator;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -38,6 +43,20 @@ public class UserServiceImpl implements UserService {
         } catch (SQLException throwables) {
             throw new SQLQueryException(throwables.getMessage(),throwables);
         }
+    }
+    public Map<String, String> insertUser(UserDTO bean) throws SQLQueryException {
+        RegFormValidator regFormValidator=new RegFormValidator();
+        Map<String, String> errors=new HashMap<>();
+        errors=regFormValidator.validate(bean);
+        if(errors.size()!=0){
+            return errors;
+        }
+        try (Connection con = connectionPool.getConnection()) {
+            userRepository.insertUser(bean.getLogin(), bean.getPassword(), bean.getRole().ordinal()+1, bean.getPhoneNumber(), con);
+        } catch (SQLException throwables) {
+            throw new SQLQueryException(throwables.getMessage(),throwables);
+        }
+        return Collections.emptyMap();
     }
 
     public int isTheUserAlready(String login, String phoneNumber) throws SQLQueryException {

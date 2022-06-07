@@ -19,5 +19,5 @@ public interface StudentService {
      void registerStudentOnCourse(Student student, int courseId) throws SQLQueryException, StudentAlreadyRegisteredException, MaxAmountOfRegistrationException;
      List<Student> getStudentsByCourseId(int courseId) throws  SQLQueryException;
      void grateStudent(Student student, int courseNumber, int mark) throws SQLQueryException;
-     public List<FinishedCourse> getStudentsFromFinishedCourses( int courseId) throws SQLQueryException;
+     List<FinishedCourse> getStudentsFromFinishedCourses( int courseId) throws SQLQueryException;
 }

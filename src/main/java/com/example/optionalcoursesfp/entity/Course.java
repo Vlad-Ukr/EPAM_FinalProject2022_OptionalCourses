@@ -12,7 +12,7 @@ public class Course extends Entity implements Serializable{
     private int teacherId;
     private String status;
     private  String teacherFullName;
-    private double price;
+
 
     public Course() {
     }

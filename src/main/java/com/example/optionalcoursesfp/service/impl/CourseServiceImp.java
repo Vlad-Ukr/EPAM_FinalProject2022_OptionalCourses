@@ -1,5 +1,6 @@
 package com.example.optionalcoursesfp.service.impl;
 
+import com.example.optionalcoursesfp.dto.CourseDTO;
 import com.example.optionalcoursesfp.entity.FinishedCourse;
 import com.example.optionalcoursesfp.util.connection.ConnectionPool;
 import com.example.optionalcoursesfp.entity.Course;
@@ -11,11 +12,15 @@ import com.example.optionalcoursesfp.messages.Messages;
 import com.example.optionalcoursesfp.repository.CourseRepository;
 import com.example.optionalcoursesfp.service.CourseService;
 import com.example.optionalcoursesfp.util.transaction.TransactionManager;
+import com.example.optionalcoursesfp.validator.CourseValidator;
+import com.example.optionalcoursesfp.validator.RegFormValidator;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CourseServiceImp implements CourseService {
     private final CourseRepository courseRepository;
@@ -63,7 +68,45 @@ public class CourseServiceImp implements CourseService {
             throw new SQLQueryException(e.getMessage(), e);
         }
     }
+    @Override
+    public Map<String, String> addCourse(CourseDTO bean) throws SQLQueryException, CourseAlreadyExistException {
+        CourseValidator courseValidator=new CourseValidator();
+        Map<String, String> errors=new HashMap<>();
+        errors=courseValidator.validate(bean);
+        if(errors.size()!=0){
+            return errors;
+        }
+        try (Connection con = connectionPool.getConnection()) {
+            courseRepository.addCourse(bean.getName(), bean.getDuration(), bean.getMaxAmountOfStudent(), bean.getTopic(), bean.getTeacherId(), con);
+        } catch (CourseAlreadyExistException exception) {
+            throw new CourseAlreadyExistException(Messages.COURSE_IS_ALREADY_EXISTS, exception);
+        } catch (SQLException e) {
+            throw new SQLQueryException(e.getMessage(), e);
+        }
+        return Collections.emptyMap();
+    }
 
+    @Override
+    public  Map<String, String> updateCourse(CourseDTO bean) throws SQLQueryException, CourseAlreadyExistException {
+        CourseValidator courseValidator=new CourseValidator();
+        Map<String, String> errors=new HashMap<>();
+        errors=courseValidator.validate(bean);
+        if(errors.size()!=0){
+            return errors;
+        }
+        try (Connection con = connectionPool.getConnection()) {
+            transactionManager.doTransaction(con, connection -> {
+                try {
+                    courseRepository.updateCourse(bean.getId(), bean.getName(), bean.getDuration(), bean.getMaxAmountOfStudent(), bean.getTopic(), connection);
+                } catch (CourseAlreadyExistException e) {
+                    throw new CourseAlreadyExistException(Messages.COURSE_IS_ALREADY_EXISTS, e);
+                }
+            });
+        } catch (SQLException e) {
+            throw new CourseAlreadyExistException(Messages.COURSE_IS_ALREADY_EXISTS, e);
+        }
+        return Collections.emptyMap();
+    }
     @Override
     public void updateCourse(int id, String name, int duration, int maxAmountOfStudent, String topic) throws SQLQueryException, CourseAlreadyExistException {
         try (Connection con = connectionPool.getConnection()) {
